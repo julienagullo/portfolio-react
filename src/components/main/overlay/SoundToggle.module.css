@@ -1,0 +1,19 @@
+.toggle {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  background-image: url(../../../assets/image/sprite_icons.png);
+  background-size: 300% 200%;
+  background-repeat: no-repeat;
+}
+
+.unmuted {
+  background-position: 50% 0;
+}
+
+.muted {
+  background-position: 50% 100%;
+}

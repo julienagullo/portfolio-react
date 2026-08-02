@@ -1,0 +1,29 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #111;
+  color: #fff;
+  font-family: monospace;
+}
+
+.barTrack {
+  width: 240px;
+  height: 12px;
+  border: 2px solid #fff;
+  padding: 2px;
+}
+
+.barFill {
+  height: 100%;
+  background: #fff;
+  transition: width 0.15s ease-out;
+}
+
+.label {
+  font-size: 14px;
+}
