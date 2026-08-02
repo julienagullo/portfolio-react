@@ -1,29 +1,28 @@
 .overlay {
   position: absolute;
   inset: 0;
+  z-index: 60;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  background: #111;
-  color: #fff;
-  font-family: monospace;
-}
-
-.barTrack {
-  width: 240px;
-  height: 12px;
-  border: 2px solid #fff;
-  padding: 2px;
-}
-
-.barFill {
-  height: 100%;
+  gap: 16px;
   background: #fff;
-  transition: width 0.15s ease-out;
+  color: #111;
 }
 
 .label {
   font-size: 14px;
+}
+
+.barTrack {
+  width: 240px;
+  height: 2px;
+  background: rgba(17, 17, 17, 0.15);
+}
+
+.barFill {
+  height: 100%;
+  background: #111;
+  transition: width 0.15s ease-out;
 }

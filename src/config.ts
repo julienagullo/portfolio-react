@@ -1,15 +1,15 @@
-import office01 from './assets/texture/office_01.png';
-import office02 from './assets/texture/office_02.png';
-import office03 from './assets/texture/office_03.png';
-import break01 from './assets/texture/break_01.png';
-import break02 from './assets/texture/break_02.png';
-import break03 from './assets/texture/break_03.png';
-import meeting01 from './assets/texture/meeting_01.png';
-import meeting02 from './assets/texture/meeting_02.png';
-import meeting03 from './assets/texture/meeting_03.png';
-import officeThumb from './assets/image/office_space.png';
-import breakThumb from './assets/image/break_room.png';
-import meetingThumb from './assets/image/meeting_room.png';
+import office01 from './assets/texture/office_01.webp';
+import office02 from './assets/texture/office_02.webp';
+import office03 from './assets/texture/office_03.webp';
+import break01 from './assets/texture/break_01.webp';
+import break02 from './assets/texture/break_02.webp';
+import break03 from './assets/texture/break_03.webp';
+import meeting01 from './assets/texture/meeting_01.webp';
+import meeting02 from './assets/texture/meeting_02.webp';
+import meeting03 from './assets/texture/meeting_03.webp';
+import officeThumb from './assets/image/office_space.webp';
+import breakThumb from './assets/image/break_room.webp';
+import meetingThumb from './assets/image/meeting_room.webp';
 
 export const SCENE_WIDTH = 1920;
 export const SCENE_HEIGHT = 1080;

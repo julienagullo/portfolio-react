@@ -78,7 +78,7 @@ export default function Diorama({ language }: DioramaProps) {
           {assets && activeRoom === 'MeetingRoom' && <MeetingRoom assets={assets.MeetingRoom} />}
         </Scene>
       </Engine>
-      {!assets && <Loading progress={progress} />}
+      {!assets && <Loading progress={progress} language={language} />}
       {assets && <RoomThumbnails activeRoom={activeRoom} onSelect={handleSelectRoom} language={language} />}
       <TransitionOverlay visible={transition === 'covering'} onTransitionEnd={handleOverlayTransitionEnd} />
     </div>

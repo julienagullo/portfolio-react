@@ -1,6 +1,7 @@
 .toggle {
-  width: 40px;
-  height: 40px;
+  position: relative;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   padding: 0;
   border: none;
@@ -8,6 +9,23 @@
   background-image: url(../../../assets/image/sprite_icons.png);
   background-size: 300% 200%;
   background-repeat: no-repeat;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -24px;
+  width: 4px;
+  border-radius: 10px;
+  background: transparent;
+  transition: background-color 200ms ease-out;
+}
+
+.toggle:hover::after,
+.toggle:focus-visible::after {
+  background: #fff;
 }
 
 .fr {

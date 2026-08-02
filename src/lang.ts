@@ -9,6 +9,7 @@ const translations = {
       MeetingRoom: 'Réunion',
     },
     orientationGate: 'Tourne ton appareil en mode paysage pour profiter du site.',
+    loading: 'Chargement du bureau',
     languageToggle: {
       toEnglish: 'Switch to English',
       toFrench: 'Passer en français',
@@ -30,6 +31,7 @@ const translations = {
       MeetingRoom: 'Meeting room',
     },
     orientationGate: 'Rotate your device to landscape to enjoy the site.',
+    loading: 'Loading the office',
     languageToggle: {
       toEnglish: 'Switch to English',
       toFrench: 'Passer en français',

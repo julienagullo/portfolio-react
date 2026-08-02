@@ -6,9 +6,10 @@ type LayerProps = {
   name: string;
   texture: Texture;
   z: number;
+  lit?: boolean;
 };
 
-export default function Layer({ name, texture, z }: LayerProps) {
+export default function Layer({ name, texture, z, lit = false }: LayerProps) {
   const { width: texWidth, height: texHeight } = texture.getSize();
   const aspectRatio = texHeight / texWidth;
 
@@ -23,8 +24,8 @@ export default function Layer({ name, texture, z }: LayerProps) {
       <standardMaterial
         name={`${name}-material`}
         backFaceCulling={false}
-        disableLighting
-        emissiveColor={new Color3(1, 1, 1)}
+        disableLighting={!lit}
+        emissiveColor={lit ? new Color3(0, 0, 0) : new Color3(1, 1, 1)}
         diffuseTexture={texture}
       />
     </plane>

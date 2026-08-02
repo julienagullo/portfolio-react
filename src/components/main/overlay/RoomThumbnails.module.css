@@ -7,7 +7,8 @@
   display: flex;
   justify-content: center;
   gap: 30px;
-  transition: transform 0.5s ease;
+  perspective: 800px;
+  transition: transform 200ms ease-in-out;
 }
 
 .hidden {
@@ -21,9 +22,19 @@
   border-radius: 8px;
   cursor: pointer;
   width: 320px;
-  height: 180px;
+  height: 162px;
   border: 2px solid transparent;
   background: none;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.thumb:hover,
+.thumbActive:hover,
+.thumb:focus-visible,
+.thumbActive:focus-visible {
+  transform: translateZ(40px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
 }
 
 .thumbImage {

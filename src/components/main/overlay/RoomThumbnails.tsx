@@ -3,8 +3,8 @@ import { ROOM_THUMBNAILS, type Language, type RoomName } from '../../../config.t
 import { t } from '../../../lang.ts';
 import style from './RoomThumbnails.module.css';
 
-const HIDE_DELAY_MS = 5000;
-const REVEAL_ZONE_HEIGHT = 200; // px depuis le bas de l'écran
+const HIDE_DELAY_MS = 2500;
+const REVEAL_ZONE_HEIGHT = 100; // px depuis le bas de l'écran
 const REVEAL_ZONE_WIDTH_RATIO = 0.5; // bande centrale (50% de la largeur de l'écran)
 
 type RoomThumbnailsProps = {

@@ -111,44 +111,38 @@ Partie la plus complexe : chat connecté à une API LLM + RAG sur les projets et
 
 - Nécessaire vu le poids des assets (textures pixel art multiples par salle + polices + éventuel son)
 - Précharger toutes les textures des 3 salles au démarrage (pas de chargement à la volée au changement de salle → évite tout flash/latence pendant les transitions)
-- Barre de progression ou animation pixel art cohérente avec l'univers du site (ex: petit personnage qui marche, horloge qui se monte, etc.)
+- Barre de progression fine et stylisée qui s'affiche sur un fond de texture avec écrit "Chargement du bureau"
 - Écran de loading en HTML/CSS par-dessus le canvas, masqué une fois `scene.executeWhenReady` (ou équivalent AssetsManager) déclenché
-- Prévoir un fallback/timeout si un asset ne charge pas (message d'erreur discret plutôt que blocage infini)
+- Prévoir un fallback/timeout si un asset ne charge pas (message d'erreur dans la console)
 
 ---
 
 ## TODO
 
 ### Setup
-- [ ] Initialiser projet React + TypeScript + Vite
-- [ ] Installer et configurer react-babylonjs (vérifier compatibilité version React ciblée)
-- [ ] Définir la structure de dossiers (`components/`, `hooks/`, `assets/`, `config/`)
-- [ ] Mettre en place la page de loading avec préchargement de tous les assets (3 salles)
-- [ ] README clair (schéma d'architecture, choix techniques, comment lancer le projet) — important vu l'angle démonstrateur
+- [x] Initialiser projet React + TypeScript + Vite
+- [x] Installer et configurer react-babylonjs (vérifier compatibilité version React ciblée)
+- [x] Définir la structure de dossiers (`components/`, `hooks/`, `assets/`, `config/`)
+- [x] Mettre en place la page de loading avec préchargement de tous les assets (3 salles)
+- [x] README clair (schéma d'architecture, choix techniques, comment lancer le projet) — important vu l'angle démonstrateur
 
 ### Diorama & rotation caméra
-- [ ] Créer les calques par salle (5 Bureau, 5 Détente, 3 Réunion) avec positionnement en profondeur (Z)
-- [ ] Implémenter `useCameraOrbit` (ArcRotateCamera, rotation souris avec lerp, alpha/beta contraints, radius verrouillé)
-- [ ] Caméra perspective (FOV serré) + calibrage du cadrage
-- [ ] Export textures 4K → scène affichée en 2K, format WebP, `noMipmap: true`, sampling `NEAREST`
-
-### Horloge
-- [ ] Implémenter la logique de temps simulé (288x) persistante entre les salles
-- [ ] Aiguilles heures/minutes animées
-- [ ] Lier l'ambiance lumineuse (lampe, ciel) à l'heure simulée
+- [x] Créer 3 calques par salle avec positionnement en profondeur (Z)
+- [x] Implémenter `useCameraOrbit` (ArcRotateCamera, rotation souris avec lerp, alpha/beta contraints, radius verrouillé)
+- [x] Caméra perspective (FOV serré) + calibrage du cadrage
+- [x] Export textures 2K → scène affichée en 1K, format WebP, `noMipmap: true`, sampling `NEAREST`
 
 ### Navigation entre salles
-- [ ] Composant `<RoomThumbnails>` (miniatures cliquables en bas d'écran) + état actif
-- [ ] Composant `<TransitionOverlay>` (fade) + swap de textures/salle via state
-- [ ] (Optionnel) variante slide/glissement en plus du fade
+- [x] Composant `<RoomThumbnails>` (miniatures cliquables en bas d'écran) + état actif
+- [x] Composant `<TransitionOverlay>` (fade) + swap de textures/salle via state
 
 ### Salle Bureau
-- [ ] Éléments clicables (via props `onPick` sur les meshes react-babylonjs) + gestion du state "élément sélectionné"
+- [ ] Éléments interactifs (via props `onPick` sur les meshes react-babylonjs) + gestion du state "élément sélectionné"
 - [ ] Config TS du contenu (projets, compétences, à propos, contact)
 - [ ] Câblage avec le composant `<Modal>` générique
 
 ### Salle Détente
-- [ ] Éléments clicables (jeux, lectures, films, musique)
+- [ ] Éléments interactifs (jeux, lectures, films, musique)
 - [ ] Config TS du contenu perso
 - [ ] Style de modal différencié (covers, notes, statuts)
 
@@ -163,19 +157,9 @@ Partie la plus complexe : chat connecté à une API LLM + RAG sur les projets et
 - [ ] Rate limiting + fallback erreur + recadrage hors-sujet
 
 ### Finitions
-- [ ] Responsive / adaptation mobile (au moins un fallback correct si rotation caméra souris non pertinente au tactile)
-- [ ] Bouton plein écran (toggle Fullscreen API)
-- [ ] Bouton couper le son (mute/unmute global)
+- [x] Responsive / adaptation mobile (au moins un fallback correct si rotation caméra souris non pertinente au tactile)
+- [x] Bouton plein écran (toggle Fullscreen API)
+- [x] Bouton couper le son (mute/unmute global)
+- [ ] Ajouter des sons interactifs sur les éléments
 - [ ] Support multilingue FR/EN (toggle UI, dictionnaire de traductions, contenu des salles, chat RAG)
-- [ ] Tests de perf (poids des textures, nombre d'assets, respect du budget 20-25 Mo)
 - [ ] Déploiement (hébergement frontend + backend)
-
----
-
-## V2 — Passe d'optimisation VR
-
-- [ ] Bouton "Activer VR" (visible uniquement si WebXR disponible sur l'appareil)
-- [ ] Détection du contexte XR dans `useCameraOrbit` : désactiver le pilotage souris et laisser le tracking natif WebXR piloter la caméra en VR
-- [ ] Revoir les contraintes `alpha`/`beta` en VR : la plage serrée pensée pour desktop peut créer une gêne (dissonance vestibulaire) si la tête cogne contre une limite artificielle
-- [ ] Profilage perf pour cible 90 Hz stable en stéréo (draw calls, résolution des textures en mémoire GPU) — le facteur limitant en VR est le coût de rendu par frame, pas le poids des assets
-- [ ] Tests réels au casque
