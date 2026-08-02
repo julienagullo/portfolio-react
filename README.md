@@ -75,4 +75,3 @@ export default defineConfig([
 ])
 
 ```
-# portfolio-react
