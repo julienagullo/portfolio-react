@@ -46,12 +46,12 @@ export default function RoomThumbnails({ activeRoom, onSelect, language }: RoomT
     return () => window.removeEventListener('pointermove', handlePointerMove);
   }, []);
 
-  const handleMouseEnter = () => {
+  const handlePointerEnter = () => {
     hoveringRef.current = true;
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
   };
 
-  const handleMouseLeave = () => {
+  const handlePointerLeave = () => {
     hoveringRef.current = false;
     scheduleHide();
   };
@@ -59,8 +59,8 @@ export default function RoomThumbnails({ activeRoom, onSelect, language }: RoomT
   return (
     <div
       className={visible ? style.container : `${style.container} ${style.hidden}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       {rooms.map(([room, thumb]) => (
         <button
