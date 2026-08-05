@@ -2,9 +2,9 @@
 
 ## Concept général
 
-Portfolio en scène montée en Babylon.js, façon pur diorama (shadow box). Superposition de plusieurs calques texturés en profondeur (fond lointain → arrière-plan → mobilier → objets interactifs → premier plan) dans une vraie scène 3D. La caméra est fixée sur un point central de la pièce et **pivote très légèrement autour de ce centre** au mouvement de la souris (rotation, pas de translation) pour un effet de profondeur beaucoup plus marqué qu'un simple parallax 2D.
+Portfolio en scène montée en Babylon.js, façon pur diorama (shadow box). Superposition de plusieurs calques texturés en profondeur (fond lointain → décor → objets interactifs → premier plan) dans une vraie scène 3D. La caméra est fixée sur un point central de la pièce et **pivote légèrement autour de ce centre** au mouvement de la souris (rotation, pas de translation).
 
-L'utilisateur navigue entre **3 salles** via des miniatures cliquables en bas de l'écran, avec transition en fondu (fade) entre chaque salle. Une horloge visible dans le décor tourne en continu (24h simulées en 5 minutes réelles) et reste **synchronisée entre les salles** — l'heure ne se reset pas au changement de salle, pour renforcer l'illusion d'un lieu vivant.
+L'utilisateur navigue entre **3 salles** via des miniatures cliquables en bas de l'écran, avec transition en fondu (fade) entre chaque salle.
 
 ---
 
@@ -31,24 +31,20 @@ Pourquoi :
 ## Structure des salles
 
 ### 1. Bureau (salle "pro")
-Éléments clicables → ouvrent un modal avec infos professionnelles :
-- Ordinateur / écran → Projets
-- Pile de livres → Compétences / stack technique
-- Cadre photo → À propos / bio
-- Téléphone / enveloppe → Contact
-- Lampe → toggle ambiance jour/nuit (peut être lié à l'heure de l'horloge)
+Éléments interactifs → ouvrent un modal avec infos professionnelles :
+- Bureau → CV + projets
+- Pile de livres → Compétences
+- Téléphone → Informations de contact
 
 ### 2. Salle de détente (salle "perso")
 Même schéma d'interaction, mais contenu plus personnel et ton plus léger :
-- Télé / console → Jeux du moment (statut, avancement)
-- Étagère → Lectures en cours / récentes
-- Poster → Films préférés
-- Enceinte / vinyle → Musique du moment
-- Modals avec covers en mini-grille, notes/étoiles, statuts ("en cours", "terminé", "coup de cœur")
+- Lecteur DVD → Réalisateurs appréciés
+- Pile de romans → Auteurs appréciés
+- Table basse → Centres d'intérêts
 
-### 3. Salle de réunion (salle "chat / entretien")
-Partie la plus complexe : chat connecté à une API LLM + RAG sur les projets et retours reçus.
-- Bulle de dialogue façon mini-entretien
+### 3. Salle de réunion (salle "mixte")
+Chat connecté à une API LLM avec RAG sur les projets et compétences.
+- Salle de réunion → Bulle de dialogue façon mini-entretien
 - Réponses en streaming (effet "en train d'écrire")
 - Historique limité (4-6 derniers échanges) envoyé en contexte
 
@@ -64,55 +60,80 @@ Partie la plus complexe : chat connecté à une API LLM + RAG sur les projets et
 - Chaque calque a une vraie position en profondeur (Z) dans la scène — c'est ce décalage réel combiné à la rotation caméra qui donne l'effet de profondeur (pas de facteur de déplacement artificiel par layer)
 - Miniatures des 3 salles + modals en composants React (HTML/CSS) superposés au canvas (plus simple à styliser que du picking 3D pur)
 - Overlay de transition en composant React (opacity animée via state) pour le fade entre salles
-- Découpage en modules clairs : `components/Scene/`, `components/Rooms/`, `components/Modal/`, `hooks/useClock.ts`, `hooks/useCameraOrbit.ts`, etc. — l'architecture doit rester lisible pour quelqu'un qui audite le repo
-
-### Horloge
-- Ratio d'accélération : 288x (24h simulées / 5 min réelles)
-- Géré via un hook custom (`useClock`) branché sur `scene.onBeforeRenderObservable`, avec le state remonté au niveau du composant racine pour rester **synchronisé entre les salles** (pas de reset au changement de salle)
-- Possibilité de lier l'ambiance lumineuse (lampe, ciel) à la plage horaire simulée
+- Découpage en modules, l'architecture doit rester lisible pour quelqu'un qui audite le repo
 
 ### Calques & budget textures
-- Répartition : **5 plans** pour le Bureau, **5 plans** pour la salle de Détente, **3 plans** pour la salle de Réunion (décor plus sobre, volontairement, pour ne pas distraire du chat) + les objets interactifs (petits, poids négligeable)
-- Textures sources en **4K**, scène rendue/affichée en **2K** → marge confortable pour que les bords des plans ne soient jamais visibles pendant la rotation caméra, même en cas de léger overshoot du lerp souris
+- Répartition : **3 plans** de décor + les objets interactifs
+- Textures sources en **UHD**, scène rendue/affichée en **HD** → marge confortable pour que les bords des plans ne soient jamais visibles pendant la rotation caméra
 - Format **WebP** (qualité ~80-85) plutôt que PNG — gain net de poids à qualité équivalente
 - **Budget de marge : ~1 Mo par plan** (volontairement large pour absorber la variabilité aplats/dégradés sans avoir à tester chaque asset au préalable)
-- Estimation totale : 13 plans × 1 Mo ≈ 13 Mo de textures + police + son + objets interactifs → **budget cible 20-25 Mo** pour l'ensemble des assets, dans la limite haute de **30 Mo** pour le site complet (bundle JS Babylon.js/React inclus)
-- Standard de référence : connexion 4G (pas le meilleur cas de labo)
+- Estimation totale : 9 plans × 1 Mo ≈ 10 Mo de textures + police + son + objets interactifs → **budget cible 15-20 Mo** pour l'ensemble des assets, dans la limite haute de **25 Mo** pour le site complet (bundle JS Babylon.js/React inclus)
 
 ### Chargement
-- **Tout est préchargé d'un coup** au démarrage (les 3 salles, tous les calques) — pas de chargement progressif salle par salle, pour rester simple et garantir zéro flash au changement de salle
-- Écran de loading pendant ce préchargement (voir section dédiée plus bas)
+- **Tout est préchargé d'un coup** au démarrage (les 3 salles, tous les calques) — pas de chargement progressif salle par salle
+- Écran de loading pendant ce préchargement
 
 ### Contrôles UI globaux
 - **Bouton plein écran** (toggle fullscreen via Fullscreen API)
-- **Bouton couper le son** (mute/unmute, état global, affecte musique d'ambiance + éventuels effets sonores)
-- **Bouton changement de langue** (FR / EN, voir section Internationalisation)
+- **Bouton couper le son** (mute/unmute, état global, affecte effets sonores)
+- **Bouton changement de langue** (FR / EN)
 
 ### Internationalisation (i18n)
 - Démo technique orientée recruteurs/tech leads internationaux → **2 langues supportées : FR et EN**, avec un toggle visible dans les contrôles UI globaux
-- Contenu concerné : textes de l'UI (modals, boutons, page de loading), contenu des salles (`roomContent`), et prompt système + réponses du chat RAG de la salle de réunion
-- Approche : dictionnaire de traductions par clé (JSON/TS par langue), pas besoin d'une lib i18n lourde vu le volume de texte limité
-- Langue par défaut détectée via `navigator.language`, override manuel possible via le toggle (état persistant, ex: `localStorage`)
+- Contenu concerné : textes de l'UI, contenu des salles, et prompt système + réponses du chat RAG de la salle de réunion
+- Approche : dictionnaire de traductions par clé (JSON/TS par langue) avec fichier de traduction TS
+- Langue par défaut détectée via `navigator.language`, override manuel possible via le toggle
 
 ### Contenu (bureau / détente)
-- Config centralisée en JSON/objet TS (`roomContent`) par salle → objet cliqué → `{ title, items }`
+- Config centralisée avec fichier de configuration TS → objet cliqué → `{ title, items }`
 - Un seul composant `<Modal>` générique réutilisé partout, alimenté par la config selon la salle + l'élément cliqué
 
 ### Salle de réunion — RAG + LLM
-- **Backend obligatoire** (serverless function / Cloudflare Worker) : jamais d'appel LLM direct depuis le frontend (clé API exposée sinon)
+- **Backend obligatoire** (serverless function / Cloudflare Worker) : jamais d'appel LLM direct depuis le frontend (clé API exposée)
 - Documents sources (projets, commentaires, CV) découpés en chunks (~300-500 tokens)
-- Embeddings des chunks stockés en local (JSON + cosine similarity, ou SQLite + extension vecteur) — pas besoin d'une vraie base vectorielle pour ce volume
+- Embeddings des chunks stockés en local (JSON + cosine similarity, ou SQLite + extension vecteur)
 - À chaque question : embedding de la question → récupération des 3-5 chunks les plus proches → injection dans le prompt système
 - Garde-fous : rate limiting côté backend, fallback si l'API échoue, recadrage poli si hors-sujet
 
 ---
 
+## Son
+
+**Périmètre** : ambiance sonore discrète par salle + SFX sur les interactions — pas juste des SFX ponctuels, le son participe à l'identité de chaque salle au même titre que le décor visuel.
+
+### Choix technique
+- **Howler.js** retenu plutôt que l'AudioEngine natif de Babylon.js : API plus simple à piloter depuis l'état React (bouton mute global, changement de salle), découplée du scene graph 3D. Le son n'a pas besoin d'être spatialisé dans ce diorama (caméra quasi fixe, pas de déplacement réel dans l'espace) donc aucun bénéfice à passer par Babylon Sound pour ça — inutile d'ajouter cette complexité.
+- Gestion centralisée via un hook/contexte custom (`useAudio` / `AudioProvider`) qui expose l'état mute global et des fonctions `playSfx` / `playAmbiance` / `stopAmbiance`, plutôt que des instances `Howl` éparpillées dans les composants.
+
+### Ambiance par salle
+- Une boucle d'ambiance discrète par salle, en **crossfade** au changement de salle (jamais de cut brutal)
+- Bureau : ambiance neutre (clavier lointain, ventilation)
+- Salle de détente : ambiance plus chaude (son de vague, domestique)
+- Salle de réunion : ambiance plus légère (machine à café, léger brouhaha)
+- Volume bas par défaut — fond sonore uniquement, jamais au premier plan par rapport aux SFX d'interaction
+
+### SFX interactions
+- Son court au clic sur chaque élément interactif — feedback cohérent avec l'ouverture du modal
+- Son à l'ouverture / fermeture de modal
+- Effet sonore léger de type "frappe" pendant le streaming du chat RAG (synchro avec l'effet "machine à écrire")
+
+### Contrôle global & autoplay
+- Le bouton "couper le son" déjà prévu dans les contrôles UI globaux coupe à la fois ambiance et SFX
+- **Point de vigilance navigateur** : autoplay bloqué tant qu'il n'y a pas eu d'interaction utilisateur (policy Chrome/Safari) → le son ne démarre qu'après un premier geste explicite
+- Mute par défaut au premier chargement, activation explicite par l'utilisateur — meilleure pratique UX et contourne proprement le blocage autoplay
+
+### Format & budget
+- Format **MP3** (fallback **OGG** si besoin de compat navigateur élargie) — compressé, léger, largement supporté
+- Ambiances en boucles courtes (30-40s) plutôt que des fichiers longs, pour rester légères
+- Budget dédié : **~500 Ko à 1 Mo** pour l'ensemble ambiances + SFX, à absorber dans l'enveloppe globale déjà prévue (15-20 Mo cible / 25 Mo max)
+
+---
+
 ## Page de loading
 
-- Nécessaire vu le poids des assets (textures pixel art multiples par salle + polices + éventuel son)
-- Précharger toutes les textures des 3 salles au démarrage (pas de chargement à la volée au changement de salle → évite tout flash/latence pendant les transitions)
+- Nécessaire vu le poids des assets (textures pixel art multiples par salle + polices + son, voir section dédiée)
+- Précharger toutes les textures des 3 salles au démarrage (pas de chargement à la volée au changement de salle)
 - Barre de progression fine et stylisée qui s'affiche sur un fond de texture avec écrit "Chargement du bureau"
-- Écran de loading en HTML/CSS par-dessus le canvas, masqué une fois `scene.executeWhenReady` (ou équivalent AssetsManager) déclenché
 - Prévoir un fallback/timeout si un asset ne charge pas (message d'erreur dans la console)
 
 ---
@@ -137,14 +158,16 @@ Partie la plus complexe : chat connecté à une API LLM + RAG sur les projets et
 - [x] Composant `<TransitionOverlay>` (fade) + swap de textures/salle via state
 
 ### Salle Bureau
-- [ ] Éléments interactifs (via props `onPick` sur les meshes react-babylonjs) + gestion du state "élément sélectionné"
-- [ ] Config TS du contenu (projets, compétences, à propos, contact)
+- [ ] Éléments interactifs + gestion du state "élément sélectionné"
+- [ ] Config TS du contenu pro (projets, compétences, contact)
 - [ ] Câblage avec le composant `<Modal>` générique
+- [ ] Style de modal pro (écran ou agenda)
 
 ### Salle Détente
-- [ ] Éléments interactifs (jeux, lectures, films, musique)
-- [ ] Config TS du contenu perso
-- [ ] Style de modal différencié (covers, notes, statuts)
+- [ ] Éléments interactifs + gestion du state "élément sélectionné"
+- [ ] Config TS du contenu perso (réalisateurs, auteurs, intérêts)
+- [ ] Câblage avec le composant `<Modal>` générique
+- [ ] Style de modal loisirs (affiches ou notes)
 
 ### Salle Réunion (RAG + LLM)
 - [ ] Rédiger et structurer les documents sources (projets, commentaires, CV)
@@ -156,10 +179,16 @@ Partie la plus complexe : chat connecté à une API LLM + RAG sur les projets et
 - [ ] Historique de conversation limité
 - [ ] Rate limiting + fallback erreur + recadrage hors-sujet
 
+### Son
+- [ ] Installer Howler.js + mettre en place le hook/contexte `useAudio` (état mute global, `playSfx`/`playAmbiance`/`stopAmbiance`)
+- [ ] Sourcer/produire les 3 ambiances de salle (bureau, détente, réunion) en boucle courte + gestion du crossfade au changement de salle
+- [ ] SFX clic sur les éléments interactifs + ouverture/fermeture de modal
+- [ ] Déblocage audio au premier geste utilisateur (contournement autoplay) + mute par défaut au chargement
+- [ ] (optionnel) SFX de frappe pendant le streaming du chat RAG
+
 ### Finitions
 - [x] Responsive / adaptation mobile (au moins un fallback correct si rotation caméra souris non pertinente au tactile)
 - [x] Bouton plein écran (toggle Fullscreen API)
 - [x] Bouton couper le son (mute/unmute global)
-- [ ] Ajouter des sons interactifs sur les éléments
 - [ ] Support multilingue FR/EN (toggle UI, dictionnaire de traductions, contenu des salles, chat RAG)
 - [ ] Déploiement (hébergement frontend + backend)
