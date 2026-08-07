@@ -4,7 +4,7 @@ import { t } from '../../../lang.ts';
 import style from './RoomThumbnails.module.css';
 
 const HIDE_DELAY_MS = 2500;
-const REVEAL_ZONE_HEIGHT = 100; // px depuis le bas de l'écran
+const REVEAL_ZONE_HEIGHT = 100; // px depuis le haut de l'écran
 const REVEAL_ZONE_WIDTH_RATIO = 0.5; // bande centrale (50% de la largeur de l'écran)
 
 type RoomThumbnailsProps = {
@@ -36,11 +36,11 @@ export default function RoomThumbnails({ activeRoom, onSelect, language }: RoomT
 
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
-      const nearBottom = e.clientY > window.innerHeight - REVEAL_ZONE_HEIGHT;
+      const nearTop = e.clientY < REVEAL_ZONE_HEIGHT;
       const centerMin = window.innerWidth * (0.5 - REVEAL_ZONE_WIDTH_RATIO / 2);
       const centerMax = window.innerWidth * (0.5 + REVEAL_ZONE_WIDTH_RATIO / 2);
       const nearCenter = e.clientX > centerMin && e.clientX < centerMax;
-      if (nearBottom && nearCenter) setVisible(true);
+      if (nearTop && nearCenter) setVisible(true);
     };
     window.addEventListener('pointermove', handlePointerMove);
     return () => window.removeEventListener('pointermove', handlePointerMove);

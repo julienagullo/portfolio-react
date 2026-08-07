@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 30px;
+  top: 30px;
   z-index: 50;
   display: flex;
   justify-content: center;
@@ -12,7 +12,7 @@
 }
 
 .hidden {
-  transform: translateY(calc(100% + 60px));
+  transform: translateY(calc(-100% - 60px));
 }
 
 .thumb,
@@ -59,7 +59,7 @@
 .label {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 8px);
+  top: calc(100% + 8px);
   transform: translateX(-50%);
   padding: 4px 8px;
   border-radius: 4px;
@@ -76,6 +76,7 @@
 .thumb:hover .label,
 .thumbActive:hover .label,
 .thumb:focus-visible .label,
-.thumbActive:focus-visible .label {
+.thumbActive:focus-visible .label,
+.thumbActive .label {
   opacity: 1;
 }

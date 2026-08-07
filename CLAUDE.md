@@ -32,15 +32,15 @@ Pourquoi :
 
 ### 1. Bureau (salle "pro")
 Éléments interactifs → ouvrent un modal avec infos professionnelles :
-- Bureau → CV + projets
-- Pile de livres → Compétences
+- Livres → CV + projets
+- PC portable → Compétences
 - Téléphone → Informations de contact
 
 ### 2. Salle de détente (salle "perso")
 Même schéma d'interaction, mais contenu plus personnel et ton plus léger :
 - Lecteur DVD → Réalisateurs appréciés
-- Pile de romans → Auteurs appréciés
-- Table basse → Centres d'intérêts
+- Romans → Auteurs appréciés
+- Consoles → Studios appréciés
 
 ### 3. Salle de réunion (salle "mixte")
 Chat connecté à une API LLM avec RAG sur les projets et compétences.
@@ -161,13 +161,13 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [ ] Éléments interactifs + gestion du state "élément sélectionné"
 - [ ] Config TS du contenu pro (projets, compétences, contact)
 - [ ] Câblage avec le composant `<Modal>` générique
-- [ ] Style de modal pro (écran ou agenda)
+- [ ] Style de modal pro (agenda pro)
 
 ### Salle Détente
 - [ ] Éléments interactifs + gestion du state "élément sélectionné"
 - [ ] Config TS du contenu perso (réalisateurs, auteurs, intérêts)
 - [ ] Câblage avec le composant `<Modal>` générique
-- [ ] Style de modal loisirs (affiches ou notes)
+- [ ] Style de modal loisirs (agenda perso)
 
 ### Salle Réunion (RAG + LLM)
 - [ ] Rédiger et structurer les documents sources (projets, commentaires, CV)
