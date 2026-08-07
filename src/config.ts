@@ -76,15 +76,15 @@ export type ItemDef = { x: number; y: number; z: number; width: number };
 export const OFFICE_ITEMS: Record<string, ItemDef> = {
   office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1 },
   office_books: { x: -1.5, y: -0.89, z: 4.85, width: 1 },
-  office_computer: { x: 1.85, y: -0.85, z: 4.85, width: 1.4 },
+  office_computer: { x: 1.8, y: -0.825, z: 4.85, width: 1.45 },
 };
 
 export const BREAK_ITEMS: Record<string, ItemDef> = {
-  break_dvd: { x: -1.65, y: -3.35, z: 4.85, width: 1.2 },
+  break_dvd: { x: -1.65, y: -3.4, z: 4.85, width: 1.2 },
   break_books: { x: 2.45, y: -2.43, z: 4.85, width: 1 },
   break_console: { x: 0.15, y: -2.465, z: 4.85, width: 1 },
 };
 
 export const MEETING_ITEMS: Record<string, ItemDef> = {
-  meeting_robot: { x: -0.025, y: -0.925, z: 4.85, width: 2 },
+  meeting_robot: { x: -0.06, y: -1.09, z: 4.85, width: 1.5 },
 };
