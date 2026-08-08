@@ -1,8 +1,8 @@
 import { Color3, Vector3, type Texture } from '@babylonjs/core';
 
 import Layer from '../Layer';
-import Item from '../Item';
-import { OFFICE_ITEMS } from '../../../config';
+import SpriteItem from '../SpriteItem';
+import { OFFICE_SPRITE_ITEMS } from '../../../config';
 
 const LAYER_DEPTH = 5;
 const SUN_Z = 2 * LAYER_DEPTH - 1.5;
@@ -13,9 +13,9 @@ type OfficeSpaceProps = {
 
 export default function OfficeSpace({ assets }: OfficeSpaceProps) {
   const layerNames = Object.keys(assets)
-    .filter((name) => !(name in OFFICE_ITEMS))
+    .filter((name) => !(name in OFFICE_SPRITE_ITEMS))
     .sort();
-  const itemNames = Object.keys(assets).filter((name) => name in OFFICE_ITEMS);
+  const itemSprites = Object.keys(assets).filter((name) => name in OFFICE_SPRITE_ITEMS);
 
   return (
     <>
@@ -28,9 +28,22 @@ export default function OfficeSpace({ assets }: OfficeSpaceProps) {
       {layerNames.map((name, i) => (
         <Layer key={name} name={name} texture={assets[name]} z={i * LAYER_DEPTH} lit />
       ))}
-      {itemNames.map((name) => {
-        const { x, y, z, width } = OFFICE_ITEMS[name];
-        return <Item key={name} name={name} texture={assets[name]} x={x} y={y} z={z} width={width} />;
+      {itemSprites.map((name) => {
+        const { x, y, z, width, url, cellWidth, cellHeight, frameCount } = OFFICE_SPRITE_ITEMS[name];
+        return (
+          <SpriteItem
+            key={name}
+            name={name}
+            imgUrl={url}
+            cellWidth={cellWidth}
+            cellHeight={cellHeight}
+            frameCount={frameCount}
+            x={x}
+            y={y}
+            z={z}
+            width={width}
+          />
+        );
       })}
     </>
   );

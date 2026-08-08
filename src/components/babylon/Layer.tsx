@@ -12,15 +12,12 @@ type LayerProps = {
 export default function Layer({ name, texture, z, lit = false }: LayerProps) {
   const { width: texWidth, height: texHeight } = texture.getSize();
   const aspectRatio = texHeight / texWidth;
-
-  // Un plan plus profond (z plus grand) est plus loin de la caméra : il doit être
-  // proportionnellement plus large pour continuer à couvrir le champ de vision.
   const scale = (CAMERA_RADIUS + z) / CAMERA_RADIUS;
   const width = LAYER_BASE_WIDTH * scale;
   const height = width * aspectRatio;
 
   return (
-    <plane name={name} width={width} height={height} position={new Vector3(0, 0, z)}>
+    <plane name={name} width={width} height={height} position={new Vector3(0, 0, z)} isPickable={false}>
       <standardMaterial
         name={`${name}-material`}
         backFaceCulling={false}

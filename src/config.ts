@@ -26,10 +26,10 @@ export type Pointer = { x: number; y: number };
 export type Language = 'fr' | 'en';
 export const DEFAULT_LANGUAGE: Language = 'fr';
 
-export const CAMERA_RADIUS = 10; // distance caméra-cible, verrouillée (pas de zoom)
-export const CAMERA_FOV = 0.5; // radians, FOV serré
-export const CAMERA_ALPHA_RANGE = 0.15; // amplitude max de rotation horizontale (radians)
-export const CAMERA_BETA_RANGE = 0.05; // amplitude max de rotation verticale (radians)
+export const CAMERA_RADIUS = 10;
+export const CAMERA_FOV = 0.5;
+export const CAMERA_ALPHA_RANGE = 0.15;
+export const CAMERA_BETA_RANGE = 0.05;
 
 export const LAYER_BASE_WIDTH = 14;
 
@@ -45,9 +45,9 @@ export const ASSET_MANIFEST: Record<RoomName, AssetDef[]> = {
     { name: 'office_01', url: office01 },
     { name: 'office_02', url: office02 },
     { name: 'office_03', url: office03 },
+    { name: 'office_phone', url: officePhone },
     { name: 'office_books', url: officeBooks },
     { name: 'office_computer', url: officeComputer },
-    { name: 'office_phone', url: officePhone },
   ],
   BreakRoom: [
     { name: 'break_01', url: break01 },
@@ -72,11 +72,12 @@ export const ROOM_THUMBNAILS: Partial<Record<RoomName, string>> = {
 };
 
 export type ItemDef = { x: number; y: number; z: number; width: number };
+export type SpriteItemDef = ItemDef & { url: string; cellWidth: number; cellHeight: number; frameCount: number };
 
-export const OFFICE_ITEMS: Record<string, ItemDef> = {
-  office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1 },
-  office_books: { x: -1.5, y: -0.89, z: 4.85, width: 1 },
-  office_computer: { x: 1.8, y: -0.825, z: 4.85, width: 1.45 },
+export const OFFICE_SPRITE_ITEMS: Record<string, SpriteItemDef> = {
+  office_books: { x: -1.5, y: -0.89, z: 4.85, width: 1, url: officeBooks, cellWidth: 175, cellHeight: 140, frameCount: 5 },
+  office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1, url: officePhone, cellWidth: 170, cellHeight: 115, frameCount: 5 },
+  office_computer: { x: 1.8, y: -0.825, z: 4.85, width: 1.45, url: officeComputer, cellWidth: 225, cellHeight: 140, frameCount: 5 },
 };
 
 export const BREAK_ITEMS: Record<string, ItemDef> = {
