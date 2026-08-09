@@ -20,17 +20,16 @@ import meetingThumb from './assets/image/meeting_room.webp';
 
 export const SCENE_WIDTH = 1920;
 export const SCENE_HEIGHT = 1080;
-
-export type Pointer = { x: number; y: number };
-
 export type Language = 'fr' | 'en';
 export const DEFAULT_LANGUAGE: Language = 'fr';
+
+export type Pointer = { x: number; y: number };
+export type ItemHover = { label: string; xPercent: number; yPercent: number };
 
 export const CAMERA_RADIUS = 10;
 export const CAMERA_FOV = 0.5;
 export const CAMERA_ALPHA_RANGE = 0.15;
 export const CAMERA_BETA_RANGE = 0.05;
-
 export const LAYER_BASE_WIDTH = 14;
 
 export type RoomName = 'OfficeSpace' | 'BreakRoom' | 'MeetingRoom';
@@ -71,21 +70,21 @@ export const ROOM_THUMBNAILS: Partial<Record<RoomName, string>> = {
   MeetingRoom: meetingThumb,
 };
 
-export type ItemDef = { x: number; y: number; z: number; width: number };
+export type ItemDef = { x: number; y: number; z: number; width: number; labelOffsetY?: number };
 export type SpriteItemDef = ItemDef & { url: string; cellWidth: number; cellHeight: number; frameCount: number };
 
 export const OFFICE_SPRITE_ITEMS: Record<string, SpriteItemDef> = {
-  office_books: { x: -1.5, y: -0.89, z: 4.85, width: 1, url: officeBooks, cellWidth: 175, cellHeight: 140, frameCount: 5 },
+  office_books: { x: -0.95, y: -0.89, z: 4.85, width: 1, url: officeBooks, cellWidth: 175, cellHeight: 140, frameCount: 5 },
   office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1, url: officePhone, cellWidth: 170, cellHeight: 115, frameCount: 5 },
   office_computer: { x: 1.8, y: -0.825, z: 4.85, width: 1.45, url: officeComputer, cellWidth: 225, cellHeight: 140, frameCount: 5 },
 };
 
-export const BREAK_ITEMS: Record<string, ItemDef> = {
-  break_dvd: { x: -1.65, y: -3.4, z: 4.85, width: 1.2 },
-  break_books: { x: 2.45, y: -2.43, z: 4.85, width: 1 },
-  break_console: { x: 0.15, y: -2.465, z: 4.85, width: 1 },
+export const BREAK_ITEMS: Record<string, SpriteItemDef> = {
+  break_dvd: { x: -1.65, y: -3.4, z: 4.85, width: 1.2, url: breakDvd, cellWidth: 275, cellHeight: 100, frameCount: 1 },
+  break_books: { x: 2.45, y: -2.43, z: 4.85, width: 1, url: breakBooks, cellWidth: 180, cellHeight: 135, frameCount: 1 },
+  break_console: { x: 0.15, y: -2.465, z: 4.85, width: 1, url: breakConsole, cellWidth: 165, cellHeight: 110, frameCount: 1 },
 };
 
-export const MEETING_ITEMS: Record<string, ItemDef> = {
-  meeting_robot: { x: -0.06, y: -1.09, z: 4.85, width: 1.5 },
+export const MEETING_ITEMS: Record<string, SpriteItemDef> = {
+  meeting_robot: { x: -0.06, y: -1.09, z: 4.85, width: 1.5, url: meetingRobot, cellWidth: 240, cellHeight: 205, frameCount: 1, labelOffsetY: 0.35 },
 };

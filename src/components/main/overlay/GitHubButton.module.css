@@ -1,5 +1,6 @@
 .toggle {
   position: relative;
+  display: block;
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -9,6 +10,7 @@
   background-image: url(../../../assets/image/sprite_icons.png);
   background-size: 700% 200%;
   background-repeat: no-repeat;
+  background-position: 100% 0;
 }
 
 .toggle::after {
@@ -23,25 +25,12 @@
   transition: background-color 200ms ease-out;
 }
 
+.toggle:hover,
+.toggle:focus-visible {
+  background-position: 100% 100%;
+}
+
 .toggle:hover::after,
 .toggle:focus-visible::after {
   background: #fff;
-}
-
-.unmuted {
-  background-position: 33.3333% 0;
-}
-
-.unmuted:hover,
-.unmuted:focus-visible {
-  background-position: 33.3333% 100%;
-}
-
-.muted {
-  background-position: 50% 0;
-}
-
-.muted:hover,
-.muted:focus-visible {
-  background-position: 50% 100%;
 }

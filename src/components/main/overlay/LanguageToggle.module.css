@@ -7,7 +7,7 @@
   border: none;
   background-color: transparent;
   background-image: url(../../../assets/image/sprite_icons.png);
-  background-size: 300% 200%;
+  background-size: 700% 200%;
   background-repeat: no-repeat;
 }
 
@@ -32,6 +32,16 @@
   background-position: 0 0;
 }
 
-.en {
+.fr:hover,
+.fr:focus-visible {
   background-position: 0% 100%;
+}
+
+.en {
+  background-position: 16.6667% 0;
+}
+
+.en:hover,
+.en:focus-visible {
+  background-position: 16.6667% 100%;
 }

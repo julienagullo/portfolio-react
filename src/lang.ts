@@ -22,6 +22,18 @@ const translations = {
       mute: 'Couper le son',
       unmute: 'Activer le son',
     },
+    githubButton: {
+      label: 'Voir le profil GitHub',
+    },
+    items: {
+      office_books: 'Compétences',
+      office_phone: 'Contact',
+      office_computer: 'Curriculum',
+      break_dvd: 'Films',
+      break_books: 'Romans',
+      break_console: 'Jeux indés',
+      meeting_robot: 'Discussion',
+    },
   },
   en: {
     siteTitle: 'Web developer portfolio - jagullo.fr',
@@ -43,6 +55,18 @@ const translations = {
     soundToggle: {
       mute: 'Mute sound',
       unmute: 'Unmute sound',
+    },
+    githubButton: {
+      label: 'View GitHub profile',
+    },
+    items: {
+      office_books: 'Skills',
+      office_phone: 'Contact',
+      office_computer: 'Curriculum',
+      break_dvd: 'Movies',
+      break_books: 'Novels',
+      break_console: 'Indie games',
+      meeting_robot: 'Discussion',
     },
   },
 } as const satisfies Record<Language, unknown>;

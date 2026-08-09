@@ -12,8 +12,9 @@ import BreakRoom from './scene/BreakRoom';
 import MeetingRoom from './scene/MeetingRoom';
 import RoomThumbnails from '../main/overlay/RoomThumbnails.tsx';
 import TransitionOverlay from '../main/overlay/TransitionOverlay.tsx';
+import ItemTooltip from '../main/overlay/ItemTooltip.tsx';
 
-import { SCENE_HEIGHT, SCENE_WIDTH, type Language, type Pointer, type RoomName } from '../../config';
+import { SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Language, type Pointer, type RoomName } from '../../config';
 
 type DioramaProps = {
   language: Language;
@@ -26,6 +27,9 @@ export default function Diorama({ language }: DioramaProps) {
   const [activeRoom, setActiveRoom] = useState<RoomName>('OfficeSpace');
   const [transition, setTransition] = useState<'idle' | 'covering' | 'revealing'>('idle');
   const [pendingRoom, setPendingRoom] = useState<RoomName | null>(null);
+  const [hover, setHover] = useState<ItemHover | null>(null);
+
+  const handleHover = useCallback((h: ItemHover | null) => setHover(h), []);
 
   const handleProgress = useCallback((loaded: number, total: number) => {
     setProgress(total === 0 ? 0 : (loaded / total) * 100);
@@ -39,6 +43,7 @@ export default function Diorama({ language }: DioramaProps) {
     if (room === activeRoom || transition !== 'idle') return;
     setPendingRoom(room);
     setTransition('covering');
+    setHover(null);
   };
 
   const handleOverlayTransitionEnd = () => {
@@ -73,14 +78,21 @@ export default function Diorama({ language }: DioramaProps) {
           <Camera pointerRef={pointerRef} />
           <Light />
           <Manager onProgress={handleProgress} onLoaded={handleLoaded} />
-          {assets && activeRoom === 'OfficeSpace' && <OfficeSpace assets={assets.OfficeSpace} />}
-          {assets && activeRoom === 'BreakRoom' && <BreakRoom assets={assets.BreakRoom} />}
-          {assets && activeRoom === 'MeetingRoom' && <MeetingRoom assets={assets.MeetingRoom} />}
+          {assets && activeRoom === 'OfficeSpace' && (
+            <OfficeSpace assets={assets.OfficeSpace} language={language} onHover={handleHover} />
+          )}
+          {assets && activeRoom === 'BreakRoom' && (
+            <BreakRoom assets={assets.BreakRoom} language={language} onHover={handleHover} />
+          )}
+          {assets && activeRoom === 'MeetingRoom' && (
+            <MeetingRoom assets={assets.MeetingRoom} language={language} onHover={handleHover} />
+          )}
         </Scene>
       </Engine>
       {!assets && <Loading progress={progress} language={language} />}
       {assets && <RoomThumbnails activeRoom={activeRoom} onSelect={handleSelectRoom} language={language} />}
       <TransitionOverlay visible={transition === 'covering'} onTransitionEnd={handleOverlayTransitionEnd} />
+      <ItemTooltip hover={hover} />
     </div>
   );
 }

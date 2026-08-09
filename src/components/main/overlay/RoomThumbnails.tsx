@@ -4,8 +4,8 @@ import { t } from '../../../lang.ts';
 import style from './RoomThumbnails.module.css';
 
 const HIDE_DELAY_MS = 2500;
-const REVEAL_ZONE_HEIGHT = 100; // px depuis le haut de l'écran
-const REVEAL_ZONE_WIDTH_RATIO = 0.5; // bande centrale (50% de la largeur de l'écran)
+const REVEAL_ZONE_HEIGHT = 100;
+const REVEAL_ZONE_WIDTH_RATIO = 0.5;
 
 type RoomThumbnailsProps = {
   activeRoom: RoomName;

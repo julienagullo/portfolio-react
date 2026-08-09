@@ -1,8 +1,11 @@
-import { ActionManager, Color3, ExecuteCodeAction, Texture, Vector3, type Mesh } from '@babylonjs/core';
-import { useState } from 'react';
+import { ActionManager, Color3, ExecuteCodeAction, Matrix, Texture, Vector3, type Mesh } from '@babylonjs/core';
+import { useEffect, useRef, useState } from 'react';
+
+import type { ItemHover } from '../../config';
 
 type SpriteItemProps = {
   name: string;
+  label: string;
   imgUrl: string;
   cellWidth: number;
   cellHeight: number;
@@ -12,10 +15,13 @@ type SpriteItemProps = {
   z: number;
   width: number;
   frameDelay?: number;
+  labelOffsetY?: number;
+  onHover: (hover: ItemHover | null) => void;
 };
 
 export default function SpriteItem({
   name,
+  label,
   imgUrl,
   cellWidth,
   cellHeight,
@@ -24,9 +30,18 @@ export default function SpriteItem({
   y,
   z,
   width,
-  frameDelay = 40, // x3 plus rapide (delay initial 120ms)
+  frameDelay = 60,
+  labelOffsetY = 0,
+  onHover,
 }: SpriteItemProps) {
   const [hovered, setHovered] = useState(false);
+  // onCreated ne s'exécute qu'une fois (création du mesh) : le callback qu'il
+  // enregistre capturerait sinon le label de la langue active au montage, figé
+  // même après un changement de langue. La ref reste à jour à chaque rendu.
+  const labelRef = useRef(label);
+  useEffect(() => {
+    labelRef.current = label;
+  }, [label]);
   const height = width * (cellHeight / cellWidth);
   const lastIndex = frameCount - 1;
 
@@ -60,10 +75,35 @@ export default function SpriteItem({
         onCreated={(mesh: Mesh) => {
           mesh.actionManager = new ActionManager(mesh.getScene());
           mesh.actionManager.registerAction(
-            new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, () => setHovered(true)),
+            new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, () => {
+              setHovered(true);
+              // Position calculée une seule fois à l'entrée du survol : la
+              // recalculer à chaque frame pendant l'orbite caméra faisait
+              // "trembler" le label (léger jitter causé par le re-rendu DOM
+              // en continu).
+              const scene = mesh.getScene();
+              const camera = scene.activeCamera;
+              if (!camera) return;
+              const engine = scene.getEngine();
+              const renderWidth = engine.getRenderWidth();
+              const renderHeight = engine.getRenderHeight();
+              const viewport = camera.viewport.toGlobal(renderWidth, renderHeight);
+              // Ancre au bas de l'objet plutôt qu'à son centre pour que le
+              // label s'affiche juste sous lui, quelle que soit sa taille réelle.
+              const bottom = mesh.position.add(new Vector3(0, -height / 2 + labelOffsetY, 0));
+              const projected = Vector3.Project(bottom, Matrix.Identity(), scene.getTransformMatrix(), viewport);
+              onHover({
+                label: labelRef.current,
+                xPercent: (projected.x / renderWidth) * 100,
+                yPercent: (projected.y / renderHeight) * 100,
+              });
+            }),
           );
           mesh.actionManager.registerAction(
-            new ExecuteCodeAction(ActionManager.OnPointerOutTrigger, () => setHovered(false)),
+            new ExecuteCodeAction(ActionManager.OnPointerOutTrigger, () => {
+              setHovered(false);
+              onHover(null);
+            }),
           );
         }}
       >

@@ -7,7 +7,7 @@
   border: none;
   background-color: transparent;
   background-image: url(../../../assets/image/sprite_icons.png);
-  background-size: 300% 200%;
+  background-size: 700% 200%;
   background-repeat: no-repeat;
 }
 
@@ -29,9 +29,19 @@
 }
 
 .enter {
-  background-position: 100% 0;
+  background-position: 66.6667% 0;
+}
+
+.enter:hover,
+.enter:focus-visible {
+  background-position: 66.6667% 100%;
 }
 
 .exit {
-  background-position: 100% 100%;
+  background-position: 83.3333% 0;
+}
+
+.exit:hover,
+.exit:focus-visible {
+  background-position: 83.3333% 100%;
 }
