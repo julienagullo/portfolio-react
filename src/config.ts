@@ -75,7 +75,7 @@ export type SpriteItemDef = ItemDef & { url: string; cellWidth: number; cellHeig
 
 export const OFFICE_SPRITE_ITEMS: Record<string, SpriteItemDef> = {
   office_books: { x: -0.95, y: -0.72, z: 4.85, width: 1, url: officeBooks, cellWidth: 175, cellHeight: 200, labelOffsetY: 0.1, frameCount: 5 },
-  office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1, url: officePhone, cellWidth: 170, cellHeight: 115, labelOffsetY: 0.3, frameCount: 5 },
+  office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1, url: officePhone, cellWidth: 170, cellHeight: 115, labelOffsetY: 0.35, frameCount: 5 },
   office_computer: { x: 1.8, y: -0.825, z: 4.85, width: 1.45, url: officeComputer, cellWidth: 225, cellHeight: 140, frameCount: 5 },
 };
 

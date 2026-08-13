@@ -1,7 +1,7 @@
 import { Color3, Vector3, type Texture } from '@babylonjs/core';
 
 import Layer from '../Layer';
-import SpriteItem from '../SpriteItem';
+import SpriteItemMesh from '../SpriteItemMesh';
 import { MEETING_ITEMS, type ItemHover, type Language } from '../../../config';
 import { t, type TranslationKey } from '../../../lang';
 
@@ -32,13 +32,13 @@ export default function MeetingRoom({ assets, language, onHover }: MeetingRoomPr
         <Layer key={name} name={name} texture={assets[name]} z={i * LAYER_DEPTH} lit />
       ))}
       {itemSprites.map((name) => {
-        const { x, y, z, width, labelOffsetY, url, cellWidth, cellHeight, frameCount } = MEETING_ITEMS[name];
+        const { x, y, z, width, labelOffsetY, cellWidth, cellHeight, frameCount } = MEETING_ITEMS[name];
         return (
-          <SpriteItem
+          <SpriteItemMesh
             key={name}
             name={name}
             label={t(language, `items.${name}` as TranslationKey)}
-            imgUrl={url}
+            texture={assets[name]}
             cellWidth={cellWidth}
             cellHeight={cellHeight}
             frameCount={frameCount}

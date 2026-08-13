@@ -19,4 +19,10 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    files: ['src/components/babylon/SpriteItemMesh.tsx'],
+    rules: {
+      'react-hooks/immutability': 'off',
+    },
+  },
 ])
