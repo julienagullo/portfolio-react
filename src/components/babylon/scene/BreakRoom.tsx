@@ -6,7 +6,7 @@ import { BREAK_ITEMS, type ItemHover, type Language } from '../../../config';
 import { t, type TranslationKey } from '../../../lang';
 
 const LAYER_DEPTH = 5;
-const SUN_Z = 2 * LAYER_DEPTH - 1.7;
+const SUN_Z = 2 * LAYER_DEPTH - 1.5;
 
 type BreakRoomProps = {
   assets: Record<string, Texture>;
@@ -24,7 +24,7 @@ export default function BreakRoom({ assets, language, onHover }: BreakRoomProps)
     <>
       <pointLight
         name="sun"
-        position={new Vector3(-0.1, 0.6, SUN_Z)}
+        position={new Vector3(0, 0.6, SUN_Z)}
         diffuse={new Color3(1, 0.95, 0.85)}
         intensity={0.8}
       />

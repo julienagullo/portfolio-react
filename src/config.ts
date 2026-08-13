@@ -74,15 +74,15 @@ export type ItemDef = { x: number; y: number; z: number; width: number; labelOff
 export type SpriteItemDef = ItemDef & { url: string; cellWidth: number; cellHeight: number; frameCount: number };
 
 export const OFFICE_SPRITE_ITEMS: Record<string, SpriteItemDef> = {
-  office_books: { x: -0.95, y: -0.89, z: 4.85, width: 1, url: officeBooks, cellWidth: 175, cellHeight: 140, frameCount: 5 },
-  office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1, url: officePhone, cellWidth: 170, cellHeight: 115, frameCount: 5 },
+  office_books: { x: -0.95, y: -0.72, z: 4.85, width: 1, url: officeBooks, cellWidth: 175, cellHeight: 200, labelOffsetY: 0.1, frameCount: 5 },
+  office_phone: { x: -2.45, y: -0.92, z: 4.85, width: 1.1, url: officePhone, cellWidth: 170, cellHeight: 115, labelOffsetY: 0.3, frameCount: 5 },
   office_computer: { x: 1.8, y: -0.825, z: 4.85, width: 1.45, url: officeComputer, cellWidth: 225, cellHeight: 140, frameCount: 5 },
 };
 
 export const BREAK_ITEMS: Record<string, SpriteItemDef> = {
-  break_dvd: { x: -1.65, y: -3.4, z: 4.85, width: 1.2, url: breakDvd, cellWidth: 275, cellHeight: 100, frameCount: 1 },
-  break_books: { x: 2.45, y: -2.43, z: 4.85, width: 1, url: breakBooks, cellWidth: 180, cellHeight: 135, frameCount: 1 },
-  break_console: { x: 0.15, y: -2.465, z: 4.85, width: 1, url: breakConsole, cellWidth: 165, cellHeight: 110, frameCount: 1 },
+  break_dvd: { x: -2.3, y: -3.1, z: 4.85, width: 1.3, url: breakDvd, cellWidth: 275, cellHeight: 100, frameCount: 1 },
+  break_books: { x: 2.1, y: -2.19, z: 4.85, width: 1.1, url: breakBooks, cellWidth: 180, cellHeight: 135, frameCount: 1 },
+  break_console: { x: -0.5, y: -2.22, z: 4.85, width: 1.1, url: breakConsole, cellWidth: 165, cellHeight: 115, frameCount: 5 },
 };
 
 export const MEETING_ITEMS: Record<string, SpriteItemDef> = {

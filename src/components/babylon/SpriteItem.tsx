@@ -31,13 +31,10 @@ export default function SpriteItem({
   z,
   width,
   frameDelay = 60,
-  labelOffsetY = 0,
+  labelOffsetY = 0.25,
   onHover,
 }: SpriteItemProps) {
   const [hovered, setHovered] = useState(false);
-  // onCreated ne s'exécute qu'une fois (création du mesh) : le callback qu'il
-  // enregistre capturerait sinon le label de la langue active au montage, figé
-  // même après un changement de langue. La ref reste à jour à chaque rendu.
   const labelRef = useRef(label);
   useEffect(() => {
     labelRef.current = label;
@@ -77,10 +74,6 @@ export default function SpriteItem({
           mesh.actionManager.registerAction(
             new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, () => {
               setHovered(true);
-              // Position calculée une seule fois à l'entrée du survol : la
-              // recalculer à chaque frame pendant l'orbite caméra faisait
-              // "trembler" le label (léger jitter causé par le re-rendu DOM
-              // en continu).
               const scene = mesh.getScene();
               const camera = scene.activeCamera;
               if (!camera) return;
@@ -88,9 +81,7 @@ export default function SpriteItem({
               const renderWidth = engine.getRenderWidth();
               const renderHeight = engine.getRenderHeight();
               const viewport = camera.viewport.toGlobal(renderWidth, renderHeight);
-              // Ancre au bas de l'objet plutôt qu'à son centre pour que le
-              // label s'affiche juste sous lui, quelle que soit sa taille réelle.
-              const bottom = mesh.position.add(new Vector3(0, -height / 2 + labelOffsetY, 0));
+              const bottom = mesh.position.add(new Vector3(0, height / 2 + labelOffsetY, 0));
               const projected = Vector3.Project(bottom, Matrix.Identity(), scene.getTransformMatrix(), viewport);
               onHover({
                 label: labelRef.current,

@@ -32,7 +32,7 @@ const translations = {
       break_dvd: 'Films',
       break_books: 'Romans',
       break_console: 'Jeux indés',
-      meeting_robot: 'Discussion',
+      meeting_robot: 'À propos',
     },
   },
   en: {
@@ -66,7 +66,7 @@ const translations = {
       break_dvd: 'Movies',
       break_books: 'Novels',
       break_console: 'Indie games',
-      meeting_robot: 'Discussion',
+      meeting_robot: 'About',
     },
   },
 } as const satisfies Record<Language, unknown>;
