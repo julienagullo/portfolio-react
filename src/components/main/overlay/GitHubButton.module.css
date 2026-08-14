@@ -1,36 +1,10 @@
 .toggle {
-  position: relative;
+  composes: toggle from './IconButton.module.css';
   display: block;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  background-image: url(../../../assets/image/sprite_icons.png);
-  background-size: 700% 200%;
-  background-repeat: no-repeat;
   background-position: 100% 0;
-}
-
-.toggle::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: -24px;
-  width: 4px;
-  border-radius: 10px;
-  background: transparent;
-  transition: background-color 200ms ease-out;
 }
 
 .toggle:hover,
 .toggle:focus-visible {
   background-position: 100% 100%;
-}
-
-.toggle:hover::after,
-.toggle:focus-visible::after {
-  background: #fff;
 }

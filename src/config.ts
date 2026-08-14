@@ -17,6 +17,7 @@ import meetingRobot from './assets/image/meeting_robot.webp';
 import officeThumb from './assets/image/office_space.webp';
 import breakThumb from './assets/image/break_room.webp';
 import meetingThumb from './assets/image/meeting_room.webp';
+import spriteIcons from './assets/image/sprite_icons.webp';
 
 export const SCENE_WIDTH = 1920;
 export const SCENE_HEIGHT = 1080;
@@ -70,6 +71,15 @@ export const ROOM_THUMBNAILS: Partial<Record<RoomName, string>> = {
   MeetingRoom: meetingThumb,
 };
 
+// Assets hors scène 3D (consommés en HTML/CSS, pas en texture Babylon) mais
+// à précharger pendant l'écran de loading pour éviter un flash sans icônes.
+export const UI_ASSETS: AssetDef[] = [{ name: 'sprite_icons', url: spriteIcons }];
+
+// Exposée séparément pour être injectée en variable CSS (voir UiOverlay) :
+// un chemin écrit en dur dans un fichier .module.css composé n'est pas fiable
+// avec ce bundler.
+export const SPRITE_ICONS_URL = spriteIcons;
+
 export type ItemDef = { x: number; y: number; z: number; width: number; labelOffsetY?: number };
 export type SpriteItemDef = ItemDef & { url: string; cellWidth: number; cellHeight: number; frameCount: number };
 
@@ -80,9 +90,9 @@ export const OFFICE_SPRITE_ITEMS: Record<string, SpriteItemDef> = {
 };
 
 export const BREAK_ITEMS: Record<string, SpriteItemDef> = {
-  break_dvd: { x: -2.3, y: -3.1, z: 4.85, width: 1.3, url: breakDvd, cellWidth: 275, cellHeight: 100, frameCount: 1 },
-  break_books: { x: 2.1, y: -2.19, z: 4.85, width: 1.1, url: breakBooks, cellWidth: 180, cellHeight: 135, frameCount: 1 },
-  break_console: { x: -0.5, y: -2.22, z: 4.85, width: 1.1, url: breakConsole, cellWidth: 165, cellHeight: 115, frameCount: 5 },
+  break_dvd: { x: -2.3, y: -3.1, z: 4.85, width: 1.3, url: breakDvd, cellWidth: 280, cellHeight: 100, frameCount: 5 },
+  break_books: { x: 2, y: -2.065, z: 4.85, width: 1.1, url: breakBooks, cellWidth: 185, cellHeight: 180, frameCount: 5 },
+  break_console: { x: -0.45, y: -2.22, z: 4.85, width: 1.1, url: breakConsole, cellWidth: 165, cellHeight: 115, frameCount: 5 },
 };
 
 export const MEETING_ITEMS: Record<string, SpriteItemDef> = {

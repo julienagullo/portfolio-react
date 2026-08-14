@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { AssetsManager, Texture } from '@babylonjs/core';
 import { useScene } from 'react-babylonjs';
 
-import { ASSET_MANIFEST, type RoomName } from '../../config.ts';
+import { ASSET_MANIFEST, UI_ASSETS, type RoomName } from '../../config.ts';
 
 export type LoadedAssets = Record<RoomName, Record<string, Texture>>;
 
@@ -39,6 +39,13 @@ export default function Manager({ onProgress, onLoaded }: ManagerProps) {
           loaded[room][asset.name] = successfulTask.texture;
         };
       });
+    });
+
+    // Assets UI hors scène 3D (ex. sprite d'icônes des boutons overlay) : chargés
+    // en HTMLImageElement plutôt qu'en texture Babylon, mais comptés dans la même
+    // progression pour être en cache navigateur avant la fin du loading screen.
+    UI_ASSETS.forEach((asset) => {
+      assetsManager.addImageTask(asset.name, asset.url);
     });
 
     assetsManager.onProgress = (remainingCount, totalCount) => {
