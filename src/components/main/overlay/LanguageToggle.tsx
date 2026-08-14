@@ -8,7 +8,7 @@ type LanguageToggleProps = {
 };
 
 export default function LanguageToggle({ language, onToggle }: LanguageToggleProps) {
-  const label = t(language, language === 'fr' ? 'languageToggle.toEnglish' : 'languageToggle.toFrench');
+  const label = t(language, 'languageToggle');
 
   return (
     <button

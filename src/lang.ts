@@ -10,10 +10,7 @@ const translations = {
     },
     orientationGate: 'Tourne ton appareil en mode paysage pour profiter du site.',
     loading: 'Chargement du bureau',
-    languageToggle: {
-      toEnglish: 'Switch to English',
-      toFrench: 'Passer en français',
-    },
+    languageToggle: 'Passer en anglais',
     fullscreenToggle: {
       enter: 'Passer en plein écran',
       exit: 'Quitter le plein écran',
@@ -23,7 +20,7 @@ const translations = {
       unmute: 'Activer le son',
     },
     githubButton: {
-      label: 'Voir le profil GitHub',
+      label: 'Dépôt Git',
     },
     items: {
       office_books: 'Compétences',
@@ -44,10 +41,7 @@ const translations = {
     },
     orientationGate: 'Rotate your device to landscape to enjoy the site.',
     loading: 'Loading the office',
-    languageToggle: {
-      toEnglish: 'Switch to English',
-      toFrench: 'Passer en français',
-    },
+    languageToggle: 'Switch to French',
     fullscreenToggle: {
       enter: 'Enter fullscreen',
       exit: 'Exit fullscreen',
@@ -57,7 +51,7 @@ const translations = {
       unmute: 'Unmute sound',
     },
     githubButton: {
-      label: 'View GitHub profile',
+      label: 'Git repository',
     },
     items: {
       office_books: 'Skills',

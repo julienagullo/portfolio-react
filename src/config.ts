@@ -23,6 +23,7 @@ export const SCENE_WIDTH = 1920;
 export const SCENE_HEIGHT = 1080;
 export type Language = 'fr' | 'en';
 export const DEFAULT_LANGUAGE: Language = 'fr';
+export const GITHUB_REPOSITORY = 'https://github.com/julienagullo/portfolio-react';
 
 export type Pointer = { x: number; y: number };
 export type ItemHover = { label: string; xPercent: number; yPercent: number };
@@ -71,13 +72,7 @@ export const ROOM_THUMBNAILS: Partial<Record<RoomName, string>> = {
   MeetingRoom: meetingThumb,
 };
 
-// Assets hors scène 3D (consommés en HTML/CSS, pas en texture Babylon) mais
-// à précharger pendant l'écran de loading pour éviter un flash sans icônes.
 export const UI_ASSETS: AssetDef[] = [{ name: 'sprite_icons', url: spriteIcons }];
-
-// Exposée séparément pour être injectée en variable CSS (voir UiOverlay) :
-// un chemin écrit en dur dans un fichier .module.css composé n'est pas fiable
-// avec ce bundler.
 export const SPRITE_ICONS_URL = spriteIcons;
 
 export type ItemDef = { x: number; y: number; z: number; width: number; labelOffsetY?: number };
