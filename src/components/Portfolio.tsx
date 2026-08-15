@@ -1,28 +1,29 @@
-import { useState } from 'react';
-
 import Diorama from './babylon/Diorama.tsx';
 import OrientationGate from './main/OrientationGate.tsx';
 import UiOverlay from './main/overlay/UiOverlay.tsx';
 
-import { DEFAULT_LANGUAGE } from '../config.ts';
-import { t } from '../lang.ts';
+import { LanguageProvider, useLanguage } from '../context/LanguageContext.tsx';
 import { useTypewriterTitle } from '../hooks/useTypewriterTitle.ts';
 import style from './Portfolio.module.css';
 
-export default function Portfolio() {
-    const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
+function PortfolioContent() {
+    const { t } = useLanguage();
 
-    const toggleLanguage = () => {
-        setLanguage((prev) => (prev === 'fr' ? 'en' : 'fr'));
-    };
-
-    useTypewriterTitle(t(language, 'siteTitle'));
+    useTypewriterTitle(t('siteTitle'));
 
     return (
         <main className={style.main}>
-            <Diorama language={language}/>
-            <OrientationGate language={language}/>
-            <UiOverlay language={language} onToggleLanguage={toggleLanguage}/>
+            <Diorama/>
+            <OrientationGate/>
+            <UiOverlay/>
         </main>
+    );
+}
+
+export default function Portfolio() {
+    return (
+        <LanguageProvider>
+            <PortfolioContent/>
+        </LanguageProvider>
     );
 }

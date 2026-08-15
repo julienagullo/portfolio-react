@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { ROOM_THUMBNAILS, type Language, type RoomName } from '../../../config.ts';
-import { t } from '../../../lang.ts';
+import { ROOM_THUMBNAILS, type RoomName } from '../../../config.ts';
+import { useLanguage } from '../../../context/LanguageContext.tsx';
 import style from './RoomThumbnails.module.css';
 
 const HIDE_DELAY_MS = 2500;
@@ -10,10 +10,10 @@ const REVEAL_ZONE_WIDTH_RATIO = 0.5;
 type RoomThumbnailsProps = {
   activeRoom: RoomName;
   onSelect: (room: RoomName) => void;
-  language: Language;
 };
 
-export default function RoomThumbnails({ activeRoom, onSelect, language }: RoomThumbnailsProps) {
+export default function RoomThumbnails({ activeRoom, onSelect }: RoomThumbnailsProps) {
+  const { t } = useLanguage();
   const rooms = Object.entries(ROOM_THUMBNAILS) as [RoomName, string][];
   const [visible, setVisible] = useState(true);
   const hoveringRef = useRef(false);
@@ -72,7 +72,7 @@ export default function RoomThumbnails({ activeRoom, onSelect, language }: RoomT
           <span className={style.thumbImage}>
             <img src={thumb} alt={room} />
           </span>
-          <span className={style.label}>{t(language, `rooms.${room}`)}</span>
+          <span className={style.label}>{t(`rooms.${room}`)}</span>
         </button>
       ))}
     </div>

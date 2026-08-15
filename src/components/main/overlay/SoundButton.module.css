@@ -1,0 +1,23 @@
+.toggle {
+  composes: toggle from './SpriteButton.module.css';
+}
+
+/* Colonnes 2 et 3 du sprite (voir SpriteButton.module.css). */
+
+.unmuted {
+  background-position: -100px 0;
+}
+
+.unmuted:hover,
+.unmuted:focus-visible {
+  background-position: -100px -50px;
+}
+
+.muted {
+  background-position: -150px 0;
+}
+
+.muted:hover,
+.muted:focus-visible {
+  background-position: -150px -50px;
+}

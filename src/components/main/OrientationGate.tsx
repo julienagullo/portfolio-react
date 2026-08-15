@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 
-import type { Language } from '../../config.ts';
-import { t } from '../../lang.ts';
+import { useLanguage } from '../../context/LanguageContext.tsx';
 import style from './OrientationGate.module.css';
 
 function isPortraitMobile() {
   return window.matchMedia('(pointer: coarse)').matches && window.matchMedia('(orientation: portrait)').matches;
 }
 
-type OrientationGateProps = {
-  language: Language;
-};
-
-export default function OrientationGate({ language }: OrientationGateProps) {
+export default function OrientationGate() {
+  const { t } = useLanguage();
   const [blocked, setBlocked] = useState(false);
 
   useEffect(() => {
@@ -33,7 +29,7 @@ export default function OrientationGate({ language }: OrientationGateProps) {
 
   return (
     <div className={style.overlay}>
-      <p>{t(language, 'orientationGate')}</p>
+      <p>{t('orientationGate')}</p>
     </div>
   );
 }

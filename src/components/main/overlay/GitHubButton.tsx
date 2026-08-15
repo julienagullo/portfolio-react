@@ -1,13 +1,10 @@
-import {GITHUB_REPOSITORY, type Language} from '../../../config.ts';
-import { t } from '../../../lang.ts';
+import { GITHUB_REPOSITORY } from '../../../config.ts';
+import { useLanguage } from '../../../context/LanguageContext.tsx';
 import style from './GitHubButton.module.css';
 
-type GitHubButtonProps = {
-  language: Language;
-};
-
-export default function GitHubButton({ language }: GitHubButtonProps) {
-  const label = t(language, 'githubButton.label');
+export default function GitHubButton() {
+  const { t } = useLanguage();
+  const label = t('githubButton.label');
 
   return (
     <a

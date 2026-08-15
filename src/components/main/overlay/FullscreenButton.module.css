@@ -1,0 +1,23 @@
+.toggle {
+  composes: toggle from './SpriteButton.module.css';
+}
+
+/* Colonnes 4 et 5 du sprite (voir SpriteButton.module.css). */
+
+.enter {
+  background-position: -200px 0;
+}
+
+.enter:hover,
+.enter:focus-visible {
+  background-position: -200px -50px;
+}
+
+.exit {
+  background-position: -250px 0;
+}
+
+.exit:hover,
+.exit:focus-visible {
+  background-position: -250px -50px;
+}

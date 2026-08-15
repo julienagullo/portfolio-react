@@ -1,0 +1,23 @@
+.toggle {
+  composes: toggle from './SpriteButton.module.css';
+}
+
+/* Colonnes 0 et 1 du sprite (voir SpriteButton.module.css). */
+
+.fr {
+  background-position: 0 0;
+}
+
+.fr:hover,
+.fr:focus-visible {
+  background-position: 0 -50px;
+}
+
+.en {
+  background-position: -50px 0;
+}
+
+.en:hover,
+.en:focus-visible {
+  background-position: -50px -50px;
+}

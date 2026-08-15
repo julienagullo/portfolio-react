@@ -11,6 +11,7 @@ const translations = {
     orientationGate: 'Tourne ton appareil en mode paysage pour profiter du site.',
     loading: 'Chargement du bureau',
     languageToggle: 'Passer en anglais',
+    closeButton: 'Fermer',
     fullscreenToggle: {
       enter: 'Passer en plein écran',
       exit: 'Quitter le plein écran',
@@ -42,6 +43,7 @@ const translations = {
     orientationGate: 'Rotate your device to landscape to enjoy the site.',
     loading: 'Loading the office',
     languageToggle: 'Switch to French',
+    closeButton: 'Close',
     fullscreenToggle: {
       enter: 'Enter fullscreen',
       exit: 'Exit fullscreen',

@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import type { Language } from '../../../config.ts';
-import { t } from '../../../lang.ts';
-import style from './FullscreenToggle.module.css';
+import { useLanguage } from '../../../context/LanguageContext.tsx';
+import style from './FullscreenButton.module.css';
 
-type FullscreenToggleProps = {
-  language: Language;
-};
-
-export default function FullscreenToggle({ language }: FullscreenToggleProps) {
+export default function FullscreenButton() {
+  const { t } = useLanguage();
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -25,7 +21,7 @@ export default function FullscreenToggle({ language }: FullscreenToggleProps) {
     }
   };
 
-  const label = t(language, isFullscreen ? 'fullscreenToggle.exit' : 'fullscreenToggle.enter');
+  const label = t(isFullscreen ? 'fullscreenToggle.exit' : 'fullscreenToggle.enter');
 
   return (
     <button

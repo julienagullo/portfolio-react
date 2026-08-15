@@ -1,10 +1,12 @@
+/* Colonne 6 du sprite (voir SpriteButton.module.css). */
+
 .toggle {
-  composes: toggle from './IconButton.module.css';
+  composes: toggle from './SpriteButton.module.css';
   display: block;
-  background-position: 100% 0;
+  background-position: -300px 0;
 }
 
 .toggle:hover,
 .toggle:focus-visible {
-  background-position: 100% 100%;
+  background-position: -300px -50px;
 }

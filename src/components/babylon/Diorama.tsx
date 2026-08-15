@@ -14,13 +14,11 @@ import RoomThumbnails from '../main/overlay/RoomThumbnails.tsx';
 import TransitionOverlay from '../main/overlay/TransitionOverlay.tsx';
 import ItemTooltip from '../main/overlay/ItemTooltip.tsx';
 
-import { SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Language, type Pointer, type RoomName } from '../../config';
+import { SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config';
+import { useLanguage } from '../../context/LanguageContext.tsx';
 
-type DioramaProps = {
-  language: Language;
-};
-
-export default function Diorama({ language }: DioramaProps) {
+export default function Diorama() {
+  const { language } = useLanguage();
   const pointerRef = useRef<Pointer>({ x: 0, y: 0 });
   const [progress, setProgress] = useState(0);
   const [assets, setAssets] = useState<LoadedAssets | null>(null);
@@ -89,8 +87,8 @@ export default function Diorama({ language }: DioramaProps) {
           )}
         </Scene>
       </Engine>
-      {!assets && <Loading progress={progress} language={language} />}
-      {assets && <RoomThumbnails activeRoom={activeRoom} onSelect={handleSelectRoom} language={language} />}
+      {!assets && <Loading progress={progress} />}
+      {assets && <RoomThumbnails activeRoom={activeRoom} onSelect={handleSelectRoom} />}
       <TransitionOverlay visible={transition === 'covering'} onTransitionEnd={handleOverlayTransitionEnd} />
       <ItemTooltip hover={hover} />
     </div>

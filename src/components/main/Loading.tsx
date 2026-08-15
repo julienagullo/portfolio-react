@@ -1,16 +1,16 @@
-import { t } from '../../lang.ts';
-import type { Language } from '../../config.ts';
+import { useLanguage } from '../../context/LanguageContext.tsx';
 import style from './Loading.module.css';
 
 type LoadingProps = {
   progress: number; // 0-100
-  language: Language;
 };
 
-export default function Loading({ progress, language }: LoadingProps) {
+export default function Loading({ progress }: LoadingProps) {
+  const { t } = useLanguage();
+
   return (
     <div className={style.overlay}>
-      <span className={style.label}>{t(language, 'loading')}</span>
+      <span className={style.label}>{t('loading')}</span>
       <div className={style.barTrack}>
         <div className={style.barFill} style={{ width: `${progress}%` }} />
       </div>

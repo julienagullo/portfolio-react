@@ -7,7 +7,7 @@
   border: none;
   background-color: transparent;
   background-image: var(--sprite-icons);
-  background-size: 700% 200%;
+  background-size: 400px 100px;
   background-repeat: no-repeat;
 }
 
