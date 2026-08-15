@@ -1,0 +1,24 @@
+/* Le fixed doit être porté par un wrapper dédié plutôt que surchargé sur .toggle :
+   .toggle compose SpriteButton.module.css (position: relative), et à spécificité
+   égale l'ordre de sortie du bundler fait gagner la règle composée, pas la nôtre. */
+.wrapper {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 60;
+}
+
+/* Colonne 8 (dernière) du sprite (voir SpriteButton.module.css). Barre indicatrice
+   à gauche plutôt qu'à droite (variables --indicator-*, voir SpriteButton.module.css) :
+   cohérent avec sa position en haut à gauche de l'écran. */
+.toggle {
+  composes: toggle from './SpriteButton.module.css';
+  background-position: -480px 0;
+  --indicator-right: auto;
+  --indicator-left: -24px;
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  background-position: -480px -60px;
+}
