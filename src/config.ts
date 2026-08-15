@@ -21,7 +21,7 @@ import spriteIcons from './assets/image/sprite_icons.webp';
 import ambianceBureau from './assets/audio/ambiance_bureau.wav';
 import ambiancePlage from './assets/audio/ambiance_plage.wav';
 import ambianceReunion from './assets/audio/ambiance_reunion.wav';
-import sfxClic from './assets/audio/clic.wav';
+import sfxApple from './assets/audio/apple.wav';
 import sfxDvd from './assets/audio/dvd.wav';
 import sfxLivre from './assets/audio/livre.wav';
 import sfxRobot from './assets/audio/robot.wav';
@@ -101,7 +101,7 @@ export const ROOM_AMBIANCE: Record<RoomName, string> = {
 export const ITEM_SFX: Record<string, string> = {
   office_books: sfxLivre,
   office_phone: sfxSonnerie,
-  office_computer: sfxClic,
+  office_computer: sfxApple,
   break_dvd: sfxDvd,
   break_books: sfxLivre,
   break_console: sfxWilhelm,

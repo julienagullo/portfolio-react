@@ -6,7 +6,6 @@
   padding: 0;
   border: none;
   background-color: transparent;
-  background-image: var(--sprite-icons);
   background-size: 540px 120px;
   background-repeat: no-repeat;
 }
@@ -16,10 +15,6 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  /* Côté configurable via variable CSS plutôt qu'en dur : un bouton isolé (ex.
-     BurgerButton) peut la mettre à gauche en surchargeant juste la variable sur
-     .toggle, sans re-déclarer right/left (qui perdrait le conflit de cascade avec
-     cette règle composée, voir le commentaire dans BurgerButton.module.css). */
   right: var(--indicator-right, -24px);
   left: var(--indicator-left, auto);
   width: 4px;

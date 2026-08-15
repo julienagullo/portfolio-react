@@ -1,9 +1,25 @@
 @font-face {
-  font-family: 'Caviar Dreams';
-  src: url('./assets/fonts/CaviarDreams.woff') format('woff');
-  font-weight: 400;
+  font-family: 'Roboto';
   font-style: normal;
+  font-weight: 400;
   font-display: swap;
+  src: url('./assets/fonts/Roboto-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./assets/fonts/Roboto-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('./assets/fonts/Roboto-Bold.woff2') format('woff2');
 }
 
 button,
@@ -16,10 +32,10 @@ textarea {
 :root {
   --text: #6b6375;
   --bg: #fff;
-  --sans: 'Caviar Dreams', 'Lato', system-ui, 'Segoe UI', Roboto, sans-serif;
-
+  --sans: Roboto, sans-serif;
+  font-optical-sizing: none;
   font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  letter-spacing: 1px;
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);

@@ -53,8 +53,6 @@ export default function SpriteItemMesh({
     labelRef.current = label;
   }, [label]);
 
-  // Refs plutôt que dépendances directes dans onCreated (qui ne s'exécute qu'à la
-  // création du mesh) : évite de figer des closures obsolètes si les callbacks changent.
   const onClickRef = useRef(onClick);
   useEffect(() => {
     onClickRef.current = onClick;
