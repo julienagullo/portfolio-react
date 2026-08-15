@@ -1,5 +1,3 @@
-/* Colonne 7 du sprite (voir SpriteButton.module.css). */
-
 .toggle {
   composes: toggle from './SpriteButton.module.css';
   background-position: -420px 0;

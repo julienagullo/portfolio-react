@@ -15,14 +15,17 @@ import RoomThumbnails from '../main/overlay/RoomThumbnails.tsx';
 import BurgerButton from '../main/overlay/BurgerButton.tsx';
 import TransitionOverlay from '../main/overlay/TransitionOverlay.tsx';
 import ItemTooltip from '../main/overlay/ItemTooltip.tsx';
+import MainModal from '../main/modal/MainModal.tsx';
+import { MODAL_CONTENT } from '../main/modal/modalRegistry.tsx';
 
 import { BREAK_POINT, ITEM_SFX, SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config';
 import { useAudio } from '../../context/AudioContext.tsx';
 import { useLanguage } from '../../context/LanguageContext.tsx';
 import { useBreakpoint } from '../../hooks/useBreakpoint.ts';
+import type { TranslationKey } from '../../lang.ts';
 
 export default function Diorama() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { playAmbiance, playSfx, setAmbianceDucked } = useAudio();
   const isMobile = useBreakpoint(BREAK_POINT);
   const pointerRef = useRef<Pointer>({ x: 0, y: 0 });
@@ -32,6 +35,7 @@ export default function Diorama() {
   const [transition, setTransition] = useState<'idle' | 'covering' | 'revealing'>('idle');
   const [pendingRoom, setPendingRoom] = useState<RoomName | null>(null);
   const [hover, setHover] = useState<ItemHover | null>(null);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
   // Menu des salles replié par défaut sur mobile : ouvert via le burger (voir
   // RoomThumbnails.mobileOpen), pas de révélation au survol souris au tactile.
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -46,9 +50,14 @@ export default function Diorama() {
     (name: string) => {
       const src = ITEM_SFX[name];
       if (src) playSfx(src);
+      if (name in MODAL_CONTENT) setActiveItem(name);
     },
     [playSfx],
   );
+
+  const handleCloseModal = useCallback(() => setActiveItem(null), []);
+
+  const ActiveModalContent = activeItem ? MODAL_CONTENT[activeItem] : undefined;
 
   // Baisse l'ambiance pendant le survol d'un item plutôt que de jouer un SFX au
   // rollover (voir AudioContext.setAmbianceDucked).
@@ -70,6 +79,7 @@ export default function Diorama() {
     setPendingRoom(room);
     setTransition('covering');
     setHover(null);
+    setActiveItem(null);
     setMobileMenuOpen(false);
   };
 
@@ -145,6 +155,11 @@ export default function Diorama() {
       )}
       <TransitionOverlay visible={transition === 'covering'} onTransitionEnd={handleOverlayTransitionEnd} />
       <ItemTooltip hover={hover} />
+      {activeItem && ActiveModalContent && (
+        <MainModal title={t(`items.${activeItem}` as TranslationKey)} onClose={handleCloseModal}>
+          <ActiveModalContent />
+        </MainModal>
+      )}
     </div>
   );
 }
