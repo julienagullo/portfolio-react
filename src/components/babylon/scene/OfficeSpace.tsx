@@ -12,9 +12,11 @@ type OfficeSpaceProps = {
   assets: Record<string, Texture>;
   language: Language;
   onHover: (hover: ItemHover | null) => void;
+  onItemClick: (name: string) => void;
+  onItemHoverChange: (hovering: boolean) => void;
 };
 
-export default function OfficeSpace({ assets, language, onHover }: OfficeSpaceProps) {
+export default function OfficeSpace({ assets, language, onHover, onItemClick, onItemHoverChange }: OfficeSpaceProps) {
   const layerNames = Object.keys(assets)
     .filter((name) => !(name in OFFICE_SPRITE_ITEMS))
     .sort();
@@ -48,6 +50,8 @@ export default function OfficeSpace({ assets, language, onHover }: OfficeSpacePr
             width={width}
             labelOffsetY={labelOffsetY}
             onHover={onHover}
+            onClick={onItemClick}
+            onHoverChange={onItemHoverChange}
           />
         );
       })}

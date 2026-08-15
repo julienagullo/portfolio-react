@@ -5,19 +5,19 @@
 /* Colonnes 2 et 3 du sprite (voir SpriteButton.module.css). */
 
 .unmuted {
-  background-position: -100px 0;
+  background-position: -120px 0;
 }
 
 .unmuted:hover,
 .unmuted:focus-visible {
-  background-position: -100px -50px;
+  background-position: -120px -60px;
 }
 
 .muted {
-  background-position: -150px 0;
+  background-position: -180px 0;
 }
 
 .muted:hover,
 .muted:focus-visible {
-  background-position: -150px -50px;
+  background-position: -180px -60px;
 }

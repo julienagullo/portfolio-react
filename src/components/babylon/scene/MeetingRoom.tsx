@@ -12,9 +12,11 @@ type MeetingRoomProps = {
   assets: Record<string, Texture>;
   language: Language;
   onHover: (hover: ItemHover | null) => void;
+  onItemClick: (name: string) => void;
+  onItemHoverChange: (hovering: boolean) => void;
 };
 
-export default function MeetingRoom({ assets, language, onHover }: MeetingRoomProps) {
+export default function MeetingRoom({ assets, language, onHover, onItemClick, onItemHoverChange }: MeetingRoomProps) {
   const layerNames = Object.keys(assets)
     .filter((name) => !(name in MEETING_ITEMS))
     .sort();
@@ -48,6 +50,8 @@ export default function MeetingRoom({ assets, language, onHover }: MeetingRoomPr
             width={width}
             labelOffsetY={labelOffsetY}
             onHover={onHover}
+            onClick={onItemClick}
+            onHoverChange={onItemHoverChange}
           />
         );
       })}

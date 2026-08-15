@@ -1,5 +1,6 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent } from 'react';
+import { Color4 } from '@babylonjs/core';
 import { Engine, Scene } from 'react-babylonjs';
 
 import style from './Diorama.module.css';
@@ -11,14 +12,19 @@ import OfficeSpace from './scene/OfficeSpace';
 import BreakRoom from './scene/BreakRoom';
 import MeetingRoom from './scene/MeetingRoom';
 import RoomThumbnails from '../main/overlay/RoomThumbnails.tsx';
+import BurgerButton from '../main/overlay/BurgerButton.tsx';
 import TransitionOverlay from '../main/overlay/TransitionOverlay.tsx';
 import ItemTooltip from '../main/overlay/ItemTooltip.tsx';
 
-import { SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config';
+import { BREAK_POINT, ITEM_SFX, SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config';
+import { useAudio } from '../../context/AudioContext.tsx';
 import { useLanguage } from '../../context/LanguageContext.tsx';
+import { useBreakpoint } from '../../hooks/useBreakpoint.ts';
 
 export default function Diorama() {
   const { language } = useLanguage();
+  const { playAmbiance, playSfx, setAmbianceDucked } = useAudio();
+  const isMobile = useBreakpoint(BREAK_POINT);
   const pointerRef = useRef<Pointer>({ x: 0, y: 0 });
   const [progress, setProgress] = useState(0);
   const [assets, setAssets] = useState<LoadedAssets | null>(null);
@@ -26,8 +32,30 @@ export default function Diorama() {
   const [transition, setTransition] = useState<'idle' | 'covering' | 'revealing'>('idle');
   const [pendingRoom, setPendingRoom] = useState<RoomName | null>(null);
   const [hover, setHover] = useState<ItemHover | null>(null);
+  // Menu des salles replié par défaut sur mobile : ouvert via le burger (voir
+  // RoomThumbnails.mobileOpen), pas de révélation au survol souris au tactile.
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    playAmbiance(activeRoom);
+  }, [activeRoom, playAmbiance]);
 
   const handleHover = useCallback((h: ItemHover | null) => setHover(h), []);
+
+  const handleItemClick = useCallback(
+    (name: string) => {
+      const src = ITEM_SFX[name];
+      if (src) playSfx(src);
+    },
+    [playSfx],
+  );
+
+  // Baisse l'ambiance pendant le survol d'un item plutôt que de jouer un SFX au
+  // rollover (voir AudioContext.setAmbianceDucked).
+  const handleItemHoverChange = useCallback(
+    (hovering: boolean) => setAmbianceDucked(hovering),
+    [setAmbianceDucked],
+  );
 
   const handleProgress = useCallback((loaded: number, total: number) => {
     setProgress(total === 0 ? 0 : (loaded / total) * 100);
@@ -42,6 +70,7 @@ export default function Diorama() {
     setPendingRoom(room);
     setTransition('covering');
     setHover(null);
+    setMobileMenuOpen(false);
   };
 
   const handleOverlayTransitionEnd = () => {
@@ -72,23 +101,48 @@ export default function Diorama() {
         height={SCENE_HEIGHT}
         className={style.canvas}
       >
-        <Scene>
+        <Scene clearColor={new Color4(0.1, 0.1, 0.1, 1)}>
           <Camera pointerRef={pointerRef} />
           <Light />
           <Manager onProgress={handleProgress} onLoaded={handleLoaded} />
           {assets && activeRoom === 'OfficeSpace' && (
-            <OfficeSpace assets={assets.OfficeSpace} language={language} onHover={handleHover} />
+            <OfficeSpace
+              assets={assets.OfficeSpace}
+              language={language}
+              onHover={handleHover}
+              onItemClick={handleItemClick}
+              onItemHoverChange={handleItemHoverChange}
+            />
           )}
           {assets && activeRoom === 'BreakRoom' && (
-            <BreakRoom assets={assets.BreakRoom} language={language} onHover={handleHover} />
+            <BreakRoom
+              assets={assets.BreakRoom}
+              language={language}
+              onHover={handleHover}
+              onItemClick={handleItemClick}
+              onItemHoverChange={handleItemHoverChange}
+            />
           )}
           {assets && activeRoom === 'MeetingRoom' && (
-            <MeetingRoom assets={assets.MeetingRoom} language={language} onHover={handleHover} />
+            <MeetingRoom
+              assets={assets.MeetingRoom}
+              language={language}
+              onHover={handleHover}
+              onItemClick={handleItemClick}
+              onItemHoverChange={handleItemHoverChange}
+            />
           )}
         </Scene>
       </Engine>
       {!assets && <Loading progress={progress} />}
-      {assets && <RoomThumbnails activeRoom={activeRoom} onSelect={handleSelectRoom} />}
+      {assets && isMobile && <BurgerButton onClick={() => setMobileMenuOpen((prev) => !prev)} />}
+      {assets && (
+        <RoomThumbnails
+          activeRoom={activeRoom}
+          onSelect={handleSelectRoom}
+          mobileOpen={isMobile ? mobileMenuOpen : undefined}
+        />
+      )}
       <TransitionOverlay visible={transition === 'covering'} onTransitionEnd={handleOverlayTransitionEnd} />
       <ItemTooltip hover={hover} />
     </div>

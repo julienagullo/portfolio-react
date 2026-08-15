@@ -24,7 +24,7 @@
   border-radius: 8px;
   cursor: pointer;
   width: 320px;
-  height: 162px;
+  aspect-ratio: 320 / 162;
   border: 2px solid transparent;
   background: none;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -64,8 +64,7 @@
   top: calc(100% + 8px);
   transform: translateX(-50%);
   color: #fff;
-  font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   white-space: nowrap;
   text-shadow:
           -1px -1px 0 #000,
@@ -83,4 +82,21 @@
 .thumbActive:focus-visible .label,
 .thumbActive .label {
   opacity: 1;
+}
+
+@media (max-width: 780px) {
+  .container {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: calc(100% - 160px);
+    height: 90vh;
+    margin-left: 80px;
+    gap: 12px;
+  }
+
+  .thumb,
+  .thumbActive {
+    width: min(280px, 60vw);
+  }
 }

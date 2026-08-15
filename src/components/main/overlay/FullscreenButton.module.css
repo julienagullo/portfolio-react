@@ -5,19 +5,19 @@
 /* Colonnes 4 et 5 du sprite (voir SpriteButton.module.css). */
 
 .enter {
-  background-position: -200px 0;
+  background-position: -240px 0;
 }
 
 .enter:hover,
 .enter:focus-visible {
-  background-position: -200px -50px;
+  background-position: -240px -60px;
 }
 
 .exit {
-  background-position: -250px 0;
+  background-position: -300px 0;
 }
 
 .exit:hover,
 .exit:focus-visible {
-  background-position: -250px -50px;
+  background-position: -300px -60px;
 }

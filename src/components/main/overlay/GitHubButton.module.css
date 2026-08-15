@@ -3,10 +3,10 @@
 .toggle {
   composes: toggle from './SpriteButton.module.css';
   display: block;
-  background-position: -300px 0;
+  background-position: -360px 0;
 }
 
 .toggle:hover,
 .toggle:focus-visible {
-  background-position: -300px -50px;
+  background-position: -360px -60px;
 }

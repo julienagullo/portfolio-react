@@ -8,9 +8,9 @@ const translations = {
       BreakRoom: 'Détente',
       MeetingRoom: 'Réunion',
     },
-    orientationGate: 'Tourne ton appareil en mode paysage pour profiter du site.',
     loading: 'Chargement du bureau',
     languageToggle: 'Passer en anglais',
+    roomMenuToggle: 'Menu des salles',
     closeButton: 'Fermer',
     fullscreenToggle: {
       enter: 'Passer en plein écran',
@@ -40,9 +40,9 @@ const translations = {
       BreakRoom: 'Break room',
       MeetingRoom: 'Meeting room',
     },
-    orientationGate: 'Rotate your device to landscape to enjoy the site.',
     loading: 'Loading the office',
     languageToggle: 'Switch to French',
+    roomMenuToggle: 'Rooms menu',
     closeButton: 'Close',
     fullscreenToggle: {
       enter: 'Enter fullscreen',

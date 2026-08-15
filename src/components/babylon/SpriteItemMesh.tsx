@@ -26,6 +26,8 @@ type SpriteItemMeshProps = {
   frameDelay?: number;
   labelOffsetY?: number;
   onHover: (hover: ItemHover | null) => void;
+  onClick?: (name: string) => void;
+  onHoverChange?: (hovering: boolean) => void;
 };
 
 export default function SpriteItemMesh({
@@ -42,12 +44,26 @@ export default function SpriteItemMesh({
   frameDelay = 60,
   labelOffsetY = 0.25,
   onHover,
+  onClick,
+  onHoverChange,
 }: SpriteItemMeshProps) {
   const hoveredRef = useRef(false);
   const labelRef = useRef(label);
   useEffect(() => {
     labelRef.current = label;
   }, [label]);
+
+  // Refs plutôt que dépendances directes dans onCreated (qui ne s'exécute qu'à la
+  // création du mesh) : évite de figer des closures obsolètes si les callbacks changent.
+  const onClickRef = useRef(onClick);
+  useEffect(() => {
+    onClickRef.current = onClick;
+  }, [onClick]);
+
+  const onHoverChangeRef = useRef(onHoverChange);
+  useEffect(() => {
+    onHoverChangeRef.current = onHoverChange;
+  }, [onHoverChange]);
 
   const height = width * (cellHeight / cellWidth);
   const lastIndex = frameCount - 1;
@@ -112,6 +128,7 @@ export default function SpriteItemMesh({
           new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, () => {
             hoveredRef.current = true;
             resetFrame();
+            onHoverChangeRef.current?.(true);
             const scene = mesh.getScene();
             const camera = scene.activeCamera;
             if (!camera) return;
@@ -132,7 +149,13 @@ export default function SpriteItemMesh({
           new ExecuteCodeAction(ActionManager.OnPointerOutTrigger, () => {
             hoveredRef.current = false;
             resetFrame();
+            onHoverChangeRef.current?.(false);
             onHover(null);
+          }),
+        );
+        mesh.actionManager.registerAction(
+          new ExecuteCodeAction(ActionManager.OnPickTrigger, () => {
+            onClickRef.current?.(name);
           }),
         );
       }}

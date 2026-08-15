@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "@babylonjs/core": "^9.18.1",
+    "howler": "^2.2.4",
     "react": "^19.2.7",
     "react-babylonjs": "^4.0.2",
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/howler": "^2.2.13",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

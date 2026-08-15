@@ -12,9 +12,11 @@ type BreakRoomProps = {
   assets: Record<string, Texture>;
   language: Language;
   onHover: (hover: ItemHover | null) => void;
+  onItemClick: (name: string) => void;
+  onItemHoverChange: (hovering: boolean) => void;
 };
 
-export default function BreakRoom({ assets, language, onHover }: BreakRoomProps) {
+export default function BreakRoom({ assets, language, onHover, onItemClick, onItemHoverChange }: BreakRoomProps) {
   const layerNames = Object.keys(assets)
     .filter((name) => !(name in BREAK_ITEMS))
     .sort();
@@ -48,6 +50,8 @@ export default function BreakRoom({ assets, language, onHover }: BreakRoomProps)
             width={width}
             labelOffsetY={labelOffsetY}
             onHover={onHover}
+            onClick={onItemClick}
+            onHoverChange={onItemHoverChange}
           />
         );
       })}

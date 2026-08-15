@@ -10,14 +10,14 @@
 
 .fr:hover,
 .fr:focus-visible {
-  background-position: 0 -50px;
+  background-position: 0 -60px;
 }
 
 .en {
-  background-position: -50px 0;
+  background-position: -60px 0;
 }
 
 .en:hover,
 .en:focus-visible {
-  background-position: -50px -50px;
+  background-position: -60px -60px;
 }

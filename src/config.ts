@@ -18,12 +18,29 @@ import officeThumb from './assets/image/office_space.webp';
 import breakThumb from './assets/image/break_room.webp';
 import meetingThumb from './assets/image/meeting_room.webp';
 import spriteIcons from './assets/image/sprite_icons.webp';
+import ambianceBureau from './assets/audio/ambiance_bureau.wav';
+import ambiancePlage from './assets/audio/ambiance_plage.wav';
+import ambianceReunion from './assets/audio/ambiance_reunion.wav';
+import sfxClic from './assets/audio/clic.wav';
+import sfxDvd from './assets/audio/dvd.wav';
+import sfxLivre from './assets/audio/livre.wav';
+import sfxRobot from './assets/audio/robot.wav';
+import sfxSonnerie from './assets/audio/sonnerie.wav';
+import sfxWilhelm from './assets/audio/wilhelm.wav';
 
 export const SCENE_WIDTH = 1920;
 export const SCENE_HEIGHT = 1080;
+export const BREAK_POINT = 780;
 export type Language = 'fr' | 'en';
 export const DEFAULT_LANGUAGE: Language = 'fr';
 export const GITHUB_REPOSITORY = 'https://github.com/julienagullo/portfolio-react';
+
+export const AMBIANCE_VOLUME = 0.4;
+export const AMBIANCE_DUCK_FACTOR = 0.2;
+export const CROSSFADE_MS = 1000;
+export const MUTE_FADE_MS = 300;
+export const DUCK_FADE_MS = 200;
+export const SFX_VOLUME = 0.7;
 
 export type Pointer = { x: number; y: number };
 export type ItemHover = { label: string; xPercent: number; yPercent: number };
@@ -75,6 +92,22 @@ export const ROOM_THUMBNAILS: Partial<Record<RoomName, string>> = {
 export const UI_ASSETS: AssetDef[] = [{ name: 'sprite_icons', url: spriteIcons }];
 export const SPRITE_ICONS_URL = spriteIcons;
 
+export const ROOM_AMBIANCE: Record<RoomName, string> = {
+  OfficeSpace: ambianceBureau,
+  BreakRoom: ambiancePlage,
+  MeetingRoom: ambianceReunion,
+};
+
+export const ITEM_SFX: Record<string, string> = {
+  office_books: sfxLivre,
+  office_phone: sfxSonnerie,
+  office_computer: sfxClic,
+  break_dvd: sfxDvd,
+  break_books: sfxLivre,
+  break_console: sfxWilhelm,
+  meeting_robot: sfxRobot,
+};
+
 export type ItemDef = { x: number; y: number; z: number; width: number; labelOffsetY?: number };
 export type SpriteItemDef = ItemDef & { url: string; cellWidth: number; cellHeight: number; frameCount: number };
 
@@ -91,5 +124,5 @@ export const BREAK_ITEMS: Record<string, SpriteItemDef> = {
 };
 
 export const MEETING_ITEMS: Record<string, SpriteItemDef> = {
-  meeting_robot: { x: -0.06, y: -1.09, z: 4.85, width: 1.5, url: meetingRobot, cellWidth: 240, cellHeight: 205, frameCount: 1, labelOffsetY: 0.35 },
+  meeting_robot: { x: -0.06, y: -1.09, z: 4.85, width: 1.5, url: meetingRobot, cellWidth: 250, cellHeight: 210, frameCount: 5, labelOffsetY: 0.35 },
 };
