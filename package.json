@@ -17,6 +17,10 @@
     "react-babylonjs": "^4.0.2",
     "react-dom": "^19.2.7"
   },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/howler": "^2.2.13",

@@ -158,16 +158,14 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [x] Composant `<TransitionOverlay>` (fade) + swap de textures/salle via state
 
 ### Salle Bureau
-- [ ] Éléments interactifs + gestion du state "élément sélectionné"
-- [ ] Config TS du contenu pro (projets, compétences, contact)
-- [ ] Câblage avec le composant `<Modal>` générique
-- [ ] Style de modal pro (agenda pro)
+- [x] Éléments interactifs + gestion du state "élément sélectionné"
+- [x] Config TS du contenu pro (projets, compétences, contact)
+- [x] Câblage avec le composant `<Modal>` générique
 
 ### Salle Détente
 - [ ] Éléments interactifs + gestion du state "élément sélectionné"
 - [ ] Config TS du contenu perso (réalisateurs, auteurs, intérêts)
 - [ ] Câblage avec le composant `<Modal>` générique
-- [ ] Style de modal loisirs (agenda perso)
 
 ### Salle Réunion (RAG + LLM)
 - [ ] Rédiger et structurer les documents sources (projets, commentaires, CV)
@@ -176,15 +174,14 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [ ] Backend proxy (serverless function) pour appel LLM sécurisé
 - [ ] Recherche par similarité + injection du contexte dans le prompt système
 - [ ] UI bulle de chat + streaming des réponses
-- [ ] Historique de conversation limité
+- [ ] Historique de conversation
 - [ ] Rate limiting + fallback erreur + recadrage hors-sujet
 
 ### Son
-- [ ] Installer Howler.js + mettre en place le hook/contexte `useAudio` (état mute global, `playSfx`/`playAmbiance`/`stopAmbiance`)
-- [ ] Sourcer/produire les 3 ambiances de salle (bureau, détente, réunion) en boucle courte + gestion du crossfade au changement de salle
-- [ ] SFX clic sur les éléments interactifs + ouverture/fermeture de modal
-- [ ] Déblocage audio au premier geste utilisateur (contournement autoplay) + mute par défaut au chargement
-- [ ] (optionnel) SFX de frappe pendant le streaming du chat RAG
+- [x] Installer Howler.js + mettre en place le hook/contexte `useAudio` (état mute global, `playSfx`/`playAmbiance`/`stopAmbiance`)
+- [x] Sourcer/produire les 3 ambiances de salle (bureau, détente, réunion) en boucle courte + gestion du crossfade au changement de salle
+- [x] SFX clic sur les éléments interactifs + ouverture/fermeture de modal
+- [x] Déblocage audio si clic sur le bouton son + mute par défaut au chargement
 
 ### Finitions
 - [x] Responsive / adaptation mobile (au moins un fallback correct si rotation caméra souris non pertinente au tactile)
