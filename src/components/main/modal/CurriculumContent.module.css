@@ -1,0 +1,251 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: slideIn 220ms ease-out;
+  transition: transform 200ms ease-out;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.dragging {
+  transition: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(calc(24px * var(--dir, 1)));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.headRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.headInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo {
+  flex-shrink: 0;
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+
+.period {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.blue {
+  color: #1961c7;
+}
+
+.orange {
+  color: #e07b1a;
+}
+
+.green {
+  color: #2f9e44;
+}
+
+.red {
+  color: #cc1616;
+}
+
+.yellow {
+  color: #d5ba1a;
+}
+
+.role {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.company {
+  margin: 2px 0 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.description {
+  margin: 10px 0 0;
+  line-height: 1.5;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  padding-left: 14px;
+  /* Même taille que .categoryTitle dans SkillsContent.module.css. */
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-left: 3px solid currentColor;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skillPill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  /* Même taille que .name dans SkillsContent.module.css. */
+  font-size: 0.95rem;
+  background: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.projectDate {
+  display: block;
+  margin: 0 0 2px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+.projectTitle {
+  margin: 0 0 4px;
+  font-weight: 700;
+}
+
+.projectTitle a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.projectDetail {
+  margin: 0;
+  /* Même taille que .desc dans SkillsContent.module.css. */
+  font-size: 0.75rem;
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  background: transparent;
+  color: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+
+.arrow:hover:not(:disabled),
+.arrow:focus-visible:not(:disabled) {
+  background: rgba(128, 128, 128, 0.14);
+  transform: scale(1.05);
+}
+
+.arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: rgba(128, 128, 128, 0.3);
+  cursor: pointer;
+  transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+
+.dot:hover,
+.dot:focus-visible {
+  background: rgba(128, 128, 128, 0.55);
+}
+
+.dotActive {
+  /* Couleur donnée par la classe d'accent de sa propre expérience (voir
+     .blue/.orange/.green/.red ci-dessus), combinée sur le même bouton. */
+  background: currentColor;
+  transform: scale(1.3);
+}
+
+@media (max-width: 780px) {
+  .role {
+    font-size: 1.05rem;
+  }
+}

@@ -1,0 +1,136 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding-left: 14px;
+  border-left: 3px solid #1961c7;
+}
+
+.photo {
+  flex-shrink: 0;
+  width: auto;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.role {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #1961c7;
+}
+
+.at {
+  opacity: 0.6;
+}
+
+.cvButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #1961c7;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+
+.cvButton:hover,
+.cvButton:focus-visible {
+  background: #164f9e;
+  transform: translateY(-1px);
+}
+
+.accordionItem {
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  overflow: hidden;
+}
+
+.accordionTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.accordionTrigger::-webkit-details-marker {
+  display: none;
+}
+
+.accordionTrigger::after {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-left: 12px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 150ms ease-out;
+}
+
+.accordionItem[open] .accordionTrigger::after {
+  transform: rotate(-135deg);
+}
+
+.accordionTrigger:hover,
+.accordionTrigger:focus-visible {
+  color: #1961c7;
+}
+
+.accordionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px 16px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.accordionBody p {
+  margin: 0;
+}
+
+.identity {
+  font-style: normal;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.1);
+}
+
+@media (max-width: 780px) {
+  .photo {
+    display: none;
+  }
+}
