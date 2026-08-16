@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Disallow: /assets/
+Disallow: /assets/cv-jagullo-2027.pdf
+
+Sitemap: https://jagullo.fr/sitemap.xml
+Sitemap: https://jagullo.fr/blog/sitemap_index.xml
