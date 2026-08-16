@@ -5,7 +5,7 @@ const translations = {
     siteTitle: 'Portfolio développeur web - jagullo.fr',
     rooms: {
       OfficeSpace: 'Bureau',
-      BreakRoom: 'Détente',
+      BreakRoom: 'Loisirs',
       MeetingRoom: 'Réunion',
     },
     loading: 'Chargement du bureau',
@@ -55,8 +55,8 @@ const translations = {
     siteTitle: 'Web developer portfolio - jagullo.fr',
     rooms: {
       OfficeSpace: 'Office',
-      BreakRoom: 'Break room',
-      MeetingRoom: 'Meeting room',
+      BreakRoom: 'Hobbies',
+      MeetingRoom: 'Meeting',
     },
     loading: 'Loading the office',
     languageToggle: 'Switch to French',

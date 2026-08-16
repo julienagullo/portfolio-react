@@ -163,9 +163,9 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [x] Câblage avec le composant `<Modal>` générique
 
 ### Salle Détente
-- [ ] Éléments interactifs + gestion du state "élément sélectionné"
-- [ ] Config TS du contenu perso (réalisateurs, auteurs, intérêts)
-- [ ] Câblage avec le composant `<Modal>` générique
+- [x] Éléments interactifs + gestion du state "élément sélectionné"
+- [x] Config TS du contenu perso (films, auteurs, jeux)
+- [x] Câblage avec le composant `<Modal>` générique
 
 ### Salle Réunion (RAG + LLM)
 - [ ] Rédiger et structurer les documents sources (projets, commentaires, CV)

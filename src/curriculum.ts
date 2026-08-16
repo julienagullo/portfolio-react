@@ -1,7 +1,7 @@
-import logoDBA from './assets/ressources/logo-dba.png';
-import logoFoxyz from './assets/ressources/logo-foxyz.png';
-import logoPortfolio from './assets/ressources/logo-portfolio.png';
-import logoVirtualit from './assets/ressources/logo-virtualit.png';
+import logoDBA from './assets/ressources/curriculum/logo-dba.png';
+import logoFoxyz from './assets/ressources/curriculum/logo-foxyz.png';
+import logoPortfolio from './assets/ressources/curriculum/logo-portfolio.png';
+import logoVirtualit from './assets/ressources/curriculum/logo-virtualit.png';
 import type { Language } from './config.ts';
 
 export type CvAccent = 'blue' | 'orange' | 'green' | 'red' | 'yellow';
