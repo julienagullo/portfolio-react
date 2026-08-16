@@ -55,8 +55,8 @@ export const FAVORITE_FILMS: HobbyItem[] = [
     title: 'Obsession',
     subtitle: 'Curry Barker',
     description: {
-      fr: "Un très bon film d'horreur dans la lignée de It Follows, La Main, etc.",
-      en: 'A really good horror film in the vein of It Follows, La Main, and the like.',
+      fr: "Un très bon film d'horreur dans la lignée de It Follows, La Main, Smile, etc.",
+      en: 'A really good horror film in the vein of It Follows, La Main, Smile, and the like.',
     },
     image: obsession,
   },
@@ -95,8 +95,8 @@ export const FAVORITE_FILMS: HobbyItem[] = [
     title: 'Ad Bestas',
     subtitle: 'Rodrigo Sorogoyen',
     description: {
-      fr: "Une superbe interprétation, portée par une histoire originale sur l'intégration.",
-      en: 'A superb performance, carried by an original story about integration.',
+      fr: "Une superbe interprétation, portée par une histoire originale sur l'intégration et le racisme.",
+      en: 'A superb performance, carried by an original story about integration and racism.',
     },
     image: adBestas,
   },

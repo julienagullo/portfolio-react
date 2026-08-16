@@ -302,6 +302,14 @@ export const CURRICULUM: CvExperience[] = [
         },
       },
       {
+        title: { fr: 'CNES', en: 'CNES' },
+        date: '2014 - 2015',
+        detail: {
+          fr: "Contribution à la conception de l'application de salon Charte Internationale Espace et Catastrophes Majeures.",
+          en: 'Contributed to the design of the International Charter Space and Major Disasters kiosk application.',
+        },
+      },
+      {
         title: { fr: 'DGAC', en: 'DGAC' },
         date: '2014',
         detail: {
@@ -319,18 +327,10 @@ export const CURRICULUM: CvExperience[] = [
       },
       {
         title: { fr: 'Thales Avionics', en: 'Thales Avionics' },
-        date: '2013',
+        date: '2013 - 2014',
         detail: {
           fr: "Réalisation d'une application de salon pour support tactile.",
           en: 'Built a touchscreen kiosk application.',
-        },
-      },
-      {
-        title: { fr: 'CNES', en: 'CNES' },
-        date: '2013 - 2016',
-        detail: {
-          fr: "Contribution à la conception de l'application de salon Charte Internationale Espace et Catastrophes Majeures.",
-          en: 'Contributed to the design of the International Charter Space and Major Disasters kiosk application.',
         },
       },
       {
@@ -478,6 +478,14 @@ export const CURRICULUM: CvExperience[] = [
         detail: {
           fr: "DUT en services et réseaux de communication à l'Université Paul Sabatier 3 sur Tarbes.",
           en: 'DUT (associate degree) in communication networks and services at Université Paul Sabatier, Tarbes campus.',
+        },
+      },
+      {
+        title: { fr: 'Baccalauréat SSI', en: 'Science Baccalaureate (SSI)' },
+        date: '2001 - 2002',
+        detail: {
+          fr: "Bac Scientifique Sciences de l'Ingénieur au lycée Déodat de Séverac sur Toulouse.",
+          en: "Science baccalaureate, engineering sciences track, at Lycée Déodat de Séverac in Toulouse.",
         },
       },
     ],
