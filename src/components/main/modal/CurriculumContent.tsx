@@ -19,6 +19,10 @@ export default function CurriculumContent() {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartXRef = useRef(0);
   const pointerIdRef = useRef<number | null>(null);
+  const contentElRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    contentElRef.current = contentEl;
+  }, [contentEl]);
 
   const goTo = useCallback((next: number) => {
     setSlide((prev) => {
@@ -45,6 +49,12 @@ export default function CurriculumContent() {
     dragStartXRef.current = event.clientX;
     setIsDragging(true);
     event.currentTarget.setPointerCapture(event.pointerId);
+    // Le conteneur scrollable (.content) est un ancêtre du slide : si un léger
+    // déplacement vertical survient pendant le drag horizontal, le navigateur
+    // peut récupérer le geste pour scroller en natif et couper le pointer
+    // (pointercancel), ce qui bloque le slide en plein drag. On désactive donc
+    // le scroll le temps du drag, et on le restaure au relâchement.
+    if (contentElRef.current) contentElRef.current.style.overflowY = 'hidden';
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
@@ -61,6 +71,7 @@ export default function CurriculumContent() {
     pointerIdRef.current = null;
     setIsDragging(false);
     setDragX(0);
+    if (contentElRef.current) contentElRef.current.style.overflowY = '';
   };
 
   const experience = CURRICULUM[index];

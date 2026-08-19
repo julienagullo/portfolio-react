@@ -14,9 +14,17 @@ type BreakRoomProps = {
   onHover: (hover: ItemHover | null) => void;
   onItemClick: (name: string) => void;
   onItemHoverChange: (hovering: boolean) => void;
+  suppressHover: boolean;
 };
 
-export default function BreakRoom({ assets, language, onHover, onItemClick, onItemHoverChange }: BreakRoomProps) {
+export default function BreakRoom({
+  assets,
+  language,
+  onHover,
+  onItemClick,
+  onItemHoverChange,
+  suppressHover,
+}: BreakRoomProps) {
   const layerNames = Object.keys(assets)
     .filter((name) => !(name in BREAK_ITEMS))
     .sort();
@@ -52,6 +60,7 @@ export default function BreakRoom({ assets, language, onHover, onItemClick, onIt
             onHover={onHover}
             onClick={onItemClick}
             onHoverChange={onItemHoverChange}
+            forceUnhover={suppressHover}
           />
         );
       })}

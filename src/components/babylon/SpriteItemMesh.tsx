@@ -28,6 +28,11 @@ type SpriteItemMeshProps = {
   onHover: (hover: ItemHover | null) => void;
   onClick?: (name: string) => void;
   onHoverChange?: (hovering: boolean) => void;
+  // Force la sortie de l'état "survolé" (animation, tooltip, ducking audio) —
+  // utilisé quand une modal s'ouvre : sur tactile il n'y a pas de pointerout
+  // naturel après un tap (le doigt se lève sans bouger), donc l'item resterait
+  // sinon bloqué "actif" indéfiniment (voir OnPointerOutTrigger plus bas).
+  forceUnhover?: boolean;
 };
 
 export default function SpriteItemMesh({
@@ -46,6 +51,7 @@ export default function SpriteItemMesh({
   onHover,
   onClick,
   onHoverChange,
+  forceUnhover = false,
 }: SpriteItemMeshProps) {
   const hoveredRef = useRef(false);
   const labelRef = useRef(label);
@@ -103,6 +109,15 @@ export default function SpriteItemMesh({
     resetFrame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemTexture, layout]);
+
+  useEffect(() => {
+    if (!forceUnhover || !hoveredRef.current) return;
+    hoveredRef.current = false;
+    resetFrame();
+    onHoverChangeRef.current?.(false);
+    onHover(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [forceUnhover]);
 
   useBeforeRender((scene) => {
     if (!hoveredRef.current || frameRef.current >= lastIndex) return;

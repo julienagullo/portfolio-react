@@ -14,9 +14,17 @@ type MeetingRoomProps = {
   onHover: (hover: ItemHover | null) => void;
   onItemClick: (name: string) => void;
   onItemHoverChange: (hovering: boolean) => void;
+  suppressHover: boolean;
 };
 
-export default function MeetingRoom({ assets, language, onHover, onItemClick, onItemHoverChange }: MeetingRoomProps) {
+export default function MeetingRoom({
+  assets,
+  language,
+  onHover,
+  onItemClick,
+  onItemHoverChange,
+  suppressHover,
+}: MeetingRoomProps) {
   const layerNames = Object.keys(assets)
     .filter((name) => !(name in MEETING_ITEMS))
     .sort();
@@ -52,6 +60,7 @@ export default function MeetingRoom({ assets, language, onHover, onItemClick, on
             onHover={onHover}
             onClick={onItemClick}
             onHoverChange={onItemHoverChange}
+            forceUnhover={suppressHover}
           />
         );
       })}

@@ -255,8 +255,8 @@ export const CURRICULUM: CvExperience[] = [
         title: { fr: 'Enerbim', en: 'Enerbim' },
         date: '2019',
         detail: {
-          fr: "Contribution au développement de la plateforme CN-BIMES pour le métier du BIM.",
-          en: 'Contributed to the development of the CN-BIMES platform for the BIM industry.',
+          fr: "Aide au développement du prototype CN-BIMES pour le métier du BIM.",
+          en: 'Contributed to the development of the CN-BIMES prototype for the BIM industry.',
         },
       },
       {
@@ -297,8 +297,8 @@ export const CURRICULUM: CvExperience[] = [
         title: { fr: 'Airbus Defence & Space', en: 'Airbus Defence & Space' },
         date: '2015',
         detail: {
-          fr: "Conception d'un magazine interactif à usage interne présentant la mission JUICE.",
-          en: 'Designed an interactive internal magazine presenting the JUICE mission.',
+          fr: "Conception d'un magazine interactif interne pour la mission JUICE.",
+          en: 'Designed an interactive internal magazine for the JUICE mission.',
         },
       },
       {
@@ -321,7 +321,7 @@ export const CURRICULUM: CvExperience[] = [
         title: { fr: 'Thales Aéroporté', en: 'Thales Aéroporté' },
         date: '2014',
         detail: {
-          fr: "Conception de la charte graphique et développement de l'application de salon TopWings EFB solution pour support tactile.",
+          fr: "Conception du design et aide au développement de l'application de salon TopWings EFB solution pour support tactile.",
           en: 'Designed the visual identity and developed the TopWings EFB touchscreen kiosk application.',
         },
       },

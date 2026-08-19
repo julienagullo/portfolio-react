@@ -110,7 +110,6 @@
 .sectionTitle {
   margin: 0;
   padding-left: 14px;
-  /* Même taille que .categoryTitle dans SkillsContent.module.css. */
   font-size: 1rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -128,10 +127,9 @@
 }
 
 .skillPill {
-  padding: 6px 12px;
-  border-radius: 999px;
-  /* Même taille que .name dans SkillsContent.module.css. */
-  font-size: 0.95rem;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
   background: rgba(128, 128, 128, 0.1);
   border: 1px solid rgba(128, 128, 128, 0.2);
 }

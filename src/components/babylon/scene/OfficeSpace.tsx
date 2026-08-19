@@ -14,9 +14,17 @@ type OfficeSpaceProps = {
   onHover: (hover: ItemHover | null) => void;
   onItemClick: (name: string) => void;
   onItemHoverChange: (hovering: boolean) => void;
+  suppressHover: boolean;
 };
 
-export default function OfficeSpace({ assets, language, onHover, onItemClick, onItemHoverChange }: OfficeSpaceProps) {
+export default function OfficeSpace({
+  assets,
+  language,
+  onHover,
+  onItemClick,
+  onItemHoverChange,
+  suppressHover,
+}: OfficeSpaceProps) {
   const layerNames = Object.keys(assets)
     .filter((name) => !(name in OFFICE_SPRITE_ITEMS))
     .sort();
@@ -52,6 +60,7 @@ export default function OfficeSpace({ assets, language, onHover, onItemClick, on
             onHover={onHover}
             onClick={onItemClick}
             onHoverChange={onItemHoverChange}
+            forceUnhover={suppressHover}
           />
         );
       })}

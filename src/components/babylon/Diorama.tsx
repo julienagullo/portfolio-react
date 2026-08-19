@@ -36,6 +36,7 @@ export default function Diorama() {
   const [pendingRoom, setPendingRoom] = useState<RoomName | null>(null);
   const [hover, setHover] = useState<ItemHover | null>(null);
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [itemHovered, setItemHovered] = useState(false);
   // Menu des salles replié par défaut sur mobile : ouvert via le burger (voir
   // RoomThumbnails.mobileOpen), pas de révélation au survol souris au tactile.
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,12 +60,23 @@ export default function Diorama() {
 
   const ActiveModalContent = activeItem ? MODAL_CONTENT[activeItem] : undefined;
 
+  // Tant qu'une modal est ouverte, aucun item ne doit rester visuellement
+  // "survolé" — nécessaire notamment sur tactile où le tap qui ouvre la modal
+  // ne génère jamais de pointerout naturel (voir SpriteItemMesh.forceUnhover).
+  const suppressHover = activeItem !== null;
+
   // Baisse l'ambiance pendant le survol d'un item plutôt que de jouer un SFX au
   // rollover (voir AudioContext.setAmbianceDucked).
-  const handleItemHoverChange = useCallback(
-    (hovering: boolean) => setAmbianceDucked(hovering),
-    [setAmbianceDucked],
-  );
+  const handleItemHoverChange = useCallback((hovering: boolean) => setItemHovered(hovering), []);
+
+  // Ducking piloté par deux sources indépendantes (survol ET modal ouverte),
+  // plutôt que par le seul hover Babylon : sur tactile le "survol" reste
+  // volontairement coupé dès l'ouverture de la modal (voir suppressHover
+  // ci-dessus), mais on veut quand même garder l'ambiance baissée tant que la
+  // modal reste ouverte.
+  useEffect(() => {
+    setAmbianceDucked(itemHovered || activeItem !== null);
+  }, [itemHovered, activeItem, setAmbianceDucked]);
 
   const handleProgress = useCallback((loaded: number, total: number) => {
     setProgress(total === 0 ? 0 : (loaded / total) * 100);
@@ -80,6 +92,7 @@ export default function Diorama() {
     setTransition('covering');
     setHover(null);
     setActiveItem(null);
+    setItemHovered(false);
     setMobileMenuOpen(false);
   };
 
@@ -122,6 +135,7 @@ export default function Diorama() {
               onHover={handleHover}
               onItemClick={handleItemClick}
               onItemHoverChange={handleItemHoverChange}
+              suppressHover={suppressHover}
             />
           )}
           {assets && activeRoom === 'BreakRoom' && (
@@ -131,6 +145,7 @@ export default function Diorama() {
               onHover={handleHover}
               onItemClick={handleItemClick}
               onItemHoverChange={handleItemHoverChange}
+              suppressHover={suppressHover}
             />
           )}
           {assets && activeRoom === 'MeetingRoom' && (
@@ -140,6 +155,7 @@ export default function Diorama() {
               onHover={handleHover}
               onItemClick={handleItemClick}
               onItemHoverChange={handleItemHoverChange}
+              suppressHover={suppressHover}
             />
           )}
         </Scene>
