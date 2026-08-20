@@ -89,6 +89,7 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - Un seul composant `<Modal>` générique réutilisé partout, alimenté par la config selon la salle + l'élément cliqué
 
 ### Salle de réunion — RAG + LLM
+- **Modèle retenu : Mistral Small 4** (API Mistral) — licence Apache 2.0, raisonnement/vision/code unifiés en un seul modèle, latence réduite (~40 % vs Mistral Small 3) et coût d'inférence contenu (MoE, 6 Md de paramètres actifs sur 119 Md), largement suffisant pour un chat RAG texte sur ce périmètre
 - **Backend obligatoire** (serverless function / Cloudflare Worker) : jamais d'appel LLM direct depuis le frontend (clé API exposée)
 - Documents sources (projets, commentaires, CV) découpés en chunks (~300-500 tokens)
 - Embeddings des chunks stockés en local (JSON + cosine similarity, ou SQLite + extension vecteur)

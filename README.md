@@ -2,9 +2,9 @@
 
 Here is my portfolio made with React, TypeScript, Vite and Babylon.js (react-babylonjs): [Website](https://jagullo.fr/)
 
-[![license](https://img.shields.io/github/license/julienagullo/cookieKit.svg)](https://github.com/julienagullo/portfolio-react/LICENSE.md)
+[![license](https://img.shields.io/github/license/julienagullo/portfolio-react.svg)](https://github.com/julienagullo/portfolio-react/LICENSE.md)
 
-A pixel-art diorama-style portfolio: a 3D scene (shadow box) with layered depth, browsed across 3 rooms (office, lounge, meeting room) with a slight camera rotation on mouse move. The meeting room includes a RAG-powered chat backed by an LLM.
+A pixel-art diorama-style portfolio: a 3D scene (shadow box) with layered depth, browsed across 3 rooms (office, lounge, meeting room) with a slight camera rotation on mouse move. The meeting room will include a RAG-powered chat backed by an LLM (in progress).
 
 ## Table of contents
 
@@ -54,10 +54,17 @@ npm run lint
 
 ## Tech stack
 
+This project was built with the assistance of **Claude Code** (Anthropic): code implementation, ambiance sound mixing and help with writing/translation (FR/EN) — all under the author's supervision and technical direction (architecture, product choices, and trade-offs documented in [CLAUDE.md](https://github.com/julienagullo/portfolio-react/blob/main/CLAUDE.md)).
+
 - **React 19** + **TypeScript** + **Vite**
 - **Babylon.js** via **react-babylonjs** for the 3D diorama scene
 - **Howler.js** for ambient sound and SFX per room
-- LLM chat with RAG on the meeting room, via a serverless backend (no direct client-side LLM calls)
+- **LLM chat** with RAG on the meeting room, implementation with **Mistral AI** *(in progress)*
+
+**Assets & credits**
+
+- Pixel art assets created with [Affinity](https://affinity.serif.com/)
+- Sound effects and ambiances sourced from [lasonotheque.org](https://lasonotheque.org)
 
 More architecture details in [CLAUDE.md](./CLAUDE.md).
 

@@ -2,7 +2,6 @@ import adBestas from './assets/ressources/hobbies/ad-bestas.png';
 import auRevoirLaHaut from './assets/ressources/hobbies/au-revoir-la-haut.png';
 import balatro from './assets/ressources/hobbies/balatro.png';
 import dredge from './assets/ressources/hobbies/dredge.png';
-import endling from './assets/ressources/hobbies/endling.png';
 import gambonanza from './assets/ressources/hobbies/gambonanza.png';
 import ilEtait2Fois from './assets/ressources/hobbies/il-etait-2-fois.png';
 import inscryption from './assets/ressources/hobbies/inscryption.png';
@@ -19,6 +18,7 @@ import norferville from './assets/ressources/hobbies/norferville.png';
 import obsession from './assets/ressources/hobbies/obsession.png';
 import pandemia from './assets/ressources/hobbies/pandemia.png';
 import shutterIsland from './assets/ressources/hobbies/shutter-island.png';
+import squareValley from './assets/ressources/hobbies/square-valley.png';
 import theDrifter from './assets/ressources/hobbies/the-drifter.png';
 import theFather from './assets/ressources/hobbies/the-father.png';
 import trainDEnferPourAngeRouge from './assets/ressources/hobbies/train-d-enfer-pour-ange-rouge.png';
@@ -65,8 +65,8 @@ export const FAVORITE_FILMS: HobbyItem[] = [
     title: "Une bataille après l'autre",
     subtitle: 'Paul Thomas Anderson',
     description: {
-      fr: "Un thriller d'une grande maîtrise, porté par une interprétation magistrale.",
-      en: 'A masterfully crafted thriller, carried by a towering performance.',
+      fr: "Un thriller d'une grande maîtrise dans la lignée de Tarantino, porté par une superbe interprétation.",
+      en: 'A masterfully crafted thriller in the vein of Tarantino, carried by a towering performance.',
     },
     image: uneBatailleApresLAutre,
   },
@@ -95,7 +95,7 @@ export const FAVORITE_FILMS: HobbyItem[] = [
     title: 'Ad Bestas',
     subtitle: 'Rodrigo Sorogoyen',
     description: {
-      fr: "Une superbe interprétation, portée par une histoire originale sur l'intégration et le racisme.",
+      fr: "Une superbe interprétation et un excellent scénario sur l'intégration et le racisme.",
       en: 'A superb performance, carried by an original story about integration and racism.',
     },
     image: adBestas,
@@ -105,8 +105,8 @@ export const FAVORITE_FILMS: HobbyItem[] = [
     title: 'The Father',
     subtitle: 'Florian Zeller',
     description: {
-      fr: "Une histoire prenante sur l'autonomie et la perte de mémoire.",
-      en: 'A gripping story about autonomy and memory loss.',
+      fr: "Une histoire prenante sur l'autonomie et la perte de mémoire avec un Anthony Hopkins excellent.",
+      en: 'A gripping story about autonomy and memory loss, with an excellent Anthony Hopkins.',
     },
     image: theFather,
   },
@@ -142,7 +142,7 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
   {
     author: 'Pierre Lemaitre',
     description: {
-      fr: "Pierre Lemaitre possède à la fois une plume magistrale et une imagination complétement folle. Ses 2 suites « Les Années glorieuses » et « Les Enfants du désastre » sont des romans cultes.",
+      fr: "Pierre Lemaitre possède à la fois une plume et une imagination magistrales. Ses 2 suites « Les Années glorieuses » et « Les Enfants du désastre » sont des romans cultes.",
       en: 'Pierre Lemaitre combines a masterful pen with a completely wild imagination. His two series, « Les Années glorieuses » and « Les Enfants du désastre », are cult novels.',
     },
     books: [
@@ -155,8 +155,8 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
   {
     author: 'Jean-Christophe Grangé',
     description: {
-      fr: "Considéré comme l'un des meilleurs écrivains de roman noir de la scène française, il maîtrise le suspense comme aucun autre et possède une plume très talentueuse.",
-      en: 'Considered one of the best noir authors on the French scene, he masters suspense like no other and has a truly talented pen.',
+      fr: "Considéré comme l'un des meilleurs écrivains de roman noir de la scène française, il maîtrise le suspense comme aucun autre et son passé de journaliste lui confère un style remarquable.",
+      en: 'Considered one of the best noir authors on the French scene, he masters suspense like no other, and his background as a journalist gives his writing a remarkable style.',
     },
     books: [
       { title: 'Les Promises', year: 2021, image: lesPromises },
@@ -203,28 +203,28 @@ export const FAVORITE_GAMES: HobbyItem[] = [
     title: 'Dredge',
     subtitle: 'Black Salt Games',
     description: {
-      fr: 'Jeu de pêche ambiance lovecraft original avec un gameplay reposant.',
+      fr: "Jeu de pêche à l'ambiance lovecraftienne avec un gameplay reposant.",
       en: 'An original Lovecraftian fishing game with wonderfully relaxing gameplay.',
     },
     image: dredge,
   },
   {
     year: 2022,
-    title: 'Endling - Extinction is Forever',
-    subtitle: 'Herobeat Studios',
+    title: 'Square Valley',
+    subtitle: 'Rycekube Games',
     description: {
-      fr: "Une aventure poignante sur l'extinction de la faune et la flore.",
-      en: 'A poignant adventure about the extinction of flora and fauna.',
+      fr: "Un city-builder puzzle aussi malin qu'apaisant, avec un vrai game design ingénieux.",
+      en: 'A clever, wonderfully relaxing city-building puzzle game.',
     },
-    image: endling,
+    image: squareValley,
   },
   {
     year: 2021,
     title: 'Inscryption',
     subtitle: 'Daniel Mullins Games',
     description: {
-      fr: 'Dans la famille des jeux barrés, je voudrais le plus barré.',
-      en: 'In the family of unhinged games, I\'ll take the most unhinged one.',
+      fr: 'Il y a des fois où on se demande comment on peut imaginer une chose pareille !',
+      en: "Sometimes you just wonder how anyone could come up with something like this!",
     },
     image: inscryption,
   },

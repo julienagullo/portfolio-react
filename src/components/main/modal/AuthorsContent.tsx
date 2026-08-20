@@ -23,7 +23,7 @@ export default function AuthorsContent({ authors }: AuthorsContentProps) {
               {entry.books.map((book) => (
                 <li key={book.title} className={style.bookCard}>
                   {book.image ? (
-                    <img className={style.bookCover} src={book.image} alt="" loading="lazy" />
+                    <img className={style.bookCover} src={book.image} alt={book.title} loading="lazy" />
                   ) : (
                     <div className={`${style.bookCoverFallback} ${style[accent]}`} aria-hidden="true" />
                   )}
