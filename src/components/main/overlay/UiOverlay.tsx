@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-import { SPRITE_ICONS_URL } from '../../../config.ts';
+import { SPRITE_ICONS_URL } from '../../../config/config.ts';
 import LanguageButton from './LanguageButton.tsx';
 import FullscreenButton from './FullscreenButton.tsx';
 import SoundButton from './SoundButton.tsx';

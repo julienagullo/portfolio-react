@@ -1,4 +1,4 @@
-import type { ItemHover } from '../../../config';
+import type { ItemHover } from '../../../config/config';
 import style from './ItemTooltip.module.css';
 
 type ItemTooltipProps = {

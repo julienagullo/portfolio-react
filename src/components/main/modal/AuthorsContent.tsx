@@ -1,5 +1,5 @@
 import { useLanguage } from '../../../context/LanguageContext.tsx';
-import type { BookAuthorEntry } from '../../../hobbies.ts';
+import type { BookAuthorEntry } from '../../../config/hobbies.ts';
 import style from './HobbyContent.module.css';
 
 const ACCENTS = ['blue', 'orange', 'green', 'red', 'yellow', 'purple'] as const;

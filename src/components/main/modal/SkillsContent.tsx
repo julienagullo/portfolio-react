@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useLanguage } from '../../../context/LanguageContext.tsx';
 import { useTypewriter } from '../../../hooks/useTypewriter.ts';
-import { SKILLS, type SkillItem } from '../../../skills.ts';
+import { SKILLS, type SkillItem } from '../../../config/skills.ts';
 import style from './SkillsContent.module.css';
 
 type SkillCardProps = {

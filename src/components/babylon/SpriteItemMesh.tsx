@@ -10,7 +10,7 @@ import {
 import { useEffect, useMemo, useRef } from 'react';
 import { useBeforeRender } from 'react-babylonjs';
 
-import type { ItemHover } from '../../config';
+import type { ItemHover } from '../../config/config';
 
 type SpriteItemMeshProps = {
   name: string;
@@ -28,10 +28,6 @@ type SpriteItemMeshProps = {
   onHover: (hover: ItemHover | null) => void;
   onClick?: (name: string) => void;
   onHoverChange?: (hovering: boolean) => void;
-  // Force la sortie de l'état "survolé" (animation, tooltip, ducking audio) —
-  // utilisé quand une modal s'ouvre : sur tactile il n'y a pas de pointerout
-  // naturel après un tap (le doigt se lève sans bouger), donc l'item resterait
-  // sinon bloqué "actif" indéfiniment (voir OnPointerOutTrigger plus bas).
   forceUnhover?: boolean;
 };
 

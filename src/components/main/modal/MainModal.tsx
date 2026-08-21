@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 
-import { SPRITE_ICONS_URL } from '../../../config.ts';
+import { SPRITE_ICONS_URL } from '../../../config/config.ts';
 import { ModalContentContext } from '../../../context/ModalContentContext.ts';
 import { ModalFooterContext } from '../../../context/ModalFooterContext.ts';
 import CloseButton from '../overlay/CloseButton.tsx';

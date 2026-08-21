@@ -1,5 +1,5 @@
 import { useLanguage } from '../../../context/LanguageContext.tsx';
-import { CONTACT_EMAIL, CV_PDF_URL, LEGAL_NOTICE, PROFILE_PHOTO_URL } from '../../../contact.ts';
+import { CONTACT_EMAIL, CV_PDF_URL, LEGAL_NOTICE, PROFILE_PHOTO_URL } from '../../../config/contact.ts';
 import style from './ContactContent.module.css';
 
 export default function ContactContent() {

@@ -1,4 +1,4 @@
-import { GITHUB_REPOSITORY } from '../../../config.ts';
+import { GITHUB_REPOSITORY } from '../../../config/config.ts';
 import { useLanguage } from '../../../context/LanguageContext.tsx';
 import style from './GitHubButton.module.css';
 

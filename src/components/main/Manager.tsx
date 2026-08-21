@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { AssetsManager, Texture } from '@babylonjs/core';
 import { useScene } from 'react-babylonjs';
 
-import { ASSET_MANIFEST, UI_ASSETS, type RoomName } from '../../config.ts';
+import { ASSET_MANIFEST, UI_ASSETS, type RoomName } from '../../config/config.ts';
 
 export type LoadedAssets = Record<RoomName, Record<string, Texture>>;
 

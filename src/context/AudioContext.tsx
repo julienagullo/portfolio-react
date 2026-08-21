@@ -11,7 +11,7 @@ import {
   ROOM_AMBIANCE,
   SFX_VOLUME,
   type RoomName,
-} from '../config.ts';
+} from '../config/config.ts';
 
 type AudioContextValue = {
   muted: boolean;

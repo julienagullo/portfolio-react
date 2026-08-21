@@ -89,6 +89,11 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - Un seul composant `<Modal>` générique réutilisé partout, alimenté par la config selon la salle + l'élément cliqué
 
 ### Salle de réunion — RAG + LLM
+
+**Génération des documents sources**
+- `src/scripts/generate-rag-docs.mjs` (`npm run generate-rag`) génère `rag/portfolio-fr.md` et `rag/portfolio-en.md` à partir de la config typée (`src/config/curriculum.ts`, `src/config/hobbies.ts`) — source unique de vérité, pas de duplication manuelle entre les deux langues.
+- Tous les libellés du markdown généré sont localisés par langue via un petit dictionnaire par fonction de rendu (`renderCurriculum`, `renderHobbies`), y compris les titres de sections/blocs (ex. `Parcours professionnel`/`Professional background`, `Projet`/`Project`, `Contexte`/`Context`, `chez`/`at`, `Lien`/`Link`) — pas seulement le contenu métier (`role`, `title`, `description`, `skills`, déjà stocké par langue dans la config). Point de vigilance corrigé : ces libellés de structure étaient auparavant codés en dur en français, ce qui laissait des titres hybrides FR/EN dans `portfolio-en.md` (ex. `### Projet — Cross-cutting ERP improvements`) ; relancer le script après toute modification de la config pour garder les deux fichiers `.md` synchronisés.
+- **Champ `ragComment` (bilingue, optionnel)** : disponible sur `CvExperience`, `HobbyItem` et `BookAuthorEntry` (`src/config/curriculum.ts`, `src/config/hobbies.ts`) — volontairement pas sur `CvProject` (trop granulaire, on reste au niveau le plus général de chaque fichier). Permet d'ajouter du contexte destiné uniquement au RAG — jamais lu par les composants React (modals), jamais affiché dans l'UI. Le générateur (`pushRagComment` dans `generate-rag-docs.mjs`) l'injecte comme paragraphe supplémentaire juste après `description`, dans la langue correspondante. Bilingue comme le reste du contenu de ces fichiers (et pas texte libre en une seule langue) pour éviter de réintroduire des blocs français dans `portfolio-en.md` — exactement le défaut déjà corrigé pour les libellés de structure ci-dessus.
 - **Modèle retenu : Mistral Small 4** (API Mistral) — licence Apache 2.0, raisonnement/vision/code unifiés en un seul modèle, latence réduite (~40 % vs Mistral Small 3) et coût d'inférence contenu (MoE, 6 Md de paramètres actifs sur 119 Md), largement suffisant pour un chat RAG texte sur ce périmètre
 - **Backend obligatoire** (serverless function / Cloudflare Worker) : jamais d'appel LLM direct depuis le frontend (clé API exposée)
 - Documents sources (projets, commentaires, CV) découpés en chunks (~300-500 tokens)
@@ -169,14 +174,13 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [x] Câblage avec le composant `<Modal>` générique
 
 ### Salle Réunion (RAG + LLM)
-- [ ] Rédiger et structurer les documents sources (projets, commentaires, CV)
-- [ ] Chunking des documents
-- [ ] Génération et stockage des embeddings
-- [ ] Backend proxy (serverless function) pour appel LLM sécurisé
-- [ ] Recherche par similarité + injection du contexte dans le prompt système
-- [ ] UI bulle de chat + streaming des réponses
-- [ ] Historique de conversation
-- [ ] Rate limiting + fallback erreur + recadrage hors-sujet
+- [x] Rédiger et structurer les documents sources (projets, commentaires, CV)
+- [x] Chunking des documents
+- [x] Génération et stockage des embeddings
+- [x] Backend proxy (serverless function) pour appel LLM sécurisé
+- [x] Recherche par similarité + injection du contexte dans le prompt système
+- [x] UI bulle de chat + streaming des réponses
+- [x] Rate limiting + fallback erreur + recadrage hors-sujet
 
 ### Son
 - [x] Installer Howler.js + mettre en place le hook/contexte `useAudio` (état mute global, `playSfx`/`playAmbiance`/`stopAmbiance`)
@@ -188,5 +192,5 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [x] Responsive / adaptation mobile (au moins un fallback correct si rotation caméra souris non pertinente au tactile)
 - [x] Bouton plein écran (toggle Fullscreen API)
 - [x] Bouton couper le son (mute/unmute global)
-- [ ] Support multilingue FR/EN (toggle UI, dictionnaire de traductions, contenu des salles, chat RAG)
-- [ ] Déploiement (hébergement frontend + backend)
+- [x] Support multilingue FR/EN (toggle UI, dictionnaire de traductions, contenu des salles, chat RAG)
+- [x] Déploiement (hébergement frontend + backend)

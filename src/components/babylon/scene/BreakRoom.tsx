@@ -2,8 +2,8 @@ import { Color3, Vector3, type Texture } from '@babylonjs/core';
 
 import Layer from '../Layer';
 import SpriteItemMesh from '../SpriteItemMesh';
-import { BREAK_ITEMS, type ItemHover, type Language } from '../../../config';
-import { t, type TranslationKey } from '../../../lang';
+import { BREAK_ITEMS, type ItemHover, type Language } from '../../../config/config';
+import { t, type TranslationKey } from '../../../config/lang';
 
 const LAYER_DEPTH = 5;
 const SUN_Z = 2 * LAYER_DEPTH - 1.5;

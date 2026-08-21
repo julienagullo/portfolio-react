@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { useLanguage } from '../../../context/LanguageContext.tsx';
 import { ModalContentContext } from '../../../context/ModalContentContext.ts';
 import { ModalFooterContext } from '../../../context/ModalFooterContext.ts';
-import { CURRICULUM } from '../../../curriculum.ts';
+import { CURRICULUM } from '../../../config/curriculum.ts';
 import style from './CurriculumContent.module.css';
 
 const SWIPE_THRESHOLD_PX = 60;

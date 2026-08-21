@@ -17,12 +17,13 @@ import TransitionOverlay from '../main/overlay/TransitionOverlay.tsx';
 import ItemTooltip from '../main/overlay/ItemTooltip.tsx';
 import MainModal from '../main/modal/MainModal.tsx';
 import { MODAL_CONTENT } from '../main/modal/modalRegistry.tsx';
+import RobotChat from '../main/chat/RobotChat.tsx';
 
-import { BREAK_POINT, ITEM_SFX, SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config';
+import { BREAK_POINT, ITEM_SFX, SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config/config';
 import { useAudio } from '../../context/AudioContext.tsx';
 import { useLanguage } from '../../context/LanguageContext.tsx';
 import { useBreakpoint } from '../../hooks/useBreakpoint.ts';
-import type { TranslationKey } from '../../lang.ts';
+import type { TranslationKey } from '../../config/lang.ts';
 
 export default function Diorama() {
   const { language, t } = useLanguage();
@@ -36,6 +37,7 @@ export default function Diorama() {
   const [pendingRoom, setPendingRoom] = useState<RoomName | null>(null);
   const [hover, setHover] = useState<ItemHover | null>(null);
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
   const [itemHovered, setItemHovered] = useState(false);
   // Menu des salles replié par défaut sur mobile : ouvert via le burger (voir
   // RoomThumbnails.mobileOpen), pas de révélation au survol souris au tactile.
@@ -51,19 +53,25 @@ export default function Diorama() {
     (name: string) => {
       const src = ITEM_SFX[name];
       if (src) playSfx(src);
-      if (name in MODAL_CONTENT) setActiveItem(name);
+      if (name === 'meeting_robot') {
+        setChatOpen(true);
+      } else if (name in MODAL_CONTENT) {
+        setActiveItem(name);
+      }
     },
     [playSfx],
   );
 
   const handleCloseModal = useCallback(() => setActiveItem(null), []);
+  const handleCloseChat = useCallback(() => setChatOpen(false), []);
 
   const ActiveModalContent = activeItem ? MODAL_CONTENT[activeItem] : undefined;
 
-  // Tant qu'une modal est ouverte, aucun item ne doit rester visuellement
-  // "survolé" — nécessaire notamment sur tactile où le tap qui ouvre la modal
-  // ne génère jamais de pointerout naturel (voir SpriteItemMesh.forceUnhover).
-  const suppressHover = activeItem !== null;
+  // Tant qu'une modal (ou le chat) est ouverte, aucun item ne doit rester
+  // visuellement "survolé" — nécessaire notamment sur tactile où le tap qui
+  // ouvre la modal ne génère jamais de pointerout naturel (voir
+  // SpriteItemMesh.forceUnhover).
+  const suppressHover = activeItem !== null || chatOpen;
 
   // Baisse l'ambiance pendant le survol d'un item plutôt que de jouer un SFX au
   // rollover (voir AudioContext.setAmbianceDucked).
@@ -75,8 +83,8 @@ export default function Diorama() {
   // ci-dessus), mais on veut quand même garder l'ambiance baissée tant que la
   // modal reste ouverte.
   useEffect(() => {
-    setAmbianceDucked(itemHovered || activeItem !== null);
-  }, [itemHovered, activeItem, setAmbianceDucked]);
+    setAmbianceDucked(itemHovered || activeItem !== null || chatOpen);
+  }, [itemHovered, activeItem, chatOpen, setAmbianceDucked]);
 
   const handleProgress = useCallback((loaded: number, total: number) => {
     setProgress(total === 0 ? 0 : (loaded / total) * 100);
@@ -92,6 +100,7 @@ export default function Diorama() {
     setTransition('covering');
     setHover(null);
     setActiveItem(null);
+    setChatOpen(false);
     setItemHovered(false);
     setMobileMenuOpen(false);
   };
@@ -176,6 +185,7 @@ export default function Diorama() {
           <ActiveModalContent />
         </MainModal>
       )}
+      {chatOpen && <RobotChat onClose={handleCloseChat} />}
     </div>
   );
 }

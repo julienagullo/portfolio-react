@@ -52,6 +52,14 @@ npm run compile
 npm run lint
 ```
 
+#### Generates the RAG source documents (FR/EN)
+
+```
+npm run generate-rag
+```
+
+Regenerates `rag/portfolio-fr.md` and `rag/portfolio-en.md` from the typed content in `src/config/curriculum.ts` and `src/config/hobbies.ts` (single source of truth, no manual duplication). Every label in the output — headings, "Project"/"Context"/"at"/"Link", etc. — is localized per language; run this script again after editing the config so both markdown files, and the FR/EN wording, stay in sync.
+
 ## Tech stack
 
 This project was built with the assistance of **Claude Code** (Anthropic): code implementation, ambiance sound mixing and help with writing/translation (FR/EN) — all under the author's supervision and technical direction (architecture, product choices, and trade-offs documented in [CLAUDE.md](https://github.com/julienagullo/portfolio-react/blob/main/CLAUDE.md)).

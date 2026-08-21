@@ -3,7 +3,7 @@ import type { RefObject } from 'react';
 import { type ArcRotateCamera, Vector3 } from '@babylonjs/core';
 import { useBeforeRender } from 'react-babylonjs';
 
-import { CAMERA_ALPHA_RANGE, CAMERA_BETA_RANGE, CAMERA_FOV, CAMERA_RADIUS, type Pointer } from '../../config';
+import { CAMERA_ALPHA_RANGE, CAMERA_BETA_RANGE, CAMERA_FOV, CAMERA_RADIUS, type Pointer } from '../../config/config';
 
 const ORBIT_LERP = 0.10;
 const ALPHA_BASE = -Math.PI / 2;

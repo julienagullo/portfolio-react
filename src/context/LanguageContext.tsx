@@ -1,8 +1,8 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 
-import { DEFAULT_LANGUAGE, type Language } from '../config.ts';
-import { t as translate, type TranslationKey } from '../lang.ts';
+import { DEFAULT_LANGUAGE, type Language } from '../config/config.ts';
+import { t as translate, type TranslationKey } from '../config/lang.ts';
 
 type LanguageContextValue = {
   language: Language;

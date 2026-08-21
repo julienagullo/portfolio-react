@@ -1,31 +1,31 @@
-import adBestas from './assets/ressources/hobbies/ad-bestas.png';
-import auRevoirLaHaut from './assets/ressources/hobbies/au-revoir-la-haut.png';
-import balatro from './assets/ressources/hobbies/balatro.png';
-import dredge from './assets/ressources/hobbies/dredge.png';
-import gambonanza from './assets/ressources/hobbies/gambonanza.png';
-import ilEtait2Fois from './assets/ressources/hobbies/il-etait-2-fois.png';
-import inscryption from './assets/ressources/hobbies/inscryption.png';
-import jeVerraiToujoursVosVisages from './assets/ressources/hobbies/je-verrai-toujours-vos-visages.png';
-import laDerniereChasse from './assets/ressources/hobbies/la-derniere-chasse.png';
-import lEmpireDesLoups from './assets/ressources/hobbies/l-empire-des-loups.png';
-import leComteDeMonteCristo from './assets/ressources/hobbies/le-comte-de-monte-cristo.png';
-import leGrandMonde from './assets/ressources/hobbies/le-grand-monde.png';
-import leSerpentMajuscule from './assets/ressources/hobbies/le-serpent-majuscule.png';
-import leSilence from './assets/ressources/hobbies/le-silence.png';
-import leVolDesCigognes from './assets/ressources/hobbies/le-vol-des-cigognes.png';
-import lesPromises from './assets/ressources/hobbies/les-promises.png';
-import norferville from './assets/ressources/hobbies/norferville.png';
-import obsession from './assets/ressources/hobbies/obsession.png';
-import pandemia from './assets/ressources/hobbies/pandemia.png';
-import shutterIsland from './assets/ressources/hobbies/shutter-island.png';
-import squareValley from './assets/ressources/hobbies/square-valley.png';
-import theDrifter from './assets/ressources/hobbies/the-drifter.png';
-import theFather from './assets/ressources/hobbies/the-father.png';
-import trainDEnferPourAngeRouge from './assets/ressources/hobbies/train-d-enfer-pour-ange-rouge.png';
-import troisJoursEtUneVie from './assets/ressources/hobbies/trois-jours-et-une-vie.png';
-import unDernierVerreAvantLaGuerre from './assets/ressources/hobbies/un-dernier-verre-avant-la-guerre.png';
-import uneBatailleApresLAutre from './assets/ressources/hobbies/une-bataille-apres-l-autre.png';
-import unPaysALAube from './assets/ressources/hobbies/un-pays-a-l-aube.png';
+import adBestas from '../assets/ressources/hobbies/ad-bestas.png';
+import auRevoirLaHaut from '../assets/ressources/hobbies/au-revoir-la-haut.png';
+import balatro from '../assets/ressources/hobbies/balatro.png';
+import dredge from '../assets/ressources/hobbies/dredge.png';
+import gambonanza from '../assets/ressources/hobbies/gambonanza.png';
+import ilEtait2Fois from '../assets/ressources/hobbies/il-etait-2-fois.png';
+import inscryption from '../assets/ressources/hobbies/inscryption.png';
+import jeVerraiToujoursVosVisages from '../assets/ressources/hobbies/je-verrai-toujours-vos-visages.png';
+import laDerniereChasse from '../assets/ressources/hobbies/la-derniere-chasse.png';
+import lEmpireDesLoups from '../assets/ressources/hobbies/l-empire-des-loups.png';
+import leComteDeMonteCristo from '../assets/ressources/hobbies/le-comte-de-monte-cristo.png';
+import leGrandMonde from '../assets/ressources/hobbies/le-grand-monde.png';
+import leSerpentMajuscule from '../assets/ressources/hobbies/le-serpent-majuscule.png';
+import leSilence from '../assets/ressources/hobbies/le-silence.png';
+import leVolDesCigognes from '../assets/ressources/hobbies/le-vol-des-cigognes.png';
+import lesPromises from '../assets/ressources/hobbies/les-promises.png';
+import norferville from '../assets/ressources/hobbies/norferville.png';
+import obsession from '../assets/ressources/hobbies/obsession.png';
+import pandemia from '../assets/ressources/hobbies/pandemia.png';
+import shutterIsland from '../assets/ressources/hobbies/shutter-island.png';
+import squareValley from '../assets/ressources/hobbies/square-valley.png';
+import theDrifter from '../assets/ressources/hobbies/the-drifter.png';
+import theFather from '../assets/ressources/hobbies/the-father.png';
+import trainDEnferPourAngeRouge from '../assets/ressources/hobbies/train-d-enfer-pour-ange-rouge.png';
+import troisJoursEtUneVie from '../assets/ressources/hobbies/trois-jours-et-une-vie.png';
+import unDernierVerreAvantLaGuerre from '../assets/ressources/hobbies/un-dernier-verre-avant-la-guerre.png';
+import uneBatailleApresLAutre from '../assets/ressources/hobbies/une-bataille-apres-l-autre.png';
+import unPaysALAube from '../assets/ressources/hobbies/un-pays-a-l-aube.png';
 import type { Language } from './config.ts';
 
 export type HobbyItem = {
@@ -35,6 +35,7 @@ export type HobbyItem = {
   description: Record<Language, string>;
   image?: string;
   url?: string;
+  ragComment?: Record<Language, string>;
 };
 
 export type FavoriteBook = {
@@ -47,6 +48,7 @@ export type BookAuthorEntry = {
   author: string;
   description: Record<Language, string>;
   books: FavoriteBook[];
+  ragComment?: Record<Language, string>;
 };
 
 export const FAVORITE_FILMS: HobbyItem[] = [
@@ -59,6 +61,10 @@ export const FAVORITE_FILMS: HobbyItem[] = [
       en: 'A really good horror film in the vein of It Follows, La Main, Smile, and the like.',
     },
     image: obsession,
+    ragComment: {
+      fr: "Ce que j'aime dans les films d'horreur, c'est l'ambiance noire et oppressante, ainsi que la tension de survie qui devient un miroir de notre société.",
+      en: 'What I like about horror films is the dark, oppressive atmosphere, along with the survival tension that becomes a mirror of our society.',
+    },
   },
   {
     year: 2025,
@@ -69,6 +75,10 @@ export const FAVORITE_FILMS: HobbyItem[] = [
       en: 'A masterfully crafted thriller in the vein of Tarantino, carried by a towering performance.',
     },
     image: uneBatailleApresLAutre,
+    ragComment: {
+      fr: "Les thrillers sont mon genre préféré, surtout en roman. Alors quand un réalisateur comme Paul Thomas Anderson s'y met, ça ne peut être que culte.",
+      en: 'Thrillers are my favorite genre, especially in novels. So when a director like Paul Thomas Anderson takes one on, it can only become a classic.',
+    },
   },
   {
     year: 2024,
@@ -79,6 +89,10 @@ export const FAVORITE_FILMS: HobbyItem[] = [
       en: 'Probably one of the best French adventure films of the decade.',
     },
     image: leComteDeMonteCristo,
+    ragComment: {
+      fr: "On est tous tombés un jour dans les films d'aventure, surtout ceux des années 80 comme Indiana Jones. Les films d'aventure français vraiment réussis ne sont pas si nombreux.",
+      en: "We've all fallen for adventure films at some point, especially those from the 80s like Indiana Jones. Really successful French adventure films are pretty rare.",
+    },
   },
   {
     year: 2023,
@@ -89,6 +103,10 @@ export const FAVORITE_FILMS: HobbyItem[] = [
       en: 'A remarkably true film, one of the best films from Gilles Lellouche.',
     },
     image: jeVerraiToujoursVosVisages,
+    ragComment: {
+      fr: "Le drame social n'est pas vraiment mon genre habituel, mais celui-ci est très réussi, au niveau de Hors normes avec Vincent Cassel.",
+      en: "Social dramas aren't really my usual genre, but this one is excellent, on par with Hors normes with Vincent Cassel.",
+    },
   },
   {
     year: 2022,
@@ -99,6 +117,10 @@ export const FAVORITE_FILMS: HobbyItem[] = [
       en: 'A superb performance, carried by an original story about integration and racism.',
     },
     image: adBestas,
+    ragComment: {
+      fr: "Toujours dans le genre du drame social, Ad Bestas est une réussite totale : le sujet traité est pertinent, mais aussi très actuel dans certaines régions.",
+      en: 'Still in the social drama genre, Ad Bestas is a complete success: the subject it tackles is relevant, and still very topical in certain regions.',
+    },
   },
   {
     year: 2021,
@@ -109,6 +131,10 @@ export const FAVORITE_FILMS: HobbyItem[] = [
       en: 'A gripping story about autonomy and memory loss, with an excellent Anthony Hopkins.',
     },
     image: theFather,
+    ragComment: {
+      fr: "Ce film m'a fait penser à certains de mes proches confrontés à des problèmes similaires. L'autonomie des personnes âgées devrait être rappelée plus souvent par ce genre d'œuvre cinématographique.",
+      en: 'This film reminded me of some of my loved ones facing similar issues. The autonomy of elderly people should be highlighted more often through this kind of cinematic work.',
+    },
   },
 ];
 
@@ -125,6 +151,10 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
       { title: 'Pandemia', year: 2015, image: pandemia },
       { title: "Train d'enfer pour Ange rouge", year: 2007, image: trainDEnferPourAngeRouge },
     ],
+    ragComment: {
+      fr: "J'aime beaucoup le genre thriller, et Franck Thilliez est l'un de mes auteurs préférés. De temps en temps, il recoupe certaines de ses histoires, comme pour construire un véritable lore. Des auteurs dans le même esprit : Bernard Minier, Henri Lœvenbruck.",
+      en: 'I really like the thriller genre, and Franck Thilliez is one of my favorite authors. From time to time he cross-references some of his stories, almost building a shared lore. Authors in a similar vein: Bernard Minier, Henri Lœvenbruck.',
+    },
   },
   {
     author: 'Dennis Lehane',
@@ -138,6 +168,10 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
       { title: 'Shutter Island', year: 2003, image: shutterIsland },
       { title: 'Un dernier verre avant la guerre', year: 2000, image: unDernierVerreAvantLaGuerre },
     ],
+    ragComment: {
+      fr: "Dennis Lehane est un auteur de thriller américain qui excelle dans son domaine. Il est particulièrement fort sur la construction des personnages et de leur caractère. Un auteur similaire : Michael Connelly.",
+      en: "Dennis Lehane is an American thriller author who excels in his craft. He's particularly strong at building characters and giving them depth. A similar author: Michael Connelly.",
+    },
   },
   {
     author: 'Pierre Lemaitre',
@@ -151,6 +185,10 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
       { title: 'Trois jours et une vie', year: 2016, image: troisJoursEtUneVie },
       { title: 'Au revoir là-haut', year: 2013, image: auRevoirLaHaut },
     ],
+    ragComment: {
+      fr: "Pierre Lemaitre est très fort dans le genre social-dramatique et historique, il a d'ailleurs su bien rebondir en passant du roman noir au dramatique. Un auteur similaire : Sorj Chalandon.",
+      en: 'Pierre Lemaitre excels in the social-drama and historical genre, and he pulled off a great shift from noir fiction to drama. A similar author: Sorj Chalandon.',
+    },
   },
   {
     author: 'Jean-Christophe Grangé',
@@ -164,6 +202,10 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
       { title: "L'Empire des loups", year: 2003, image: lEmpireDesLoups },
       { title: 'Le vol des cigognes', year: 1994, image: leVolDesCigognes },
     ],
+    ragComment: {
+      fr: "Jean-Christophe Grangé maîtrise parfaitement le roman noir, et on sent beaucoup son travail de recherche journalistique dans ses livres. Un auteur similaire : Maxime Chattam.",
+      en: 'Jean-Christophe Grangé has a real mastery of noir fiction, and his journalistic background clearly shows through in his research. A similar author: Maxime Chattam.',
+    },
   },
 ];
 

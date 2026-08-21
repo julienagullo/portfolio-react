@@ -1,7 +1,7 @@
-import logoDBA from './assets/ressources/curriculum/logo-dba.png';
-import logoFoxyz from './assets/ressources/curriculum/logo-foxyz.png';
-import logoPortfolio from './assets/ressources/curriculum/logo-portfolio.png';
-import logoVirtualit from './assets/ressources/curriculum/logo-virtualit.png';
+import logoDBA from '../assets/ressources/curriculum/logo-dba.png';
+import logoFoxyz from '../assets/ressources/curriculum/logo-foxyz.png';
+import logoPortfolio from '../assets/ressources/curriculum/logo-portfolio.png';
+import logoVirtualit from '../assets/ressources/curriculum/logo-virtualit.png';
 import type { Language } from './config.ts';
 
 export type CvAccent = 'blue' | 'orange' | 'green' | 'red' | 'yellow';
@@ -24,6 +24,7 @@ export type CvExperience = {
   projects: CvProject[];
   projectsLabel?: Record<Language, string>;
   logo?: string;
+  ragComment?: Record<Language, string>;
 };
 
 export const CURRICULUM: CvExperience[] = [
@@ -113,6 +114,10 @@ export const CURRICULUM: CvExperience[] = [
         url: 'https://foxyz.fr',
       },
     ],
+    ragComment: {
+      fr: "Travailler dans l'écosystème ERP de Foxyz a été une expérience professionnelle enrichissante, mais aussi exigeante : comprendre la structure d'un ERP existant et s'adapter à du code déjà en place demande un vrai effort d'appropriation. Ce poste a aussi été une source importante d'enrichissement personnel sur le développement d'API.",
+      en: "Working within Foxyz's ERP ecosystem has been a professionally enriching experience, though a demanding one: understanding the structure of an existing ERP and adapting to code already in place takes real effort. This role was also a major source of personal growth in API development.",
+    },
   },
   {
     id: 'dba',
@@ -196,6 +201,10 @@ export const CURRICULUM: CvExperience[] = [
         url: 'https://www.le-vestiaire-sechant.fr',
       },
     ],
+    ragComment: {
+      fr: "Travailler dans l'univers de l'e-commerce chez DBA a été très appréciable, aussi bien sur le développement que sur la gestion d'un catalogue produit ou tout l'aspect interne au commerce en ligne. Ce poste a aussi été une expérience importante pour apprendre WordPress et WooCommerce, notamment le développement de plugins.",
+      en: 'Working in the e-commerce world at DBA was really enjoyable, both on the development side and on managing a product catalog or all the internal aspects of online retail. This role was also an important experience for learning WordPress and WooCommerce, particularly plugin development.',
+    },
   },
   {
     id: 'microentreprise',
@@ -342,6 +351,10 @@ export const CURRICULUM: CvExperience[] = [
         },
       },
     ],
+    ragComment: {
+      fr: "J'ai eu la chance de pouvoir collaborer avec mon ancienne entreprise sur de nombreux projets durant cette période en microentreprise. L'entrepreneuriat reste néanmoins un domaine difficile : il faut savoir démarcher et gérer une entreprise en plus de fournir le travail dans les temps.",
+      en: 'I was fortunate to collaborate with my former employer on many projects during this period as a freelancer. Entrepreneurship remains a challenging field though: it requires knowing how to prospect for clients and run a business on top of delivering the work on time.',
+    },
   },
   {
     id: 'virtual-it',
@@ -420,6 +433,10 @@ export const CURRICULUM: CvExperience[] = [
         },
       },
     ],
+    ragComment: {
+      fr: "Une première expérience professionnelle, c'est comme une première voiture : ça ne s'oublie pas. Une expérience inoubliable, avec des projets et des clients comme je n'en reverrai sans doute plus jamais. Mais aussi trop d'implication et une frontière entre vie personnelle et professionnelle quasiment inexistante — un vrai point de vigilance pour ne pas se laisser dévorer par le travail.",
+      en: "A first professional experience is like a first car: you never forget it. An unforgettable experience, with projects and clients I'll probably never come across again. But also too much involvement, with almost no boundary between personal and professional life — a real point of caution, to avoid getting consumed by work.",
+    },
   },
   {
     id: 'etudes',
@@ -489,5 +506,9 @@ export const CURRICULUM: CvExperience[] = [
         },
       },
     ],
+    ragComment: {
+      fr: "Les souvenirs des années universitaires, c'est de la nostalgie pure : des nuits blanches pour finir les projets, des soirées étudiantes en faisant semblant de réviser en groupe. Beaucoup d'apprentissage théorique, avec une mise en pratique via les stages. Le début de l'aventure professionnelle...",
+      en: 'Memories of university years are pure nostalgia: all-nighters to finish projects, student parties disguised as group study sessions. A lot of theoretical learning, put into practice through internships. The start of the professional adventure...',
+    },
   },
 ];

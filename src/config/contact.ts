@@ -1,5 +1,5 @@
-import cvPdf from './assets/ressources/cv-jagullo-2027.pdf';
-import profilePhoto from './assets/ressources/photo-profil.png';
+import cvPdf from '../assets/ressources/cv-jagullo-2027.pdf';
+import profilePhoto from '../assets/ressources/photo-profil.png';
 import type { Language } from './config.ts';
 
 export const CV_PDF_URL = cvPdf;

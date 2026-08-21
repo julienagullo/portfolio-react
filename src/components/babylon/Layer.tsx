@@ -1,6 +1,6 @@
 import { Color3, Vector3, type Texture } from '@babylonjs/core';
 
-import { CAMERA_RADIUS, LAYER_BASE_WIDTH } from '../../config';
+import { CAMERA_RADIUS, LAYER_BASE_WIDTH } from '../../config/config';
 
 type LayerProps = {
   name: string;

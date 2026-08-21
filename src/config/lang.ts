@@ -50,6 +50,10 @@ const translations = {
       phoneLabel: 'Tél.',
       emailLabel: 'Email',
     },
+    chat: {
+      placeholder: 'Pose ta question...',
+      greeting: 'Hola, une question sur moi ou mon parcours !',
+    },
   },
   en: {
     siteTitle: 'Web developer portfolio - jagullo.fr',
@@ -99,6 +103,10 @@ const translations = {
       siretLabel: 'SIRET',
       phoneLabel: 'Tel.',
       emailLabel: 'Email',
+    },
+    chat: {
+      placeholder: 'Ask your question...',
+      greeting: 'Hola, ask me about myself or my background!',
     },
   },
 } as const satisfies Record<Language, unknown>;

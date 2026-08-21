@@ -1,14 +1,17 @@
 {
   "name": "portfolio-react",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "compile": "tsc -b && vite build --mode compile",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-rag-docs": "node src/scripts/generate-rag-docs.mjs",
+    "generate-rag-embeddings": "node src/scripts/generate-rag-embeddings.mjs",
+    "generate-rag": "npm run generate-rag-docs && npm run generate-rag-embeddings"
   },
   "dependencies": {
     "@babylonjs/core": "^9.18.1",

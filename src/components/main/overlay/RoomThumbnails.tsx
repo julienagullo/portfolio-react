@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ROOM_THUMBNAILS, type RoomName } from '../../../config.ts';
+import { ROOM_THUMBNAILS, type RoomName } from '../../../config/config.ts';
 import { useLanguage } from '../../../context/LanguageContext.tsx';
 import style from './RoomThumbnails.module.css';
 
