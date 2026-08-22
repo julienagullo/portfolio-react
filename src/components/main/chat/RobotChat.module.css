@@ -9,6 +9,7 @@
   backdrop-filter: blur(6px);
   z-index: 200;
   animation: fadeIn 200ms ease-out;
+  transition: bottom 150ms ease-out;
 }
 
 .panel {
@@ -30,7 +31,7 @@
   align-items: center;
   box-sizing: border-box;
   padding: 14px 18px;
-  margin: 0 0 16px 0;
+  margin: 0 0 24px 0;
   background: var(--bg);
   color: var(--text);
   border-radius: 16px 16px 4px 16px;
@@ -38,9 +39,44 @@
   white-space: pre-wrap;
 }
 
+.bubble a {
+  color: var(--accent, #4a90d9);
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+.bubble a:hover {
+  text-decoration: none;
+}
+
+.avatarCol {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 .avatar {
   flex-shrink: 0;
   background-repeat: no-repeat;
+}
+
+.quotaTrack {
+  height: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.quotaFill {
+  height: 100%;
+  width: calc(var(--quota-ratio, 1) * 100%);
+  background: var(--quota-color, #4caf50);
+  border-radius: inherit;
+  transition:
+    width 400ms ease-out,
+    background-color 400ms ease-out;
 }
 
 .prompt {

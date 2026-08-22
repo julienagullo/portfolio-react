@@ -53,6 +53,7 @@ const translations = {
     chat: {
       placeholder: 'Pose ta question...',
       greeting: 'Hola, une question sur moi ou mon parcours !',
+      quotaLabel: 'Messages restants',
     },
   },
   en: {
@@ -107,6 +108,7 @@ const translations = {
     chat: {
       placeholder: 'Ask your question...',
       greeting: 'Hola, ask me about myself or my background!',
+      quotaLabel: 'Messages remaining',
     },
   },
 } as const satisfies Record<Language, unknown>;

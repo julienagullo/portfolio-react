@@ -121,9 +121,30 @@ function renderHobbies({ films, authors, games }, lang) {
   return lines.join('\n');
 }
 
+function renderPortfolioProject(project, lang) {
+  const t =
+    lang === 'fr'
+      ? { root: 'À propos de ce portfolio', stack: 'Stack technique', why: 'Pourquoi React + Babylon.js', ai: 'Assistance IA', repo: 'Dépôt' }
+      : { root: 'About this portfolio', stack: 'Tech stack', why: 'Why React + Babylon.js', ai: 'AI assistance', repo: 'Repository' };
+
+  const lines = [`# ${t.root}`, '', escapeMd(project.description[lang]), '', `## ${t.stack}`, ''];
+  for (const item of project.stack) {
+    lines.push(`### ${item.name}`);
+    lines.push(escapeMd(item.description[lang]));
+    lines.push('');
+  }
+
+  lines.push(`## ${t.why}`, '', escapeMd(project.whyReactBabylon[lang]), '');
+  lines.push(`## ${t.ai}`, '', escapeMd(project.aiAssistance[lang]), '');
+  lines.push(`${t.repo} : ${project.repoUrl}`, '');
+
+  return lines.join('\n');
+}
+
 async function main() {
   const { CURRICULUM } = await loadModule('config/curriculum.ts');
   const { FAVORITE_FILMS, FAVORITE_AUTHORS, FAVORITE_GAMES } = await loadModule('config/hobbies.ts');
+  const { PORTFOLIO_PROJECT } = await loadModule('config/portfolio.ts');
 
   mkdirSync(OUT_DIR, { recursive: true });
 
@@ -134,6 +155,10 @@ async function main() {
       '---',
       '',
       renderHobbies({ films: FAVORITE_FILMS, authors: FAVORITE_AUTHORS, games: FAVORITE_GAMES }, lang),
+      '',
+      '---',
+      '',
+      renderPortfolioProject(PORTFOLIO_PROJECT, lang),
     ].join('\n');
 
     const outPath = path.join(OUT_DIR, `portfolio-${lang}.md`);

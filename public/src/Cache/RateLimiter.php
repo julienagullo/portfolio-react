@@ -7,19 +7,21 @@ namespace App\Cache;
 use RuntimeException;
 
 /**
- * Rate limiting par IP, fenêtre fixe de 24h, stocké dans un fichier JSON.
+ * Rate limiting par IP, fenêtre fixe de 4h, stocké dans un fichier JSON.
  * Purge les IP dont la fenêtre est expirée à chaque appel — pas de tâche
- * cron séparée, le fichier ne grossit jamais au-delà du trafic des
- * dernières 24h.
+ * cron séparée, le fichier ne grossit jamais au-delà du trafic limité.
  */
 final class RateLimiter
 {
     private const MAX_REQUESTS = 20;
-    private const WINDOW_SECONDS = 24 * 60 * 60;
+    private const WINDOW_SECONDS = 4 * 60 * 60;
 
     public function __construct(private readonly string $storagePath) {}
 
-    public function attempt(string $ip): bool
+    /**
+     * @return array{allowed: bool, remaining: int, limit: int}
+     */
+    public function attempt(string $ip): array
     {
         $dir = dirname($this->storagePath);
         if (!is_dir($dir)) {
@@ -49,11 +51,57 @@ final class RateLimiter
 
             $this->writeEntries($handle, $entries);
 
-            return $allowed;
+            return [
+                'allowed' => $allowed,
+                // Exposé au front pour la barre d'énergie de quota sous le profil du robot.
+                'remaining' => max(0, self::MAX_REQUESTS - $entry['count']),
+                'limit' => self::MAX_REQUESTS,
+            ];
         } finally {
             flock($handle, LOCK_UN);
             fclose($handle);
         }
+    }
+
+    /**
+     * Lit le quota courant de l'IP sans le consommer (pas d'incrément, pas
+     * d'écriture) — utilisé pour initialiser la barre d'énergie du front dès
+     * l'ouverture du chat, avant toute question posée.
+     *
+     * @return array{remaining: int, limit: int}
+     */
+    public function peek(string $ip): array
+    {
+        $full = ['remaining' => self::MAX_REQUESTS, 'limit' => self::MAX_REQUESTS];
+
+        if (!is_file($this->storagePath)) {
+            return $full;
+        }
+
+        $handle = fopen($this->storagePath, 'r');
+        if ($handle === false) {
+            return $full;
+        }
+
+        try {
+            flock($handle, LOCK_SH);
+            $entries = $this->readEntries($handle);
+        } finally {
+            flock($handle, LOCK_UN);
+            fclose($handle);
+        }
+
+        $entry = $entries[$ip] ?? null;
+        $now = time();
+
+        if ($entry === null || $now - $entry['first_request_at'] >= self::WINDOW_SECONDS) {
+            return $full;
+        }
+
+        return [
+            'remaining' => max(0, self::MAX_REQUESTS - $entry['count']),
+            'limit' => self::MAX_REQUESTS,
+        ];
     }
 
     /**

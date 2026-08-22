@@ -51,7 +51,7 @@ textarea {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
+    --text: #bec6cf;
     --bg: #16171d;
   }
 }

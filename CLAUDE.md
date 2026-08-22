@@ -194,3 +194,6 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [x] Bouton couper le son (mute/unmute global)
 - [x] Support multilingue FR/EN (toggle UI, dictionnaire de traductions, contenu des salles, chat RAG)
 - [x] Déploiement (hébergement frontend + backend)
+
+### SEO
+- [ ] 3 landings pages pour le référencement

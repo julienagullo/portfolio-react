@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties, type KeyboardEvent, type React
 
 import profilRobot from '../../../assets/image/profil-robot.webp';
 import { useLanguage } from '../../../context/LanguageContext.tsx';
+import { useKeyboardInset } from '../../../hooks/useKeyboardInset.ts';
 import { useStreamingTypewriter } from '../../../hooks/useStreamingTypewriter.ts';
 import style from './RobotChat.module.css';
 
@@ -9,16 +10,65 @@ const FRAME_COUNT = 5;
 const AVATAR_HEIGHT = 72;
 const AVATAR_WIDTH = AVATAR_HEIGHT * (125 / 100);
 const FRAME_DELAY_MS = 120;
+// Confort UX seulement (empêche de taper au-delà à la volée) — la limite qui
+// fait foi est côté serveur (MAX_QUESTION_LENGTH dans public/api.php), à garder synchronisée.
+const MAX_QUESTION_LENGTH = 500;
 
-// L'agent répond en Markdown léger (**gras**, *italique*)
+// Teinte HSL du plein (vert, 120°) au vide (rouge, 0°) — passe naturellement
+// par le jaune puis l'orange en cours de route, sans paliers codés en dur.
+const QUOTA_HUE_FULL = 120;
+const QUOTA_HUE_EMPTY = 0;
+
+type Quota = { remaining: number; limit: number };
+
+function readQuota(headers: Headers): Quota | null {
+  const remaining = Number(headers.get('X-RateLimit-Remaining'));
+  const limit = Number(headers.get('X-RateLimit-Limit'));
+  if (!Number.isFinite(remaining) || !Number.isFinite(limit) || limit <= 0) return null;
+  return { remaining, limit };
+}
+
+const MARKDOWN_LINK_RE = /^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/;
+// Ponctuation de fin de phrase qu'une URL brute peut accidentellement avaler
+// (ex. « ... voir https://exemple.fr. » ne doit pas inclure le point final dans le lien).
+const TRAILING_PUNCTUATION_RE = /[.,;:!?)\]}'"]+$/;
+
+function renderLink(url: string, label: ReactNode, key: number): ReactNode {
+  return (
+    <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+      {label}
+    </a>
+  );
+}
+
+// L'agent répond en Markdown léger (**gras**, *italique*, liens [texte](url)
+// ou URL brutes issues du contexte RAG) — les liens s'ouvrent dans un nouvel onglet.
 function renderMarkdown(text: string): ReactNode {
-  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, i) => {
-    const bold = /^\*\*([^*]+)\*\*$/.exec(part);
-    if (bold) return <strong key={i}>{bold[1]}</strong>;
+  return text
+    .split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s<>{}[\]"']+)/g)
+    .map((part, i) => {
+      const bold = /^\*\*([^*]+)\*\*$/.exec(part);
+      if (bold) return <strong key={i}>{bold[1]}</strong>;
 
-    const italic = /^\*([^*]+)\*$/.exec(part);
-    return italic ? <em key={i}>{italic[1]}</em> : part;
-  });
+      const italic = /^\*([^*]+)\*$/.exec(part);
+      if (italic) return <em key={i}>{italic[1]}</em>;
+
+      const markdownLink = MARKDOWN_LINK_RE.exec(part);
+      if (markdownLink) return renderLink(markdownLink[2], markdownLink[1], i);
+
+      if (/^https?:\/\//.test(part)) {
+        const trailing = TRAILING_PUNCTUATION_RE.exec(part)?.[0] ?? '';
+        const url = trailing ? part.slice(0, -trailing.length) : part;
+        return (
+          <span key={i}>
+            {renderLink(url, url, i)}
+            {trailing}
+          </span>
+        );
+      }
+
+      return part;
+    });
 }
 
 type RobotChatProps = {
@@ -30,6 +80,11 @@ export default function RobotChat({ onClose }: RobotChatProps) {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  // null tant que le quota réel de l'IP n'a pas été récupéré (voir l'effet
+  // de peek ci-dessous) : la barre démarre pleine et verte par défaut le
+  // temps de la requête, plutôt que de rester masquée.
+  const [quota, setQuota] = useState<Quota | null>(null);
+  const keyboardInset = useKeyboardInset();
   const streamedAnswer = useStreamingTypewriter(answer ?? '');
   const displayText = answer === null ? t('chat.greeting') : answer === '' ? '...' : streamedAnswer;
   const [frame, setFrame] = useState(0);
@@ -44,6 +99,24 @@ export default function RobotChat({ onClose }: RobotChatProps) {
     return () => clearInterval(interval);
   }, [isLoading]);
 
+  // Peek du quota réel de l'IP à l'ouverture du chat, sans consommer de
+  // requête (endpoint GET dédié) — la barre reflète l'état réel dès le départ
+  // plutôt que de partir pleine par défaut jusqu'au premier message.
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch('api.php', { signal: controller.signal })
+      .then((res) => {
+        const nextQuota = readQuota(res.headers);
+        if (nextQuota) setQuota(nextQuota);
+      })
+      .catch(() => {
+        // Silencieux : la barre reste sur son état plein par défaut.
+      });
+
+    return () => controller.abort();
+  }, []);
+
   const displayFrame = isLoading ? frame : 0;
 
   const avatarStyle = {
@@ -55,6 +128,14 @@ export default function RobotChat({ onClose }: RobotChatProps) {
   } as CSSProperties;
 
   const answerRowStyle = { '--avatar-size': `${AVATAR_HEIGHT}px` } as CSSProperties;
+
+  const quotaRatio = quota ? Math.max(0, Math.min(1, quota.remaining / quota.limit)) : 1;
+  const quotaHue = QUOTA_HUE_EMPTY + quotaRatio * (QUOTA_HUE_FULL - QUOTA_HUE_EMPTY);
+  const quotaBarStyle = {
+    width: AVATAR_WIDTH,
+    '--quota-ratio': quotaRatio,
+    '--quota-color': `hsl(${quotaHue}, 70%, 45%)`,
+  } as CSSProperties;
 
   const submit = async () => {
     const trimmed = question.trim();
@@ -70,6 +151,9 @@ export default function RobotChat({ onClose }: RobotChatProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: trimmed, language }),
       });
+
+      const nextQuota = readQuota(res.headers);
+      if (nextQuota) setQuota(nextQuota);
 
       if (!res.ok) {
         const data = await res.json();
@@ -107,13 +191,26 @@ export default function RobotChat({ onClose }: RobotChatProps) {
   };
 
   return (
-    <div className={style.backdrop} onClick={onClose}>
+    <div className={style.backdrop} style={{ bottom: keyboardInset }} onClick={onClose}>
       <div className={style.panel} onClick={(event) => event.stopPropagation()}>
         <div className={style.answerRow} style={answerRowStyle}>
           <div className={style.bubble}>
             <span>{renderMarkdown(displayText)}</span>
           </div>
-          <div className={style.avatar} style={avatarStyle} />
+          <div className={style.avatarCol}>
+            <div className={style.avatar} style={avatarStyle} />
+            <div
+              className={style.quotaTrack}
+              style={quotaBarStyle}
+              role="progressbar"
+              aria-label={t('chat.quotaLabel')}
+              aria-valuemin={0}
+              aria-valuemax={quota?.limit ?? 100}
+              aria-valuenow={quota?.remaining ?? quota?.limit ?? 100}
+            >
+              <div className={style.quotaFill} />
+            </div>
+          </div>
         </div>
         <textarea
           className={style.prompt}
@@ -122,6 +219,7 @@ export default function RobotChat({ onClose }: RobotChatProps) {
           onKeyDown={handleKeyDown}
           placeholder={t('chat.placeholder')}
           rows={1}
+          maxLength={MAX_QUESTION_LENGTH}
           autoFocus
         />
       </div>

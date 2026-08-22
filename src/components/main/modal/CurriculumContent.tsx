@@ -9,6 +9,10 @@ import style from './CurriculumContent.module.css';
 
 const SWIPE_THRESHOLD_PX = 60;
 const EDGE_DRAG_DAMPING = 0.3;
+// Distance à parcourir avant de trancher entre swipe horizontal (slide) et
+// scroll vertical (natif) — évite de couper l'overflow sur un simple tap ou
+// un scroll qui démarre avec un minuscule jitter horizontal.
+const GESTURE_LOCK_THRESHOLD_PX = 10;
 
 export default function CurriculumContent() {
   const { language, t } = useLanguage();
@@ -18,7 +22,11 @@ export default function CurriculumContent() {
   const [dragX, setDragX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartXRef = useRef(0);
+  const dragStartYRef = useRef(0);
   const pointerIdRef = useRef<number | null>(null);
+  // Tant que la direction du geste n'est pas tranchée, on ne touche ni à
+  // l'overflow ni à dragX : 'pending' -> 'horizontal' (slide) | 'vertical' (scroll natif).
+  const gestureRef = useRef<'pending' | 'horizontal' | 'vertical'>('pending');
   const contentElRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     contentElRef.current = contentEl;
@@ -47,28 +55,54 @@ export default function CurriculumContent() {
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     pointerIdRef.current = event.pointerId;
     dragStartXRef.current = event.clientX;
-    setIsDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-    // Le conteneur scrollable (.content) est un ancêtre du slide : si un léger
-    // déplacement vertical survient pendant le drag horizontal, le navigateur
-    // peut récupérer le geste pour scroller en natif et couper le pointer
-    // (pointercancel), ce qui bloque le slide en plein drag. On désactive donc
-    // le scroll le temps du drag, et on le restaure au relâchement.
-    if (contentElRef.current) contentElRef.current.style.overflowY = 'hidden';
+    dragStartYRef.current = event.clientY;
+    gestureRef.current = 'pending';
+    // On ne capture pas le pointer ni ne coupe l'overflow tout de suite : tant
+    // que le geste n'a pas dépassé GESTURE_LOCK_THRESHOLD_PX, on laisse le
+    // navigateur libre de traiter un scroll vertical normalement.
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (pointerIdRef.current !== event.pointerId) return;
-    setDragX(event.clientX - dragStartXRef.current);
+
+    if (gestureRef.current === 'vertical') return;
+
+    const dx = event.clientX - dragStartXRef.current;
+    const dy = event.clientY - dragStartYRef.current;
+
+    if (gestureRef.current === 'pending') {
+      if (Math.hypot(dx, dy) < GESTURE_LOCK_THRESHOLD_PX) return;
+
+      if (Math.abs(dx) <= Math.abs(dy)) {
+        // Geste vertical : on laisse le scroll natif du conteneur faire son
+        // travail, sans jamais toucher à overflowY ni capturer le pointer.
+        gestureRef.current = 'vertical';
+        return;
+      }
+
+      gestureRef.current = 'horizontal';
+      setIsDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+      // Le conteneur scrollable (.content) est un ancêtre du slide : si un léger
+      // déplacement vertical survient pendant le drag horizontal, le navigateur
+      // peut récupérer le geste pour scroller en natif et couper le pointer
+      // (pointercancel), ce qui bloque le slide en plein drag. On désactive donc
+      // le scroll le temps du drag (une fois le swipe horizontal confirmé), et
+      // on le restaure au relâchement.
+      if (contentElRef.current) contentElRef.current.style.overflowY = 'hidden';
+    }
+
+    setDragX(dx);
   };
 
   const endDrag = (event: PointerEvent<HTMLDivElement>, commit: boolean) => {
     if (pointerIdRef.current !== event.pointerId) return;
-    if (commit) {
+    if (commit && gestureRef.current === 'horizontal') {
       if (dragX <= -SWIPE_THRESHOLD_PX) goTo(index + 1);
       else if (dragX >= SWIPE_THRESHOLD_PX) goTo(index - 1);
     }
     pointerIdRef.current = null;
+    gestureRef.current = 'pending';
     setIsDragging(false);
     setDragX(0);
     if (contentElRef.current) contentElRef.current.style.overflowY = '';
