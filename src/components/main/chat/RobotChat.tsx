@@ -20,6 +20,9 @@ const QUOTA_HUE_FULL = 120;
 const QUOTA_HUE_EMPTY = 0;
 
 type Quota = { remaining: number; limit: number };
+// Dernier échange (question + réponse) uniquement — pas un historique complet,
+// juste de quoi garder une fluidité conversationnelle d'un message à l'autre.
+type Exchange = { question: string; answer: string };
 
 function readQuota(headers: Headers): Quota | null {
   const remaining = Number(headers.get('X-RateLimit-Remaining'));
@@ -84,6 +87,9 @@ export default function RobotChat({ onClose }: RobotChatProps) {
   // de peek ci-dessous) : la barre démarre pleine et verte par défaut le
   // temps de la requête, plutôt que de rester masquée.
   const [quota, setQuota] = useState<Quota | null>(null);
+  // Réinitialisé naturellement à chaque fermeture du chat : le composant est
+  // démonté/remonté par le parent ({chatOpen && <RobotChat .../>}).
+  const [lastExchange, setLastExchange] = useState<Exchange | null>(null);
   const keyboardInset = useKeyboardInset();
   const streamedAnswer = useStreamingTypewriter(answer ?? '');
   const displayText = answer === null ? t('chat.greeting') : answer === '' ? '...' : streamedAnswer;
@@ -149,7 +155,12 @@ export default function RobotChat({ onClose }: RobotChatProps) {
       const res = await fetch('api.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: trimmed, language }),
+        body: JSON.stringify({
+          question: trimmed,
+          language,
+          previousQuestion: lastExchange?.question,
+          previousAnswer: lastExchange?.answer,
+        }),
       });
 
       const nextQuota = readQuota(res.headers);
@@ -162,7 +173,9 @@ export default function RobotChat({ onClose }: RobotChatProps) {
       }
 
       if (!res.body) {
-        setAnswer(await res.text());
+        const text = await res.text();
+        setAnswer(text);
+        setLastExchange({ question: trimmed, answer: text });
         return;
       }
 
@@ -176,6 +189,11 @@ export default function RobotChat({ onClose }: RobotChatProps) {
         accumulated += decoder.decode(value, { stream: true });
         setAnswer(accumulated);
       }
+
+      // Échange gardé pour la question suivante uniquement s'il s'est bien
+      // déroulé — une erreur affichée ne doit pas polluer le contexte envoyé
+      // au LLM au tour d'après.
+      setLastExchange({ question: trimmed, answer: accumulated });
     } catch {
       setAnswer("Impossible de contacter le service de chat, réessaie plus tard.");
     } finally {

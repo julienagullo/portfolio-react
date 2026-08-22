@@ -16,6 +16,13 @@ use App\Rag\Retriever;
 // le maxLength du <textarea> côté front (RobotChat.tsx), qui n'est qu'un
 // confort UX — cette limite serveur reste la seule qui fasse foi.
 const MAX_QUESTION_LENGTH = 500;
+// Échange précédent (question + réponse) réinjecté pour la fluidité
+// conversationnelle : un seul tour, pas un historique complet. La question
+// précédente réutilise la même limite que la question courante ; la réponse
+// précédente vient du LLM (plus longue qu'une saisie utilisateur) mais reste
+// tronquée ici par défense en profondeur — le front est stateless, rien
+// n'empêche un appel forgé avec un champ démesuré.
+const MAX_HISTORY_ANSWER_LENGTH = 1500;
 
 Env::load(__DIR__ . '/../.env');
 
@@ -54,6 +61,8 @@ if (!$rateLimit['allowed']) {
 $body = $request->json();
 $question = trim((string) ($body['question'] ?? ''));
 $language = ($body['language'] ?? 'fr') === 'en' ? 'en' : 'fr';
+$previousQuestion = mb_substr(trim((string) ($body['previousQuestion'] ?? '')), 0, MAX_QUESTION_LENGTH);
+$previousAnswer = mb_substr(trim((string) ($body['previousAnswer'] ?? '')), 0, MAX_HISTORY_ANSWER_LENGTH);
 
 if ($question === '') {
     http_response_code(400);
@@ -91,9 +100,19 @@ try {
     $logger->warning('Recherche RAG échouée, réponse sans contexte', ['error' => $e->getMessage()]);
 }
 
-$inputs = $context === []
+$promptParts = [];
+
+if ($previousQuestion !== '' && $previousAnswer !== '') {
+    $promptParts[] = "Échange précédent :\nVisiteur : $previousQuestion\nToi : $previousAnswer";
+}
+
+if ($context !== []) {
+    $promptParts[] = "Contexte pertinent :\n---\n" . implode("\n\n", $context) . "\n---";
+}
+
+$inputs = $promptParts === []
     ? $question
-    : "Contexte pertinent :\n---\n" . implode("\n\n", $context) . "\n---\n\nQuestion du visiteur : $question";
+    : implode("\n\n", $promptParts) . "\n\nQuestion du visiteur : $question";
 
 header('Content-Type: text/event-stream; charset=utf-8');
 header('Cache-Control: no-cache');

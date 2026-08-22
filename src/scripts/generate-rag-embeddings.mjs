@@ -56,11 +56,6 @@ function chunkMarkdown(content) {
       h2 = line;
     } else if (line.startsWith('### ')) {
       flushH3();
-      // Sans ça, le texte accumulé dans h2Buffer (description, ragComment,
-      // compétences — tout ce qui précède le premier ### d'une section)
-      // n'est jamais flushé nulle part : il n'est ni poussé seul, ni inclus
-      // dans le chunk du ###, donc silencieusement perdu. No-op si déjà
-      // vide (### suivants de la même section).
       flushH2Intro();
       h3Title = line;
     } else if (h3Title) {
@@ -73,6 +68,14 @@ function chunkMarkdown(content) {
   flushH2Intro();
 
   return chunks.map((c) => c.trim()).filter(Boolean);
+}
+
+// Vecteur unitaire (norme 1) : permet à Retriever.php de calculer la
+// similarité cosinus comme un simple produit scalaire au moment de la
+// requête, sans recalculer la norme des documents à chaque question.
+function normalize(vector) {
+  const norm = Math.sqrt(vector.reduce((sum, x) => sum + x * x, 0));
+  return norm === 0 ? vector : vector.map((x) => x / norm);
 }
 
 async function embedChunks(chunks) {
@@ -102,7 +105,7 @@ async function main() {
     console.log(`${lang} : ${chunks.length} chunks, génération des embeddings...`);
     const embeddings = await embedChunks(chunks);
 
-    const data = chunks.map((text, i) => ({ text, embedding: embeddings[i] }));
+    const data = chunks.map((text, i) => ({ text, embedding: normalize(embeddings[i]) }));
     const outPath = path.join(RAG_DIR, `embeddings-${lang}.json`);
     writeFileSync(outPath, JSON.stringify(data), 'utf-8');
     console.log(`Écrit : ${outPath}`);
