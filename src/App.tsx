@@ -1,7 +1,7 @@
-import Portfolio from './components/Portfolio';
+import Router from './components/Router';
 
 function App() {
-  return <Portfolio />
+  return <Router />
 }
 
 export default App

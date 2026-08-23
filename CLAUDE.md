@@ -88,6 +88,11 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - Config centralisée avec fichier de configuration TS → objet cliqué → `{ title, items }`
 - Un seul composant `<Modal>` générique réutilisé partout, alimenté par la config selon la salle + l'élément cliqué
 
+### Pages secondaires (SEO)
+- Pas de react-router : un routeur maison très léger (`src/components/Router.tsx`) lit `window.location.pathname` et sert soit `<Portfolio>` (diorama, `/`), soit une page de `src/pages/` enveloppée dans `<Header>`/`<Footer>`. Aucune navigation client interceptée : les liens sont de simples `<a href>`, chaque changement de route recharge la page — plus simple, et la page secondaire ne charge jamais le bundle Babylon.js/RAG du diorama.
+- L'URL de chaque page est dérivée automatiquement de son nom de composant, en kebab-case (`WebManager` → `/web-manager`) — ajouter une page = créer le composant dans `src/pages/` et l'ajouter au tableau `PAGES` du routeur, rien d'autre à configurer. Ce mapping s'appuie sur `Component.name` à l'exécution ; comme le build passe par **rolldown** (pas esbuild) sous Vite 8, la préservation des noms de fonctions à la minification se configure via `build.rollupOptions.output.minify.mangle.keepNames` dans `vite.config.ts` (l'équivalent esbuild `keepNames` ne s'applique pas ici).
+- Le site étant rendu côté client, `.htaccess` route désormais tout ce qui ne correspond à aucun fichier/dossier réel vers `index.html` (`RewriteCond %{REQUEST_FILENAME} !-f`/`!-d`) pour que `/web-manager` fonctionne en accès direct ou au rechargement — sans casser `/blog/`, `/rag/`, `/assets/`, etc. qui restent servis normalement.
+
 ### Salle de réunion — RAG + LLM
 
 **Génération des documents sources**
@@ -196,4 +201,4 @@ Chat connecté à une API LLM avec RAG sur les projets et compétences.
 - [x] Déploiement (hébergement frontend + backend)
 
 ### SEO
-- [ ] 3 landings pages pour le référencement
+- [x] Landing page pour le référencement (`/web-manager` — router léger maison, voir `src/components/Router.tsx`)

@@ -40,8 +40,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     return howl;
   }, []);
 
-  // Volume "plein" de l'ambiance, réduit tant qu'un item est survolé (voir
-  // setAmbianceDucked) pour laisser le SFX de clic ressortir sans le couvrir.
+  // Volume plein de l'ambiance, réduit au survol (setAmbianceDucked) pour laisser passer le SFX.
   const targetAmbianceVolume = useCallback(
     () => (duckedRef.current ? AMBIANCE_VOLUME * AMBIANCE_DUCK_FACTOR : AMBIANCE_VOLUME),
     [],
@@ -71,8 +70,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     [muted, getHowl, targetAmbianceVolume],
   );
 
-  // Sons courts au clic sur les items (voir config.ITEM_SFX) : un Howl par fichier,
-  // mis en cache pour rejouer instantanément sans recréer l'instance à chaque clic.
+  // Un Howl par fichier SFX, mis en cache pour rejouer instantanément.
   const playSfx = useCallback(
     (src: string) => {
       if (muted) return;
@@ -86,8 +84,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     [muted],
   );
 
-  // Baisse l'ambiance pendant le survol d'un item plutôt que de jouer un SFX au
-  // rollover : garde le son discret tout en donnant un feedback de présence.
+  // Baisse l'ambiance au survol plutôt qu'un SFX de rollover, pour rester discret.
   const setAmbianceDucked = useCallback(
     (ducked: boolean) => {
       if (duckedRef.current === ducked) return;

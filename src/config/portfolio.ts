@@ -1,10 +1,6 @@
 import type { Language } from './config.ts';
 
-// Contenu dédié au RAG du chat, décrivant ce portfolio lui-même (pas
-// l'auteur) — jamais affiché dans l'UI, uniquement consommé par
-// generate-rag-docs.mjs. Sans ça, une question comme "en quoi tu as fait ton
-// portfolio ?" ne trouve aucun chunk pertinent dans le corpus (qui ne couvre
-// que le CV et les loisirs), et l'agent part sur ses propres suppositions.
+// Contenu RAG décrivant ce portfolio (pas l'auteur), jamais affiché dans l'UI — consommé par generate-rag-docs.mjs.
 
 export type PortfolioStackItem = {
   name: string;

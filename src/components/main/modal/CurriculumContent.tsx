@@ -9,9 +9,7 @@ import style from './CurriculumContent.module.css';
 
 const SWIPE_THRESHOLD_PX = 60;
 const EDGE_DRAG_DAMPING = 0.3;
-// Distance à parcourir avant de trancher entre swipe horizontal (slide) et
-// scroll vertical (natif) — évite de couper l'overflow sur un simple tap ou
-// un scroll qui démarre avec un minuscule jitter horizontal.
+// Distance avant de trancher swipe horizontal vs scroll vertical natif.
 const GESTURE_LOCK_THRESHOLD_PX = 10;
 
 export default function CurriculumContent() {
@@ -24,8 +22,7 @@ export default function CurriculumContent() {
   const dragStartXRef = useRef(0);
   const dragStartYRef = useRef(0);
   const pointerIdRef = useRef<number | null>(null);
-  // Tant que la direction du geste n'est pas tranchée, on ne touche ni à
-  // l'overflow ni à dragX : 'pending' -> 'horizontal' (slide) | 'vertical' (scroll natif).
+  // 'pending' tant que la direction n'est pas tranchée -> 'horizontal' (slide) | 'vertical' (scroll natif).
   const gestureRef = useRef<'pending' | 'horizontal' | 'vertical'>('pending');
   const contentElRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -57,9 +54,7 @@ export default function CurriculumContent() {
     dragStartXRef.current = event.clientX;
     dragStartYRef.current = event.clientY;
     gestureRef.current = 'pending';
-    // On ne capture pas le pointer ni ne coupe l'overflow tout de suite : tant
-    // que le geste n'a pas dépassé GESTURE_LOCK_THRESHOLD_PX, on laisse le
-    // navigateur libre de traiter un scroll vertical normalement.
+    // Pas de capture ni overflow tant que GESTURE_LOCK_THRESHOLD_PX n'est pas dépassé.
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
@@ -74,8 +69,7 @@ export default function CurriculumContent() {
       if (Math.hypot(dx, dy) < GESTURE_LOCK_THRESHOLD_PX) return;
 
       if (Math.abs(dx) <= Math.abs(dy)) {
-        // Geste vertical : on laisse le scroll natif du conteneur faire son
-        // travail, sans jamais toucher à overflowY ni capturer le pointer.
+        // Scroll natif du conteneur, sans toucher à overflowY ni capturer le pointer.
         gestureRef.current = 'vertical';
         return;
       }
@@ -83,12 +77,8 @@ export default function CurriculumContent() {
       gestureRef.current = 'horizontal';
       setIsDragging(true);
       event.currentTarget.setPointerCapture(event.pointerId);
-      // Le conteneur scrollable (.content) est un ancêtre du slide : si un léger
-      // déplacement vertical survient pendant le drag horizontal, le navigateur
-      // peut récupérer le geste pour scroller en natif et couper le pointer
-      // (pointercancel), ce qui bloque le slide en plein drag. On désactive donc
-      // le scroll le temps du drag (une fois le swipe horizontal confirmé), et
-      // on le restaure au relâchement.
+      // Le scroll ancestor peut voler le geste (pointercancel) en plein drag horizontal ;
+      // désactivé le temps du drag, restauré au relâchement.
       if (contentElRef.current) contentElRef.current.style.overflowY = 'hidden';
     }
 

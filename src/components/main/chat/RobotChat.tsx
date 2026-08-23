@@ -10,18 +10,15 @@ const FRAME_COUNT = 5;
 const AVATAR_HEIGHT = 72;
 const AVATAR_WIDTH = AVATAR_HEIGHT * (125 / 100);
 const FRAME_DELAY_MS = 120;
-// Confort UX seulement (empêche de taper au-delà à la volée) — la limite qui
-// fait foi est côté serveur (MAX_QUESTION_LENGTH dans public/api.php), à garder synchronisée.
+// Confort UX ; la limite qui fait foi est côté serveur (public/api.php), à garder synchronisée.
 const MAX_QUESTION_LENGTH = 500;
 
-// Teinte HSL du plein (vert, 120°) au vide (rouge, 0°) — passe naturellement
-// par le jaune puis l'orange en cours de route, sans paliers codés en dur.
+// Teinte HSL du plein (vert) au vide (rouge), dégradé continu sans paliers.
 const QUOTA_HUE_FULL = 120;
 const QUOTA_HUE_EMPTY = 0;
 
 type Quota = { remaining: number; limit: number };
-// Dernier échange (question + réponse) uniquement — pas un historique complet,
-// juste de quoi garder une fluidité conversationnelle d'un message à l'autre.
+// Dernier échange seulement, pas un historique complet.
 type Exchange = { question: string; answer: string };
 
 function readQuota(headers: Headers): Quota | null {
@@ -32,8 +29,7 @@ function readQuota(headers: Headers): Quota | null {
 }
 
 const MARKDOWN_LINK_RE = /^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/;
-// Ponctuation de fin de phrase qu'une URL brute peut accidentellement avaler
-// (ex. « ... voir https://exemple.fr. » ne doit pas inclure le point final dans le lien).
+// Ponctuation de fin de phrase qu'une URL brute peut avaler par erreur.
 const TRAILING_PUNCTUATION_RE = /[.,;:!?)\]}'"]+$/;
 
 function renderLink(url: string, label: ReactNode, key: number): ReactNode {
@@ -44,8 +40,7 @@ function renderLink(url: string, label: ReactNode, key: number): ReactNode {
   );
 }
 
-// L'agent répond en Markdown léger (**gras**, *italique*, liens [texte](url)
-// ou URL brutes issues du contexte RAG) — les liens s'ouvrent dans un nouvel onglet.
+// Markdown léger (gras, italique, liens) + URLs brutes du RAG, liens en nouvel onglet.
 function renderMarkdown(text: string): ReactNode {
   return text
     .split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s<>{}[\]"']+)/g)
@@ -83,12 +78,9 @@ export default function RobotChat({ onClose }: RobotChatProps) {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  // null tant que le quota réel de l'IP n'a pas été récupéré (voir l'effet
-  // de peek ci-dessous) : la barre démarre pleine et verte par défaut le
-  // temps de la requête, plutôt que de rester masquée.
+  // null tant que le quota réel n'est pas récupéré ; la barre démarre pleine par défaut.
   const [quota, setQuota] = useState<Quota | null>(null);
-  // Réinitialisé naturellement à chaque fermeture du chat : le composant est
-  // démonté/remonté par le parent ({chatOpen && <RobotChat .../>}).
+  // Réinitialisé à chaque fermeture : le composant est démonté/remonté par le parent.
   const [lastExchange, setLastExchange] = useState<Exchange | null>(null);
   const keyboardInset = useKeyboardInset();
   const streamedAnswer = useStreamingTypewriter(answer ?? '');
@@ -105,9 +97,7 @@ export default function RobotChat({ onClose }: RobotChatProps) {
     return () => clearInterval(interval);
   }, [isLoading]);
 
-  // Peek du quota réel de l'IP à l'ouverture du chat, sans consommer de
-  // requête (endpoint GET dédié) — la barre reflète l'état réel dès le départ
-  // plutôt que de partir pleine par défaut jusqu'au premier message.
+  // Peek du quota réel à l'ouverture, sans consommer de requête (GET dédié).
   useEffect(() => {
     const controller = new AbortController();
 
@@ -116,9 +106,7 @@ export default function RobotChat({ onClose }: RobotChatProps) {
         const nextQuota = readQuota(res.headers);
         if (nextQuota) setQuota(nextQuota);
       })
-      .catch(() => {
-        // Silencieux : la barre reste sur son état plein par défaut.
-      });
+      .catch(() => {});
 
     return () => controller.abort();
   }, []);
@@ -190,9 +178,7 @@ export default function RobotChat({ onClose }: RobotChatProps) {
         setAnswer(accumulated);
       }
 
-      // Échange gardé pour la question suivante uniquement s'il s'est bien
-      // déroulé — une erreur affichée ne doit pas polluer le contexte envoyé
-      // au LLM au tour d'après.
+      // Gardé seulement si l'échange a réussi, pour ne pas polluer le contexte suivant.
       setLastExchange({ question: trimmed, answer: accumulated });
     } catch {
       setAnswer("Impossible de contacter le service de chat, réessaie plus tard.");

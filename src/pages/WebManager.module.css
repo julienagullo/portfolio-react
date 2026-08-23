@@ -1,0 +1,393 @@
+.main {
+  width: 100%;
+  background: #fff;
+  color: #3f4552;
+}
+
+.sectionInner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.highlight {
+  color: #3493dd;
+}
+
+/* Hero */
+
+.hero {
+  background: linear-gradient(180deg, #f5f9fd 0%, #fff 100%);
+  border-bottom: 1px solid #e6e9ef;
+}
+
+.heroInner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 96px 24px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.heroText .kicker {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 20px;
+  border-radius: 25px;
+  color: #2a76b3;
+  border: 1px solid #2a76b3;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.heroText h1 {
+  margin: 0 0 24px;
+  font-size: 2.4rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #16171d;
+}
+
+.heroText p {
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #3493dd;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(52, 147, 221, 0.3);
+  transition: transform 150ms ease-in-out, background 150ms ease-in-out;
+}
+
+.heroCta:hover {
+  background: #2a76b3;
+  transform: translateY(-2px);
+}
+
+.heroCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 32px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+  text-align: center;
+}
+
+.heroLogos {
+  position: relative;
+  width: 240px;
+  height: 280px;
+  margin-bottom: 16px;
+}
+
+.heroLogos img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: 240px;
+  max-height: 280px;
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+}
+
+.heroLogos img.heroLogoActive {
+  opacity: 1;
+}
+
+/* Services */
+
+.services {
+  background: #f5f7fa;
+}
+
+.services h2,
+.projects h2,
+.cta h2 {
+  margin: 0 0 40px;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #16171d;
+  text-align: center;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.serviceCard {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  height: 240px;
+  perspective: 1200px;
+  transition: transform 200ms ease-in-out;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+}
+
+.serviceCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 500ms ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.serviceCardFlipped {
+  transform: rotateY(180deg);
+}
+
+.serviceFront,
+.serviceBack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  text-align: center;
+  backface-visibility: hidden;
+  transition: box-shadow 200ms ease-in-out;
+}
+
+.serviceCard:hover .serviceFront,
+.serviceCard:hover .serviceBack {
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.14);
+}
+
+.serviceBack {
+  transform: rotateY(180deg);
+}
+
+.serviceFront img {
+  width: 70%;
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.serviceFront h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #16171d;
+}
+
+.serviceBack p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* Projects carousel */
+
+.projectsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.projectsHeader h2 {
+  margin: 0;
+  text-align: left;
+}
+
+.carouselControls {
+  display: flex;
+  gap: 10px;
+}
+
+.carouselControls button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #e6e9ef;
+  background: #fff;
+  color: #16171d;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 150ms ease-in-out;
+}
+
+.carouselControls button:hover {
+  background: #f5f7fa;
+}
+
+.carouselTrack {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 25px;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.carouselTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.projectCard {
+  flex: 0 0 auto;
+  width: 340px;
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  scroll-snap-align: start;
+}
+
+.projectCard img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+
+.projectCard figcaption {
+  padding: 18px 20px 22px;
+}
+
+.projectCard h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  color: #16171d;
+}
+
+.projectCard p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+.projectVisit {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 4px 12px;
+  border-radius: 30px;
+  background: #3493dd;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 150ms ease-in-out;
+}
+
+.projectVisit:hover {
+  background: #2a76b3;
+}
+
+/* Final CTA */
+
+.cta {
+  background: #16171d;
+}
+
+.cta h2 {
+  color: #fff;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta .sectionInner {
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #3493dd;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 150ms ease-in-out, background 150ms ease-in-out;
+}
+
+.ctaButton:hover {
+  background: #2a76b3;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCard {
+    order: -1;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .sectionInner,
+  .heroInner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .heroText h1 {
+    font-size: 1.9rem;
+  }
+
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .projectCard {
+    width: 260px;
+  }
+}

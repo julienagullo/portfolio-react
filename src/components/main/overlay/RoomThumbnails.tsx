@@ -10,9 +10,7 @@ const REVEAL_ZONE_WIDTH_RATIO = 0.5;
 type RoomThumbnailsProps = {
   activeRoom: RoomName;
   onSelect: (room: RoomName) => void;
-  // undefined = comportement desktop (révélation au survol souris, cf. useEffect
-  // pointermove ci-dessous). Défini = mode mobile, piloté par le burger (Diorama) :
-  // le survol souris n'a pas de sens au tactile, donc plus de logique auto-hide/reveal.
+  // undefined = desktop (hover souris) ; défini = mobile, piloté par le burger (Diorama).
   mobileOpen?: boolean;
 };
 

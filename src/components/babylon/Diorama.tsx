@@ -39,8 +39,7 @@ export default function Diorama() {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [chatOpen, setChatOpen] = useState(false);
   const [itemHovered, setItemHovered] = useState(false);
-  // Menu des salles replié par défaut sur mobile : ouvert via le burger (voir
-  // RoomThumbnails.mobileOpen), pas de révélation au survol souris au tactile.
+  // Replié par défaut sur mobile, ouvert via le burger (RoomThumbnails.mobileOpen).
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -67,21 +66,12 @@ export default function Diorama() {
 
   const ActiveModalContent = activeItem ? MODAL_CONTENT[activeItem] : undefined;
 
-  // Tant qu'une modal (ou le chat) est ouverte, aucun item ne doit rester
-  // visuellement "survolé" — nécessaire notamment sur tactile où le tap qui
-  // ouvre la modal ne génère jamais de pointerout naturel (voir
-  // SpriteItemMesh.forceUnhover).
+  // Coupe le hover visuel pendant modal/chat ouverts (tap tactile sans pointerout, cf. SpriteItemMesh.forceUnhover).
   const suppressHover = activeItem !== null || chatOpen;
 
-  // Baisse l'ambiance pendant le survol d'un item plutôt que de jouer un SFX au
-  // rollover (voir AudioContext.setAmbianceDucked).
   const handleItemHoverChange = useCallback((hovering: boolean) => setItemHovered(hovering), []);
 
-  // Ducking piloté par deux sources indépendantes (survol ET modal ouverte),
-  // plutôt que par le seul hover Babylon : sur tactile le "survol" reste
-  // volontairement coupé dès l'ouverture de la modal (voir suppressHover
-  // ci-dessus), mais on veut quand même garder l'ambiance baissée tant que la
-  // modal reste ouverte.
+  // Ducking sur hover ET modal/chat : sur tactile suppressHover coupe le hover mais l'ambiance doit rester baissée.
   useEffect(() => {
     setAmbianceDucked(itemHovered || activeItem !== null || chatOpen);
   }, [itemHovered, activeItem, chatOpen, setAmbianceDucked]);

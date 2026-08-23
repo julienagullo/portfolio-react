@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 
 const DEFAULT_TYPE_INTERVAL_MS = 45;
 
-// Anime `text` lettre par lettre tant que `active` est vrai (effet machine à
-// écrire) ; revient à une chaîne vide dès que `active` repasse à faux. Version
-// générique déclenchée par un booléen (hover, focus...) — voir
-// useTypewriterTitle pour la variante dédiée au titre de la page (cycle
-// efface + réécrit en continu).
+// Anime text lettre par lettre tant que active est vrai ; voir useTypewriterTitle pour la variante titre de page.
 export function useTypewriter(text: string, active: boolean, intervalMs = DEFAULT_TYPE_INTERVAL_MS) {
   const [output, setOutput] = useState('');
 

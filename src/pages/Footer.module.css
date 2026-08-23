@@ -1,0 +1,35 @@
+.footer {
+  background: #16171d;
+  color: #bec6cf;
+}
+
+.inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.9rem;
+}
+
+.inner p {
+  margin: 0;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.links a {
+  color: #bec6cf;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: #fff;
+}

@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react';
 
-/**
- * Hauteur (px) occupée par le clavier virtuel mobile, déduite de l'écart entre
- * le viewport visuel (`window.visualViewport`, qui rétrécit quand le clavier
- * s'ouvre) et le viewport de layout (`window.innerHeight`, qui lui ne bouge
- * pas sur la plupart des navigateurs mobiles). Un élément en `position: fixed`
- * reste positionné par rapport au viewport de layout, donc sans ce correctif
- * il se retrouve caché sous le clavier au lieu de remonter au-dessus.
- * 0 si l'API n'est pas supportée (le comportement retombe alors sur du CSS classique).
- */
+// Hauteur du clavier virtuel (visualViewport vs innerHeight), pour remonter les éléments position:fixed. 0 si l'API n'est pas supportée.
 export function useKeyboardInset() {
   const [inset, setInset] = useState(0);
 

@@ -41,9 +41,7 @@ export default function Manager({ onProgress, onLoaded }: ManagerProps) {
       });
     });
 
-    // Assets UI hors scène 3D (ex. sprite d'icônes des boutons overlay) : chargés
-    // en HTMLImageElement plutôt qu'en texture Babylon, mais comptés dans la même
-    // progression pour être en cache navigateur avant la fin du loading screen.
+    // UI hors scène 3D : chargée en HTMLImageElement, comptée dans la même progression.
     UI_ASSETS.forEach((asset) => {
       assetsManager.addImageTask(asset.name, asset.url);
     });
