@@ -71,7 +71,7 @@ This project was built with the assistance of **Claude Code** (Anthropic): code 
 
 **Assets & credits**
 
-- Pixel art assets created with [Affinity](https://affinity.serif.com/)
+- Pixel art assets generated with **Nano Banana 2**, then refined with [Affinity](https://affinity.serif.com/)
 - Sound effects and ambiances sourced from [lasonotheque.org](https://lasonotheque.org)
 
 More architecture details in [CLAUDE.md](./CLAUDE.md).
