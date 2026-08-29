@@ -30,6 +30,7 @@ export type SkillCategory = {
   title: Record<Language, string>;
   accent: SkillAccent;
   items: SkillItem[];
+  ragComment?: Record<Language, string>;
 };
 
 export const SKILLS: SkillCategory[] = [

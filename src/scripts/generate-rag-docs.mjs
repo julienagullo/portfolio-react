@@ -15,8 +15,7 @@ async function loadModule(entryFile) {
 
 const escapeMd = (s) => (s ?? '').toString();
 
-// Ajoute le contexte additionnel RAG (ragComment) d'une entrée, s'il existe
-// pour cette langue. Jamais affiché dans l'UI, uniquement injecté ici.
+// Injecte le ragComment d'une entrée (contexte RAG seul, jamais affiché dans l'UI).
 function pushRagComment(lines, ragComment, lang) {
   if (ragComment?.[lang]) {
     lines.push('');
@@ -24,12 +23,7 @@ function pushRagComment(lines, ragComment, lang) {
   }
 }
 
-// Vue d'ensemble chronologique de toutes les expériences en un seul chunk —
-// sans ça, une question générale ("quel est ton parcours ?") ne récupère
-// par similarité que les chunks dont le TEXTE répète le plus de mots de la
-// question (ex. "Parcours universitaire..." matche très fort "parcours"
-// par simple répétition lexicale), au détriment d'une vraie vue d'ensemble
-// couvrant toutes les expériences.
+// Vue d'ensemble en un seul chunk, pour que les questions générales ("quel est ton parcours ?") remontent bien par similarité.
 function pushCurriculumSummary(lines, curriculum, lang) {
   const t =
     lang === 'fr'
@@ -121,11 +115,28 @@ function renderHobbies({ films, authors, games }, lang) {
   return lines.join('\n');
 }
 
+function renderSkills(skills, lang) {
+  const t = lang === 'fr' ? { root: 'Compétences' } : { root: 'Skills' };
+
+  const lines = [`# ${t.root}`, ''];
+  for (const category of skills) {
+    lines.push(`## ${category.title[lang]}`);
+    pushRagComment(lines, category.ragComment, lang);
+    lines.push('');
+    for (const item of category.items) {
+      lines.push(`### ${item.name}`);
+      lines.push(escapeMd(item.desc[lang]));
+      lines.push('');
+    }
+  }
+  return lines.join('\n');
+}
+
 function renderPortfolioProject(project, lang) {
   const t =
     lang === 'fr'
-      ? { root: 'À propos de ce portfolio', stack: 'Stack technique', why: 'Pourquoi React + Babylon.js', ai: 'Assistance IA', repo: 'Dépôt' }
-      : { root: 'About this portfolio', stack: 'Tech stack', why: 'Why React + Babylon.js', ai: 'AI assistance', repo: 'Repository' };
+      ? { root: 'À propos de ce portfolio', stack: 'Stack technique', why: 'Pourquoi React + Babylon.js', ai: 'Assistance IA' }
+      : { root: 'About this portfolio', stack: 'Tech stack', why: 'Why React + Babylon.js', ai: 'AI assistance' };
 
   const lines = [`# ${t.root}`, '', escapeMd(project.description[lang]), '', `## ${t.stack}`, ''];
   for (const item of project.stack) {
@@ -136,7 +147,6 @@ function renderPortfolioProject(project, lang) {
 
   lines.push(`## ${t.why}`, '', escapeMd(project.whyReactBabylon[lang]), '');
   lines.push(`## ${t.ai}`, '', escapeMd(project.aiAssistance[lang]), '');
-  lines.push(`${t.repo} : ${project.repoUrl}`, '');
 
   return lines.join('\n');
 }
@@ -145,12 +155,17 @@ async function main() {
   const { CURRICULUM } = await loadModule('config/curriculum.ts');
   const { FAVORITE_FILMS, FAVORITE_AUTHORS, FAVORITE_GAMES } = await loadModule('config/hobbies.ts');
   const { PORTFOLIO_PROJECT } = await loadModule('config/portfolio.ts');
+  const { SKILLS } = await loadModule('config/skills.ts');
 
   mkdirSync(OUT_DIR, { recursive: true });
 
   for (const lang of ['fr', 'en']) {
     const doc = [
       renderCurriculum(CURRICULUM, lang),
+      '',
+      '---',
+      '',
+      renderSkills(SKILLS, lang),
       '',
       '---',
       '',

@@ -115,8 +115,8 @@ export const CURRICULUM: CvExperience[] = [
       },
     ],
     ragComment: {
-      fr: "Travailler dans l'écosystème ERP de Foxyz a été une expérience professionnelle enrichissante, mais aussi exigeante : comprendre la structure d'un ERP existant et s'adapter à du code déjà en place demande un vrai effort d'appropriation. Ce poste a aussi été une source importante d'enrichissement personnel sur le développement d'API.",
-      en: "Working within Foxyz's ERP ecosystem has been a professionally enriching experience, though a demanding one: understanding the structure of an existing ERP and adapting to code already in place takes real effort. This role was also a major source of personal growth in API development.",
+      fr: "Travailler dans l'écosystème ERP de Foxyz a été une expérience professionnelle enrichissante, mais aussi exigeante : comprendre la structure d'un ERP existant et s'adapter à du code déjà en place demande un vrai effort d'appropriation. Ce poste a aussi été une source importante d'enrichissement personnel sur le développement d'API. La stack chez Foxyz se limite strictement à PHP, Symfony, MySQL et Stimulus : pas de React, Vue.js, Angular, Svelte, Node.js, Python, Next.js, Docker, Kubernetes, MongoDB, PostgreSQL, NestJS, Prisma, Redis, Astro ni GitLab CI/CD sur ce poste. J'y utilise aussi un agent IA local basé sur Gemma.",
+      en: "Working within Foxyz's ERP ecosystem has been a professionally enriching experience, though a demanding one: understanding the structure of an existing ERP and adapting to code already in place takes real effort. This role was also a major source of personal growth in API development. The stack at Foxyz is strictly limited to PHP, Symfony, MySQL and Stimulus: no React, Vue.js, Angular, Svelte, Node.js, Python, Next.js, Docker, Kubernetes, MongoDB, PostgreSQL, NestJS, Prisma, Redis or Astro on this role, and no GitLab CI/CD. I also use a local AI agent based on Gemma there.",
     },
   },
   {
@@ -202,8 +202,8 @@ export const CURRICULUM: CvExperience[] = [
       },
     ],
     ragComment: {
-      fr: "Travailler dans l'univers de l'e-commerce chez DBA a été très appréciable, aussi bien sur le développement que sur la gestion d'un catalogue produit ou tout l'aspect interne au commerce en ligne. Ce poste a aussi été une expérience importante pour apprendre WordPress et WooCommerce, notamment le développement de plugins.",
-      en: 'Working in the e-commerce world at DBA was really enjoyable, both on the development side and on managing a product catalog or all the internal aspects of online retail. This role was also an important experience for learning WordPress and WooCommerce, particularly plugin development.',
+      fr: "Travailler dans l'univers de l'e-commerce chez DBA a été très appréciable, aussi bien sur le développement que sur la gestion d'un catalogue produit ou tout l'aspect interne au commerce en ligne. Ce poste a aussi été une expérience importante pour apprendre WordPress et WooCommerce, notamment le développement de plugins. La stack chez DBA se limite à PHP, MySQL et WordPress/WooCommerce : pas de React, Vue.js, Angular, Node.js, Python, Next.js, Docker ni framework JavaScript moderne sur ce poste.",
+      en: 'Working in the e-commerce world at DBA was really enjoyable, both on the development side and on managing a product catalog or all the internal aspects of online retail. This role was also an important experience for learning WordPress and WooCommerce, particularly plugin development. The stack at DBA is limited to PHP, MySQL and WordPress/WooCommerce: no React, Vue.js, Angular, Node.js, Python, Next.js, Docker or modern JavaScript framework on this role.',
     },
   },
   {
@@ -352,8 +352,8 @@ export const CURRICULUM: CvExperience[] = [
       },
     ],
     ragComment: {
-      fr: "J'ai eu la chance de pouvoir collaborer avec mon ancienne entreprise sur de nombreux projets durant cette période en microentreprise. L'entrepreneuriat reste néanmoins un domaine difficile : il faut savoir démarcher et gérer une entreprise en plus de fournir le travail dans les temps.",
-      en: 'I was fortunate to collaborate with my former employer on many projects during this period as a freelancer. Entrepreneurship remains a challenging field though: it requires knowing how to prospect for clients and run a business on top of delivering the work on time.',
+      fr: "J'ai eu la chance de pouvoir collaborer avec mon ancienne entreprise sur de nombreux projets durant cette période en microentreprise. L'entrepreneuriat reste néanmoins un domaine difficile : il faut savoir démarcher et gérer une entreprise en plus de fournir le travail dans les temps. La stack sur cette période se limite à PHP, MySQL, jQuery, Flash/ActionScript et Photoshop : pas de React, Vue.js, Angular, Node.js, Python, Next.js ni Docker — ces technologies n'existaient d'ailleurs pas encore à cette époque (2011-2019).",
+      en: 'I was fortunate to collaborate with my former employer on many projects during this period as a freelancer. Entrepreneurship remains a challenging field though: it requires knowing how to prospect for clients and run a business on top of delivering the work on time. The stack during this period is limited to PHP, MySQL, jQuery, Flash/ActionScript and Photoshop: no React, Vue.js, Angular, Node.js, Python, Next.js or Docker — most of these technologies did not even exist yet at the time (2011-2019).',
     },
   },
   {
@@ -434,8 +434,8 @@ export const CURRICULUM: CvExperience[] = [
       },
     ],
     ragComment: {
-      fr: "Une première expérience professionnelle, c'est comme une première voiture : ça ne s'oublie pas. Une expérience inoubliable, avec des projets et des clients comme je n'en reverrai sans doute plus jamais. Mais aussi trop d'implication et une frontière entre vie personnelle et professionnelle quasiment inexistante — un vrai point de vigilance pour ne pas se laisser dévorer par le travail.",
-      en: "A first professional experience is like a first car: you never forget it. An unforgettable experience, with projects and clients I'll probably never come across again. But also too much involvement, with almost no boundary between personal and professional life — a real point of caution, to avoid getting consumed by work.",
+      fr: "Une première expérience professionnelle, c'est comme une première voiture : ça ne s'oublie pas. Une expérience inoubliable, avec des projets et des clients comme je n'en reverrai sans doute plus jamais. Mais aussi trop d'implication et une frontière entre vie personnelle et professionnelle quasiment inexistante — un vrai point de vigilance pour ne pas se laisser dévorer par le travail. La stack sur cette période se limite à PHP, MySQL, jQuery, Flash/ActionScript et Premiere Pro : pas de React, Vue.js, Angular, Node.js, Python, Next.js ni Docker — ces technologies n'existaient pas encore à cette époque (2007-2011).",
+      en: "A first professional experience is like a first car: you never forget it. An unforgettable experience, with projects and clients I'll probably never come across again. But also too much involvement, with almost no boundary between personal and professional life — a real point of caution, to avoid getting consumed by work. The stack during this period is limited to PHP, MySQL, jQuery, Flash/ActionScript and Premiere Pro: no React, Vue.js, Angular, Node.js, Python, Next.js or Docker — these technologies did not exist yet at the time (2007-2011).",
     },
   },
   {

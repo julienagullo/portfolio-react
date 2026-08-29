@@ -15,12 +15,7 @@ if (!apiKey) {
   process.exit(1);
 }
 
-/**
- * Découpe le markdown généré par generate-rag-docs.mjs en chunks cohérents :
- * un chunk pour le texte direct sous chaque `##` (description, ragComment,
- * compétences), un chunk par `###` (chaque projet/film/auteur/jeu), préfixé
- * par son titre `##` parent pour garder le contexte.
- */
+// Découpe le markdown généré en chunks : un par intro `##`, un par `###` (préfixé de son `##` parent).
 function chunkMarkdown(content) {
   const chunks = [];
   let h2 = '';
@@ -70,9 +65,7 @@ function chunkMarkdown(content) {
   return chunks.map((c) => c.trim()).filter(Boolean);
 }
 
-// Vecteur unitaire (norme 1) : permet à Retriever.php de calculer la
-// similarité cosinus comme un simple produit scalaire au moment de la
-// requête, sans recalculer la norme des documents à chaque question.
+// Vecteur unitaire (norme 1) : la similarité cosinus devient un simple produit scalaire côté Retriever.php.
 function normalize(vector) {
   const norm = Math.sqrt(vector.reduce((sum, x) => sum + x * x, 0));
   return norm === 0 ? vector : vector.map((x) => x / norm);

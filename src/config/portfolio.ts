@@ -12,13 +12,12 @@ export type PortfolioProject = {
   stack: PortfolioStackItem[];
   whyReactBabylon: Record<Language, string>;
   aiAssistance: Record<Language, string>;
-  repoUrl: string;
 };
 
 export const PORTFOLIO_PROJECT: PortfolioProject = {
   description: {
-    fr: "Ce portfolio est un diorama pixel art en 3D, navigable entre 3 salles (bureau, détente, réunion) avec une caméra qui pivote légèrement au mouvement de la souris. Le code source est public.",
-    en: 'This portfolio is a 3D pixel-art diorama, browsable across 3 rooms (office, lounge, meeting room) with a camera that rotates slightly on mouse move. The source code is public.',
+    fr: "Ce portfolio est un diorama pixel art en 3D, navigable entre 3 salles (bureau, détente, réunion) avec une caméra qui pivote légèrement au mouvement de la souris. Le code source est public et disponible sur GitHub à cette adresse : https://github.com/julienagullo/portfolio-react.",
+    en: 'This portfolio is a 3D pixel-art diorama, browsable across 3 rooms (office, lounge, meeting room) with a camera that rotates slightly on mouse move. The source code is public and available on GitHub at this address: https://github.com/julienagullo/portfolio-react.',
   },
   stack: [
     {
@@ -58,5 +57,4 @@ export const PORTFOLIO_PROJECT: PortfolioProject = {
     fr: "Développé avec l'assistance de Claude Code (Anthropic) pour l'implémentation, le mixage sonore et la traduction FR/EN — sous la supervision et la direction technique de l'auteur (architecture, choix produits et arbitrages).",
     en: "Built with the assistance of Claude Code (Anthropic) for implementation, sound mixing, and FR/EN translation — under the author's supervision and technical direction (architecture, product choices, and trade-offs).",
   },
-  repoUrl: 'https://github.com/julienagullo/portfolio-react',
 };

@@ -1,8 +1,4 @@
-// scripts/rag-asset-loader.mjs
-//
-// Hook de module Node (voir generate-rag-docs.mjs) : stubbe les imports
-// d'assets binaires (images, PDF, audio) pour permettre d'importer
-// directement les fichiers TS de contenu sans bundler ni build préalable.
+// Hook de module Node : stubbe les imports d'assets binaires pour charger les fichiers TS sans bundler.
 
 const ASSET_RE = /\.(png|jpe?g|webp|svg|gif|pdf|wav|mp3|ogg)$/;
 
