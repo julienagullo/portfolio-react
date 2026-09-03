@@ -3,8 +3,8 @@ import auRevoirLaHaut from '../assets/ressources/hobbies/au-revoir-la-haut.png';
 import balatro from '../assets/ressources/hobbies/balatro.png';
 import dredge from '../assets/ressources/hobbies/dredge.png';
 import gambonanza from '../assets/ressources/hobbies/gambonanza.png';
+import gourou from '../assets/ressources/hobbies/gourou.png';
 import ilEtait2Fois from '../assets/ressources/hobbies/il-etait-2-fois.png';
-import inscryption from '../assets/ressources/hobbies/inscryption.png';
 import jeVerraiToujoursVosVisages from '../assets/ressources/hobbies/je-verrai-toujours-vos-visages.png';
 import laDerniereChasse from '../assets/ressources/hobbies/la-derniere-chasse.png';
 import lEmpireDesLoups from '../assets/ressources/hobbies/l-empire-des-loups.png';
@@ -15,12 +15,10 @@ import leSilence from '../assets/ressources/hobbies/le-silence.png';
 import leVolDesCigognes from '../assets/ressources/hobbies/le-vol-des-cigognes.png';
 import lesPromises from '../assets/ressources/hobbies/les-promises.png';
 import norferville from '../assets/ressources/hobbies/norferville.png';
-import obsession from '../assets/ressources/hobbies/obsession.png';
 import pandemia from '../assets/ressources/hobbies/pandemia.png';
 import shutterIsland from '../assets/ressources/hobbies/shutter-island.png';
 import squareValley from '../assets/ressources/hobbies/square-valley.png';
 import theDrifter from '../assets/ressources/hobbies/the-drifter.png';
-import theFather from '../assets/ressources/hobbies/the-father.png';
 import trainDEnferPourAngeRouge from '../assets/ressources/hobbies/train-d-enfer-pour-ange-rouge.png';
 import troisJoursEtUneVie from '../assets/ressources/hobbies/trois-jours-et-une-vie.png';
 import unDernierVerreAvantLaGuerre from '../assets/ressources/hobbies/un-dernier-verre-avant-la-guerre.png';
@@ -54,16 +52,16 @@ export type BookAuthorEntry = {
 export const FAVORITE_FILMS: HobbyItem[] = [
   {
     year: 2026,
-    title: 'Obsession',
-    subtitle: 'Curry Barker',
+    title: 'Gourou',
+    subtitle: 'Yann Gozlan',
     description: {
-      fr: "Un très bon film d'horreur dans la lignée de It Follows, La Main, Smile, etc.",
-      en: 'A really good horror film in the vein of It Follows, La Main, Smile, and the like.',
+      fr: 'Pierre Niney confirme une fois de plus son statut de très bon acteur.',
+      en: 'Pierre Niney once again confirms his status as an excellent actor.',
     },
-    image: obsession,
+    image: gourou,
     ragComment: {
-      fr: "Ce que j'aime dans les films d'horreur, c'est l'ambiance noire et oppressante, ainsi que la tension de survie qui devient un miroir de notre société.",
-      en: 'What I like about horror films is the dark, oppressive atmosphere, along with the survival tension that becomes a mirror of our society.',
+      fr: "Ce film est une très bonne critique de notre société et de ses faux-semblants. Pierre Niney fait partie des meilleurs acteurs de la scène française de notre génération.",
+      en: 'This film offers a sharp critique of our society and its false pretences. Pierre Niney is among the best actors of the French scene of our generation.',
     },
   },
   {
@@ -120,20 +118,6 @@ export const FAVORITE_FILMS: HobbyItem[] = [
     ragComment: {
       fr: "Toujours dans le genre du drame social, Ad Bestas est une réussite totale : le sujet traité est pertinent, mais aussi très actuel dans certaines régions.",
       en: 'Still in the social drama genre, Ad Bestas is a complete success: the subject it tackles is relevant, and still very topical in certain regions.',
-    },
-  },
-  {
-    year: 2021,
-    title: 'The Father',
-    subtitle: 'Florian Zeller',
-    description: {
-      fr: "Une histoire prenante sur l'autonomie et la perte de mémoire avec un Anthony Hopkins excellent.",
-      en: 'A gripping story about autonomy and memory loss, with an excellent Anthony Hopkins.',
-    },
-    image: theFather,
-    ragComment: {
-      fr: "Ce film m'a fait penser à certains de mes proches confrontés à des problèmes similaires. L'autonomie des personnes âgées devrait être rappelée plus souvent par ce genre d'œuvre cinématographique.",
-      en: 'This film reminded me of some of my loved ones facing similar issues. The autonomy of elderly people should be highlighted more often through this kind of cinematic work.',
     },
   },
 ];
@@ -259,15 +243,5 @@ export const FAVORITE_GAMES: HobbyItem[] = [
       en: 'A clever, wonderfully relaxing city-building puzzle game.',
     },
     image: squareValley,
-  },
-  {
-    year: 2021,
-    title: 'Inscryption',
-    subtitle: 'Daniel Mullins Games',
-    description: {
-      fr: 'Il y a des fois où on se demande comment on peut imaginer une chose pareille !',
-      en: "Sometimes you just wonder how anyone could come up with something like this!",
-    },
-    image: inscryption,
   },
 ];
