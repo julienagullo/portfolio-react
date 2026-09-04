@@ -34,6 +34,7 @@ export type HobbyItem = {
   image?: string;
   url?: string;
   ragComment?: Record<Language, string>;
+  ragKeywords?: Record<Language, string[]>;
 };
 
 export type FavoriteBook = {
@@ -47,6 +48,7 @@ export type BookAuthorEntry = {
   description: Record<Language, string>;
   books: FavoriteBook[];
   ragComment?: Record<Language, string>;
+  ragKeywords?: Record<Language, string[]>;
 };
 
 export const FAVORITE_FILMS: HobbyItem[] = [

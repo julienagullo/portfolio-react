@@ -23,6 +23,45 @@ function pushRagComment(lines, ragComment, lang) {
   }
 }
 
+// Injecte les synonymes/formulations alternatives d'une entrée (RAG uniquement, jamais affiché dans l'UI) :
+// rapproche l'embedding du chunk de questions qui n'emploient pas les mots exacts du contenu.
+function pushRagKeywords(lines, ragKeywords, lang) {
+  if (ragKeywords?.[lang]?.length) {
+    const label = lang === 'fr' ? 'Mots-clés' : 'Keywords';
+    lines.push('');
+    lines.push(`${label} : ${ragKeywords[lang].join(', ')}`);
+  }
+}
+
+// Chunk d'aperçu listant tous les loisirs + synonymes de la catégorie elle-même : sans lui, aucun chunk ne
+// contient jamais "loisirs/hobbies/centres d'intérêt" (le titre `# Loisirs` est jeté par chunkMarkdown, qui ne
+// garde que le texte sous les `##`/`###`), donc une question générale sans nom d'item précis ne matche rien.
+function pushHobbiesSummary(lines, { films, authors, games }, lang) {
+  const t =
+    lang === 'fr'
+      ? {
+          title: 'Aperçu des loisirs',
+          films: 'Films appréciés',
+          authors: 'Auteurs appréciés',
+          games: 'Jeux vidéo appréciés',
+          keywords: ["centres d'intérêt", 'loisirs', 'passe-temps', 'temps libre', 'hobbies'],
+        }
+      : {
+          title: 'Hobbies overview',
+          films: 'Favorite films',
+          authors: 'Favorite authors',
+          games: 'Favorite video games',
+          keywords: ['interests', 'hobbies', 'pastimes', 'leisure', 'free time'],
+        };
+
+  lines.push(`## ${t.title}`, '');
+  lines.push(`${t.films} : ${films.map((f) => f.title).join(', ')}.`);
+  lines.push(`${t.authors} : ${authors.map((a) => a.author).join(', ')}.`);
+  lines.push(`${t.games} : ${games.map((g) => g.title).join(', ')}.`);
+  pushRagKeywords(lines, { [lang]: t.keywords }, lang);
+  lines.push('');
+}
+
 // Vue d'ensemble en un seul chunk, pour que les questions générales ("quel est ton parcours ?") remontent bien par similarité.
 function pushCurriculumSummary(lines, curriculum, lang) {
   const t =
@@ -54,6 +93,7 @@ function renderCurriculum(curriculum, lang) {
     lines.push('');
     lines.push(escapeMd(exp.description[lang]));
     pushRagComment(lines, exp.ragComment, lang);
+    pushRagKeywords(lines, exp.ragKeywords, lang);
     lines.push('');
     if (exp.skills?.[lang]?.length) {
       lines.push(`**${t.skills} :** ${exp.skills[lang].join(', ')}`);
@@ -81,12 +121,15 @@ function renderHobbies({ films, authors, games }, lang) {
       ? { root: 'Loisirs', films: 'Films préférés', authors: 'Auteurs préférés', games: 'Jeux vidéo préférés', books: 'Livres appréciés' }
       : { root: 'Hobbies', films: 'Favorite films', authors: 'Favorite authors', games: 'Favorite video games', books: 'Favorite books' };
 
-  const lines = [`# ${titles.root}`, '', `## ${titles.films}`, ''];
+  const lines = [`# ${titles.root}`, ''];
+  pushHobbiesSummary(lines, { films, authors, games }, lang);
+  lines.push(`## ${titles.films}`, '');
   for (const f of films) {
     const subtitle = f.subtitle ? ` — ${f.subtitle}` : '';
     lines.push(`### ${f.title}${subtitle} (${f.year})`);
     lines.push(escapeMd(f.description[lang]));
     pushRagComment(lines, f.ragComment, lang);
+    pushRagKeywords(lines, f.ragKeywords, lang);
     lines.push('');
   }
 
@@ -95,6 +138,7 @@ function renderHobbies({ films, authors, games }, lang) {
     lines.push(`### ${a.author}`);
     lines.push(escapeMd(a.description[lang]));
     pushRagComment(lines, a.ragComment, lang);
+    pushRagKeywords(lines, a.ragKeywords, lang);
     const books = (a.books ?? []).map((b) => (b.year ? `${b.title} (${b.year})` : b.title)).join(', ');
     if (books) {
       lines.push('');
@@ -109,6 +153,7 @@ function renderHobbies({ films, authors, games }, lang) {
     lines.push(`### ${g.title}${subtitle} (${g.year})`);
     lines.push(escapeMd(g.description[lang]));
     pushRagComment(lines, g.ragComment, lang);
+    pushRagKeywords(lines, g.ragKeywords, lang);
     lines.push('');
   }
 
@@ -122,6 +167,7 @@ function renderSkills(skills, lang) {
   for (const category of skills) {
     lines.push(`## ${category.title[lang]}`);
     pushRagComment(lines, category.ragComment, lang);
+    pushRagKeywords(lines, category.ragKeywords, lang);
     lines.push('');
     for (const item of category.items) {
       lines.push(`### ${item.name}`);

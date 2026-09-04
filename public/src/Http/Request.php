@@ -198,8 +198,28 @@ final class Request
             CURLOPT_POSTFIELDS => $this->body,
         ];
 
-        $options[CURLOPT_WRITEFUNCTION] = static function ($ch, string $chunk) use ($onChunk): int {
-            $onChunk($chunk);
+        // Le status arrive avec les headers, avant le premier octet de body : on le capture ici pour
+        // savoir, dès le WRITEFUNCTION, si les chunks qui suivent sont un vrai flux SSE (2xx) ou un
+        // corps d'erreur classique (ex. Mistral en 429 renvoie un JSON, pas du SSE) — sans ça une
+        // erreur upstream passait telle quelle par $onChunk (ou, ici, ne matchait aucun "data: " et
+        // finissait en réponse vide et silencieuse côté client, sans log ni message d'erreur).
+        $status = null;
+        $errorBody = '';
+
+        $options[CURLOPT_HEADERFUNCTION] = static function ($ch, string $line) use (&$status): int {
+            if (preg_match('#^HTTP/\d(?:\.\d)?\s+(\d{3})#', $line, $m)) {
+                $status = (int) $m[1];
+            }
+
+            return strlen($line);
+        };
+
+        $options[CURLOPT_WRITEFUNCTION] = static function ($ch, string $chunk) use ($onChunk, &$status, &$errorBody): int {
+            if ($status !== null && $status >= 400) {
+                $errorBody .= $chunk;
+            } else {
+                $onChunk($chunk);
+            }
 
             return strlen($chunk);
         };
@@ -208,6 +228,10 @@ final class Request
 
         if (curl_exec($ch) === false) {
             throw new RuntimeException("Requête HTTP échouée ($this->method $url) : " . curl_error($ch));
+        }
+
+        if ($status !== null && $status >= 400) {
+            throw new RuntimeException("Requête HTTP en erreur ($this->method $url) : HTTP $status — $errorBody");
         }
     }
 

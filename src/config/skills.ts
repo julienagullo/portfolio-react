@@ -31,6 +31,7 @@ export type SkillCategory = {
   accent: SkillAccent;
   items: SkillItem[];
   ragComment?: Record<Language, string>;
+  ragKeywords?: Record<Language, string[]>;
 };
 
 export const SKILLS: SkillCategory[] = [
@@ -38,6 +39,10 @@ export const SKILLS: SkillCategory[] = [
     id: 'dev',
     title: { fr: 'Développement', en: 'Development' },
     accent: 'blue',
+    ragKeywords: {
+      fr: ['technologies', 'langages de programmation', 'compétences techniques', 'stack', 'développement web'],
+      en: ['technologies', 'programming languages', 'technical skills', 'stack', 'web development'],
+    },
     items: [
       {
         name: 'PHP',
@@ -109,6 +114,10 @@ export const SKILLS: SkillCategory[] = [
     id: 'design',
     title: { fr: 'Design & analyse', en: 'Design & analytics' },
     accent: 'orange',
+    ragKeywords: {
+      fr: ['graphisme', 'référencement', 'SEO', "analyse d'audience", 'UI/UX', 'conception graphique'],
+      en: ['graphics', 'SEO', 'search engine optimization', 'audience analytics', 'UI/UX', 'graphic design'],
+    },
     items: [
       {
         name: 'Photoshop',
@@ -148,6 +157,10 @@ export const SKILLS: SkillCategory[] = [
     id: 'tools',
     title: { fr: 'Outils', en: 'Tools' },
     accent: 'green',
+    ragKeywords: {
+      fr: ['logiciels', "environnement de travail", 'IDE', 'outils de développement'],
+      en: ['software', 'work environment', 'IDE', 'development tools'],
+    },
     items: [
       {
         name: 'PhpStorm',

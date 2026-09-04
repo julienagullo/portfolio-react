@@ -25,6 +25,8 @@ export type CvExperience = {
   projectsLabel?: Record<Language, string>;
   logo?: string;
   ragComment?: Record<Language, string>;
+  // Synonymes/formulations alternatives (RAG uniquement, jamais affiché) pour rapprocher des questions qui n'emploient pas les mots exacts du contenu.
+  ragKeywords?: Record<Language, string[]>;
 };
 
 export const CURRICULUM: CvExperience[] = [
