@@ -51,8 +51,8 @@ const translations = {
       emailLabel: 'Email',
     },
     chat: {
-      placeholder: 'Pose ta question...',
-      greeting: 'Hola, une question sur moi ou mon parcours !',
+      placeholder: 'Poser une question...',
+      greeting: 'Hola, une question sur mon profil ou mon parcours !',
       quotaLabel: 'Messages restants',
     },
   },
@@ -106,8 +106,8 @@ const translations = {
       emailLabel: 'Email',
     },
     chat: {
-      placeholder: 'Ask your question...',
-      greeting: 'Hola, ask me about myself or my background!',
+      placeholder: 'Ask a question...',
+      greeting: 'Hola, ask me about my profil or my background!',
       quotaLabel: 'Messages remaining',
     },
   },
