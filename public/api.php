@@ -11,13 +11,13 @@ use App\Http\ServerRequest;
 use App\Log\FileLogger;
 use App\Rag\Retriever;
 
-// Garde-fou serveur (seule limite qui fasse foi) ; garder en phase avec le maxLength du <textarea> (RobotChat.tsx).
 const MAX_QUESTION_LENGTH = 500;
-// Un seul tour d'historique réinjecté ; tronqué même si le front est censé déjà respecter cette limite.
 const MAX_HISTORY_ANSWER_LENGTH = 1500;
-const MISTRAL_MODEL = 'mistral-small-latest';
+const DEFAULT_MISTRAL_MODEL = 'ministral-8b-2512';
 
 Env::load(__DIR__ . '/../.env');
+
+$mistralModel = Env::get('MISTRAL_API_MODEL', DEFAULT_MISTRAL_MODEL);
 
 $logger = new FileLogger(__DIR__ . '/var/log/app.log');
 $request = ServerRequest::fromGlobals();
@@ -173,7 +173,7 @@ try {
         ->bearerToken($apiKey)
         ->timeout(60)
         ->jsonBody([
-            'model' => MISTRAL_MODEL,
+            'model' => $mistralModel,
             'messages' => $messages,
             'stream' => true,
         ])
