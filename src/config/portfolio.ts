@@ -16,8 +16,8 @@ export type PortfolioProject = {
 
 export const PORTFOLIO_PROJECT: PortfolioProject = {
   description: {
-    fr: "Ce portfolio est un diorama pixel art en 3D, navigable entre 3 salles (bureau, détente, réunion) avec une caméra qui pivote légèrement au mouvement de la souris. Le code source est public et disponible sur GitHub à cette adresse : https://github.com/julienagullo/portfolio-react.",
-    en: 'This portfolio is a 3D pixel-art diorama, browsable across 3 rooms (office, lounge, meeting room) with a camera that rotates slightly on mouse move. The source code is public and available on GitHub at this address: https://github.com/julienagullo/portfolio-react.',
+    fr: "Ce portfolio est un diorama pixel art en 3D, navigable entre 3 salles (bureau, détente, réunion) avec une caméra qui pivote légèrement au mouvement de la souris. La salle de réunion propose un chat propulsé par l'API Mistral, avec un système de RAG qui va chercher les informations directement dans le contenu du site pour répondre. Le code source est public et disponible sur GitHub à cette adresse : https://github.com/julienagullo/portfolio-react.",
+    en: "This portfolio is a 3D pixel-art diorama, browsable across 3 rooms (office, lounge, meeting room) with a camera that rotates slightly on mouse move. The meeting room features a chat powered by the Mistral API, backed by a RAG system that retrieves information directly from the site's content to answer. The source code is public and available on GitHub at this address: https://github.com/julienagullo/portfolio-react.",
   },
   stack: [
     {
