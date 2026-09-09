@@ -150,6 +150,15 @@ export default function CurriculumContent() {
           <ul className={style.projects}>
             {experience.projects.map((project) => (
               <li key={project.title.fr} className={style.project}>
+                {project.image && (
+                  <img
+                    className={style.projectImage}
+                    src={project.image}
+                    alt=""
+                    loading="lazy"
+                    draggable={false}
+                  />
+                )}
                 {project.date && <span className={style.projectDate}>{project.date}</span>}
                 <p className={style.projectTitle}>
                   {project.url ? (

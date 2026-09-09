@@ -2,6 +2,17 @@ import logoDBA from '../assets/ressources/curriculum/logo-dba.png';
 import logoFoxyz from '../assets/ressources/curriculum/logo-foxyz.png';
 import logoPortfolio from '../assets/ressources/curriculum/logo-portfolio.png';
 import logoVirtualit from '../assets/ressources/curriculum/logo-virtualit.png';
+import interfaceAirbusds from '../assets/ressources/curriculum/interface-airbusds.jpg';
+import interfaceArmoireplus from '../assets/ressources/curriculum/interface-armoireplus.jpg';
+import interfaceDbaArmoires from '../assets/ressources/curriculum/interface-dba-armoires.jpg';
+import interfaceFoAirbus from '../assets/ressources/curriculum/interface-fo-airbus.jpg';
+import interfaceFoxyz from '../assets/ressources/curriculum/interface-foxyz.jpg';
+import interfaceMairieUnion from '../assets/ressources/curriculum/interface-mairie-union.jpg';
+import interfaceMecajetdeau from '../assets/ressources/curriculum/interface-mecajetdeau.jpg';
+import interfaceSpherea from '../assets/ressources/curriculum/interface-spherea.jpg';
+import interfaceTextbeans from '../assets/ressources/curriculum/interface-textbeans.jpg';
+import interfaceTopwings from '../assets/ressources/curriculum/interface-topwings.jpg';
+import interfaceToulimmo from '../assets/ressources/curriculum/interface-toulimmo.jpg';
 import type { Language } from './config.ts';
 
 export type CvAccent = 'blue' | 'orange' | 'green' | 'red' | 'yellow';
@@ -11,6 +22,7 @@ export type CvProject = {
   detail: Record<Language, string>;
   url?: string;
   date?: string;
+  image?: string;
 };
 
 export type CvExperience = {
@@ -91,6 +103,16 @@ export const CURRICULUM: CvExperience[] = [
         },
       },
       {
+        title: { fr: 'Site Internet', en: 'Website' },
+        date: '2022 - 2026',
+        detail: {
+          fr: "Refonte et référencement du site Internet de l'entreprise.",
+          en: 'Redesign and SEO for the company website.',
+        },
+        url: 'https://foxyz.fr',
+        image: interfaceFoxyz,
+      },
+      {
         title: { fr: "Déploiement de l'API Foxyz", en: 'Foxyz API deployment' },
         date: '2024 - 2026',
         detail: {
@@ -105,16 +127,7 @@ export const CURRICULUM: CvExperience[] = [
           fr: "Refonte de la plateforme collaborative (ticket, documentation, etc).",
           en: 'Redesigned the collaborative platform (ticketing, documentation, etc.).',
         },
-      },
-      {
-        title: { fr: 'Site Internet', en: 'Website' },
-        date: '2022 - 2023',
-        detail: {
-          fr: "Refonte et référencement du site Internet de l'entreprise.",
-          en: 'Redesign and SEO for the company website.',
-        },
-        url: 'https://foxyz.fr',
-      },
+      }
     ],
     ragComment: {
       fr: "Travailler dans l'écosystème ERP de Foxyz a été une expérience professionnelle enrichissante, mais aussi exigeante : comprendre la structure d'un ERP existant et s'adapter à du code déjà en place demande un vrai effort d'appropriation. Ce poste a aussi été une source importante d'enrichissement personnel sur le développement d'API. La stack chez Foxyz se limite strictement à PHP, Symfony, MySQL et Stimulus : pas de React, Vue.js, Angular, Svelte, Node.js, Python, Next.js, Docker, Kubernetes, MongoDB, PostgreSQL, NestJS, Prisma, Redis, Astro ni GitLab CI/CD sur ce poste. J'y utilise aussi un agent IA local basé sur Gemma.",
@@ -165,6 +178,7 @@ export const CURRICULUM: CvExperience[] = [
           en: 'Improved the brand identity; rebuilt the website on WooCommerce; ran multichannel marketing campaigns (email, direct mail, etc.); created communication materials.',
         },
         url: 'https://www.dba-armoires.fr',
+        image: interfaceDbaArmoires,
       },
       {
         title: { fr: 'Armoire Plus', en: 'Armoire Plus' },
@@ -174,6 +188,7 @@ export const CURRICULUM: CvExperience[] = [
           en: 'Improved the brand identity; built a custom order-tracking plugin; adapted third-party plugins; updated the product catalog.',
         },
         url: 'https://www.armoireplus.fr',
+        image: interfaceArmoireplus,
       },
       {
         title: { fr: 'Mon Atelier Pro', en: 'Mon Atelier Pro' },
@@ -252,6 +267,7 @@ export const CURRICULUM: CvExperience[] = [
           en: 'Redesigned the company website; provided advice and support on web communication.',
         },
         url: 'https://www.toulimmo-realisation.fr',
+        image: interfaceToulimmo,
       },
       {
         title: { fr: 'Les Jardins de Jordi', en: 'Les Jardins de Jordi' },
@@ -287,6 +303,7 @@ export const CURRICULUM: CvExperience[] = [
           en: 'Redesigned the company website.',
         },
         url: 'https://www.mecajetdeau.com',
+        image: interfaceMecajetdeau,
       },
       {
         title: { fr: 'Continental', en: 'Continental' },
@@ -303,6 +320,16 @@ export const CURRICULUM: CvExperience[] = [
           fr: "Réalisation de l'application de salon présentant la plateforme logicielle U-TEST ®.",
           en: 'Built the kiosk application presenting the U-TEST® software platform.',
         },
+        image: interfaceSpherea,
+      },
+      {
+        title: { fr: 'TextBeans', en: 'TextBeans' },
+        date: '2016',
+        detail: {
+          fr: "Intégration graphique d'une plateforme en ligne de traduction pour Lingocentric.",
+          en: 'Graphic integration of online translation platform for Lingocentric.',
+        },
+        image: interfaceTextbeans,
       },
       {
         title: { fr: 'Airbus Defence & Space', en: 'Airbus Defence & Space' },
@@ -311,6 +338,7 @@ export const CURRICULUM: CvExperience[] = [
           fr: "Conception d'un magazine interactif interne pour la mission JUICE.",
           en: 'Designed an interactive internal magazine for the JUICE mission.',
         },
+        image: interfaceAirbusds,
       },
       {
         title: { fr: 'CNES', en: 'CNES' },
@@ -335,6 +363,7 @@ export const CURRICULUM: CvExperience[] = [
           fr: "Conception du design et aide au développement de l'application de salon TopWings EFB solution pour support tactile.",
           en: 'Designed the visual identity and developed the TopWings EFB touchscreen kiosk application.',
         },
+        image: interfaceTopwings,
       },
       {
         title: { fr: 'Thales Avionics', en: 'Thales Avionics' },
@@ -403,11 +432,20 @@ export const CURRICULUM: CvExperience[] = [
         },
       },
       {
+        title: { fr: "Mairie de l'Union", en: "L'Union Town Hall" },
+        date: '2009-2010',
+        detail: {
+          fr: 'Refonte du site Internet de la mairie ; formation des utilisateurs.',
+          en: "Redesigned the town hall's website; trained users.",
+        },
+        image: interfaceMairieUnion,
+      },
+      {
         title: { fr: 'Ineo-RHT', en: 'Ineo-RHT' },
         date: '2009',
         detail: {
-          fr: "Refonte et référencement du site Internet ineo-rht.fr.",
-          en: 'Redesigned and improved the SEO of ineo-rht.fr.',
+          fr: "Refonte et référencement du site Internet d'INEO-RHT (Réseaux Haute-Tension).",
+          en: 'Redesigned and improved the SEO of INEO-RHT (Hight-Voltage Network).',
         },
       },
       {
@@ -417,6 +455,7 @@ export const CURRICULUM: CvExperience[] = [
           fr: "Conception du site Internet du syndicat ; réalisation d'un CD-ROM interactif sur l'organisation syndicale.",
           en: "Built the union's website; produced an interactive CD-ROM presenting the union's structure.",
         },
+        image: interfaceFoAirbus,
       },
       {
         title: { fr: 'Plateforme client', en: 'Client platform' },
