@@ -2,7 +2,7 @@ import adBestas from '../assets/ressources/hobbies/ad-bestas.png';
 import auRevoirLaHaut from '../assets/ressources/hobbies/au-revoir-la-haut.png';
 import balatro from '../assets/ressources/hobbies/balatro.png';
 import dredge from '../assets/ressources/hobbies/dredge.png';
-import gambonanza from '../assets/ressources/hobbies/gambonanza.png';
+import flickShotRogues from '../assets/ressources/hobbies/flick-shot-rogues.png';
 import gourou from '../assets/ressources/hobbies/gourou.png';
 import ilEtait2Fois from '../assets/ressources/hobbies/il-etait-2-fois.png';
 import jeVerraiToujoursVosVisages from '../assets/ressources/hobbies/je-verrai-toujours-vos-visages.png';
@@ -18,9 +18,9 @@ import norferville from '../assets/ressources/hobbies/norferville.png';
 import pandemia from '../assets/ressources/hobbies/pandemia.png';
 import shutterIsland from '../assets/ressources/hobbies/shutter-island.png';
 import squareValley from '../assets/ressources/hobbies/square-valley.png';
-import theDrifter from '../assets/ressources/hobbies/the-drifter.png';
 import trainDEnferPourAngeRouge from '../assets/ressources/hobbies/train-d-enfer-pour-ange-rouge.png';
 import troisJoursEtUneVie from '../assets/ressources/hobbies/trois-jours-et-une-vie.png';
+import ultrapool from '../assets/ressources/hobbies/ultrapool.png';
 import unDernierVerreAvantLaGuerre from '../assets/ressources/hobbies/un-dernier-verre-avant-la-guerre.png';
 import uneBatailleApresLAutre from '../assets/ressources/hobbies/une-bataille-apres-l-autre.png';
 import unPaysALAube from '../assets/ressources/hobbies/un-pays-a-l-aube.png';
@@ -198,31 +198,31 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
 export const FAVORITE_GAMES: HobbyItem[] = [
   {
     year: 2026,
-    title: 'Gambonanza',
-    subtitle: 'Blukulélé',
+    title: 'Ultrapool',
+    subtitle: 'Icedrop Games',
     description: {
-      fr: "Un jeu d'échecs malin avec un système de gambits bien pensé.",
-      en: 'A clever chess game with a well-designed gambit system.',
+      fr: 'Un jeu de billard peaufiné, centré sur la combinaison des boules.',
+      en: 'A polished pool game built around combining balls.',
     },
-    image: gambonanza,
+    image: ultrapool,
   },
   {
     year: 2025,
-    title: 'The Drifter',
-    subtitle: 'Powerhoof',
+    title: 'Flick Shot Rogues',
+    subtitle: 'Butter By The Fish',
     description: {
-      fr: 'Une histoire prenante portée par un pixel art magnifique.',
-      en: 'A gripping story carried by gorgeous pixel art.',
+      fr: "Un roguelike inspiré d'Angry Birds dans l'univers de la piraterie.",
+      en: 'An Angry Birds-inspired roguelike set in the world of piracy.',
     },
-    image: theDrifter,
+    image: flickShotRogues,
   },
   {
     year: 2024,
     title: 'Balatro',
     subtitle: 'LocalThunk',
     description: {
-      fr: 'Réalisation impeccable et un dosage stratégique parfait.',
-      en: 'Flawless execution and a strategic balance nailed to perfection.',
+      fr: 'Un des meilleurs jeux indé, avec un dosage stratégique parfait.',
+      en: 'One of the best indie games, with a perfectly tuned strategic balance.',
     },
     image: balatro,
   },
@@ -231,8 +231,8 @@ export const FAVORITE_GAMES: HobbyItem[] = [
     title: 'Dredge',
     subtitle: 'Black Salt Games',
     description: {
-      fr: "Jeu de pêche à l'ambiance lovecraftienne avec un gameplay reposant.",
-      en: 'An original Lovecraftian fishing game with wonderfully relaxing gameplay.',
+      fr: "Un jeu de pêche reposant à l'ambiance lovecraftienne.",
+      en: 'A relaxing fishing game with a Lovecraftian atmosphere.',
     },
     image: dredge,
   },
@@ -241,8 +241,8 @@ export const FAVORITE_GAMES: HobbyItem[] = [
     title: 'Square Valley',
     subtitle: 'Rycekube Games',
     description: {
-      fr: "Un city-builder puzzle aussi malin qu'apaisant, avec un vrai game design ingénieux.",
-      en: 'A clever, wonderfully relaxing city-building puzzle game.',
+      fr: "Un city-builder puzzle avec un vrai game design ingénieux.",
+      en: 'A city-building puzzle game with truly ingenious game design.',
     },
     image: squareValley,
   },

@@ -2,6 +2,7 @@ import logoDBA from '../assets/ressources/curriculum/logo-dba.png';
 import logoFoxyz from '../assets/ressources/curriculum/logo-foxyz.png';
 import logoPortfolio from '../assets/ressources/curriculum/logo-portfolio.png';
 import logoVirtualit from '../assets/ressources/curriculum/logo-virtualit.png';
+import facturationElectronique from '../assets/ressources/curriculum/facturation-electronique.jpg';
 import interfaceAirbusds from '../assets/ressources/curriculum/interface-airbusds.jpg';
 import interfaceArmoireplus from '../assets/ressources/curriculum/interface-armoireplus.jpg';
 import interfaceDbaArmoires from '../assets/ressources/curriculum/interface-dba-armoires.jpg';
@@ -93,6 +94,7 @@ export const CURRICULUM: CvExperience[] = [
           fr: "Intégration de la norme FacturX dans les exports PDF des factures ; mise en place d'un parseur XML pour récupérer les données d'une facture ; connexion avec l'API Jefacture pour gérer les statuts des factures depuis l'ERP.",
           en: 'Integrated the FacturX standard into invoice PDF exports; built an XML parser to extract invoice data; connected to the Jefacture API to manage invoice statuses directly from the ERP.',
         },
+        image: facturationElectronique,
       },
       {
         title: { fr: 'Système de mise à jour', en: 'Update system' },
