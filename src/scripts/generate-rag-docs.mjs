@@ -36,28 +36,28 @@ function pushRagKeywords(lines, ragKeywords, lang) {
 // Chunk d'aperçu listant tous les loisirs + synonymes de la catégorie elle-même : sans lui, aucun chunk ne
 // contient jamais "loisirs/hobbies/centres d'intérêt" (le titre `# Loisirs` est jeté par chunkMarkdown, qui ne
 // garde que le texte sous les `##`/`###`), donc une question générale sans nom d'item précis ne matche rien.
-function pushHobbiesSummary(lines, { films, authors, games }, lang) {
+function pushHobbiesSummary(lines, { films, authors, openSource }, lang) {
   const t =
     lang === 'fr'
       ? {
           title: 'Aperçu des loisirs',
           films: 'Films appréciés',
           authors: 'Auteurs appréciés',
-          games: 'Jeux vidéo appréciés',
-          keywords: ["centres d'intérêt", 'loisirs', 'passe-temps', 'temps libre', 'hobbies'],
+          openSource: 'Projets open source',
+          keywords: ["centres d'intérêt", 'loisirs', 'passe-temps', 'temps libre', 'hobbies', 'open source', 'projets personnels'],
         }
       : {
           title: 'Hobbies overview',
           films: 'Favorite films',
           authors: 'Favorite authors',
-          games: 'Favorite video games',
-          keywords: ['interests', 'hobbies', 'pastimes', 'leisure', 'free time'],
+          openSource: 'Open source projects',
+          keywords: ['interests', 'hobbies', 'pastimes', 'leisure', 'free time', 'open source', 'side projects'],
         };
 
   lines.push(`## ${t.title}`, '');
   lines.push(`${t.films} : ${films.map((f) => f.title).join(', ')}.`);
   lines.push(`${t.authors} : ${authors.map((a) => a.author).join(', ')}.`);
-  lines.push(`${t.games} : ${games.map((g) => g.title).join(', ')}.`);
+  lines.push(`${t.openSource} : ${openSource.map((p) => p.title).join(', ')}.`);
   pushRagKeywords(lines, { [lang]: t.keywords }, lang);
   lines.push('');
 }
@@ -115,14 +115,14 @@ function renderCurriculum(curriculum, lang) {
   return lines.join('\n');
 }
 
-function renderHobbies({ films, authors, games }, lang) {
+function renderHobbies({ films, authors, openSource }, lang) {
   const titles =
     lang === 'fr'
-      ? { root: 'Loisirs', films: 'Films préférés', authors: 'Auteurs préférés', games: 'Jeux vidéo préférés', books: 'Livres appréciés' }
-      : { root: 'Hobbies', films: 'Favorite films', authors: 'Favorite authors', games: 'Favorite video games', books: 'Favorite books' };
+      ? { root: 'Loisirs', films: 'Films préférés', authors: 'Auteurs préférés', openSource: 'Projets open source', books: 'Livres appréciés', skills: 'Compétences', link: 'Lien' }
+      : { root: 'Hobbies', films: 'Favorite films', authors: 'Favorite authors', openSource: 'Open source projects', books: 'Favorite books', skills: 'Skills', link: 'Link' };
 
   const lines = [`# ${titles.root}`, ''];
-  pushHobbiesSummary(lines, { films, authors, games }, lang);
+  pushHobbiesSummary(lines, { films, authors, openSource }, lang);
   lines.push(`## ${titles.films}`, '');
   for (const f of films) {
     const subtitle = f.subtitle ? ` — ${f.subtitle}` : '';
@@ -147,13 +147,15 @@ function renderHobbies({ films, authors, games }, lang) {
     lines.push('');
   }
 
-  lines.push(`## ${titles.games}`, '');
-  for (const g of games) {
-    const subtitle = g.subtitle ? ` — ${g.subtitle}` : '';
-    lines.push(`### ${g.title}${subtitle} (${g.year})`);
-    lines.push(escapeMd(g.description[lang]));
-    pushRagComment(lines, g.ragComment, lang);
-    pushRagKeywords(lines, g.ragKeywords, lang);
+  lines.push(`## ${titles.openSource}`, '');
+  for (const p of openSource) {
+    const subtitle = p.subtitle ? ` — ${p.subtitle}` : '';
+    lines.push(`### ${p.title}${subtitle}${p.year ? ` (${p.year})` : ''}`);
+    lines.push(escapeMd(p.description[lang]));
+    if (p.skills?.length) lines.push(`${titles.skills} : ${p.skills.join(', ')}`);
+    if (p.url) lines.push(`${titles.link} : ${p.url}`);
+    pushRagComment(lines, p.ragComment, lang);
+    pushRagKeywords(lines, p.ragKeywords, lang);
     lines.push('');
   }
 
@@ -199,7 +201,7 @@ function renderPortfolioProject(project, lang) {
 
 async function main() {
   const { CURRICULUM } = await loadModule('config/curriculum.ts');
-  const { FAVORITE_FILMS, FAVORITE_AUTHORS, FAVORITE_GAMES } = await loadModule('config/hobbies.ts');
+  const { FAVORITE_FILMS, FAVORITE_AUTHORS, OPEN_SOURCE_PROJECTS } = await loadModule('config/hobbies.ts');
   const { PORTFOLIO_PROJECT } = await loadModule('config/portfolio.ts');
   const { SKILLS } = await loadModule('config/skills.ts');
 
@@ -215,7 +217,7 @@ async function main() {
       '',
       '---',
       '',
-      renderHobbies({ films: FAVORITE_FILMS, authors: FAVORITE_AUTHORS, games: FAVORITE_GAMES }, lang),
+      renderHobbies({ films: FAVORITE_FILMS, authors: FAVORITE_AUTHORS, openSource: OPEN_SOURCE_PROJECTS }, lang),
       '',
       '---',
       '',

@@ -1,7 +1,5 @@
 import type { Language } from './config.ts';
 
-// Contenu RAG décrivant ce portfolio (pas l'auteur), jamais affiché dans l'UI — consommé par generate-rag-docs.mjs.
-
 export type PortfolioStackItem = {
   name: string;
   description: Record<Language, string>;

@@ -29,6 +29,10 @@
   background: rgba(128, 128, 128, 0.2);
 }
 
+.row.noYear::before {
+  content: none;
+}
+
 .year {
   flex-shrink: 0;
   display: flex;
@@ -107,6 +111,12 @@
   font-weight: 700;
 }
 
+.title a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .subtitle {
   margin: 0 0 4px;
   font-size: 0.8rem;
@@ -120,13 +130,21 @@
   opacity: 0.85;
 }
 
-.link {
-  margin-top: 6px;
-  font-size: 0.75rem;
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  word-break: break-all;
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skillPill {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  background: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 @media (max-width: 780px) {

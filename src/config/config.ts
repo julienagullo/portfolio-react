@@ -7,15 +7,15 @@ import officePhone from '../assets/image/office_phone.webp';
 import break01 from '../assets/texture/break_01.webp';
 import break02 from '../assets/texture/break_02.webp';
 import break03 from '../assets/texture/break_03.webp';
-import breakBooks from '../assets/image/break_books.webp';
-import breakConsole from '../assets/image/break_console.webp';
-import breakDvd from '../assets/image/break_dvd.webp';
+import hobbiesBooks from '../assets/image/hobbies_books.webp';
+import hobbiesDvd from '../assets/image/hobbies_dvd.webp';
+import hobbiesTux from '../assets/image/hobbies_tux.webp';
 import meeting01 from '../assets/texture/meeting_01.webp';
 import meeting02 from '../assets/texture/meeting_02.webp';
 import meeting03 from '../assets/texture/meeting_03.webp';
 import meetingRobot from '../assets/image/meeting_robot.webp';
 import officeThumb from '../assets/image/office_space.webp';
-import breakThumb from '../assets/image/break_room.webp';
+import hobbiesThumb from '../assets/image/hobbies_room.webp';
 import meetingThumb from '../assets/image/meeting_room.webp';
 import spriteIcons from '../assets/image/sprite_icons.webp';
 import ambianceBureau from '../assets/audio/ambiance_bureau.wav';
@@ -26,7 +26,7 @@ import sfxDvd from '../assets/audio/dvd.wav';
 import sfxLivre from '../assets/audio/livre.wav';
 import sfxRobot from '../assets/audio/robot.wav';
 import sfxSonnerie from '../assets/audio/sonnerie.wav';
-import sfxWilhelm from '../assets/audio/wilhelm.wav';
+import sfxTux from '../assets/audio/tux.wav';
 
 export const SCENE_WIDTH = 1920;
 export const SCENE_HEIGHT = 1080;
@@ -71,9 +71,9 @@ export const ASSET_MANIFEST: Record<RoomName, AssetDef[]> = {
     { name: 'break_01', url: break01 },
     { name: 'break_02', url: break02 },
     { name: 'break_03', url: break03 },
-    { name: 'break_dvd', url: breakDvd },
-    { name: 'break_books', url: breakBooks },
-    { name: 'break_console', url: breakConsole },
+    { name: 'hobbies_dvd', url: hobbiesDvd },
+    { name: 'hobbies_books', url: hobbiesBooks },
+    { name: 'hobbies_tux', url: hobbiesTux },
   ],
   MeetingRoom: [
     { name: 'meeting_01', url: meeting01 },
@@ -85,7 +85,7 @@ export const ASSET_MANIFEST: Record<RoomName, AssetDef[]> = {
 
 export const ROOM_THUMBNAILS: Partial<Record<RoomName, string>> = {
   OfficeSpace: officeThumb,
-  BreakRoom: breakThumb,
+  BreakRoom: hobbiesThumb,
   MeetingRoom: meetingThumb,
 };
 
@@ -102,9 +102,9 @@ export const ITEM_SFX: Record<string, string> = {
   office_books: sfxLivre,
   office_phone: sfxSonnerie,
   office_computer: sfxApple,
-  break_dvd: sfxDvd,
-  break_books: sfxLivre,
-  break_console: sfxWilhelm,
+  hobbies_dvd: sfxDvd,
+  hobbies_books: sfxLivre,
+  hobbies_tux: sfxTux,
   meeting_robot: sfxRobot,
 };
 
@@ -118,9 +118,9 @@ export const OFFICE_SPRITE_ITEMS: Record<string, SpriteItemDef> = {
 };
 
 export const BREAK_ITEMS: Record<string, SpriteItemDef> = {
-  break_dvd: { x: -2.3, y: -3.1, z: 4.85, width: 1.3, url: breakDvd, cellWidth: 280, cellHeight: 100, frameCount: 5 },
-  break_books: { x: 2, y: -2.065, z: 4.85, width: 1.1, url: breakBooks, cellWidth: 185, cellHeight: 180, frameCount: 5 },
-  break_console: { x: -0.45, y: -2.22, z: 4.85, width: 1.1, url: breakConsole, cellWidth: 165, cellHeight: 115, frameCount: 5 },
+  hobbies_dvd: { x: -2.3, y: -3.1, z: 4.85, width: 1.3, url: hobbiesDvd, cellWidth: 280, cellHeight: 100, frameCount: 5 },
+  hobbies_books: { x: 2, y: -2.065, z: 4.85, width: 1.1, url: hobbiesBooks, cellWidth: 185, cellHeight: 180, frameCount: 5 },
+  hobbies_tux: { x: -0.45, y: -1.945, z: 4.85, width: 1.07, url: hobbiesTux, cellWidth: 160, cellHeight: 200, frameCount: 5 },
 };
 
 export const MEETING_ITEMS: Record<string, SpriteItemDef> = {

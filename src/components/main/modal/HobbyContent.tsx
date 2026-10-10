@@ -11,15 +11,15 @@ type HobbyContentProps = {
 
 export default function HobbyContent({ items, orientation = 'portrait' }: HobbyContentProps) {
   const { language } = useLanguage();
-  const sorted = [...items].sort((a, b) => b.year - a.year);
+  const sorted = [...items].sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
 
   return (
     <ol className={style.timeline}>
       {sorted.map((item, index) => {
         const accent = ACCENTS[index % ACCENTS.length];
         return (
-          <li key={item.year} className={style.row}>
-            <span className={`${style.year} ${style[accent]}`}>{item.year}</span>
+          <li key={`${item.year}-${item.title}`} className={`${style.row} ${item.year ? '' : style.noYear}`}>
+            {item.year && <span className={`${style.year} ${style[accent]}`}>{item.year}</span>}
             <div className={`${style.card} ${orientation === 'landscape' ? style.landscape : ''}`}>
               {item.image ? (
                 <img className={style.poster} src={item.image} alt="" loading="lazy" />
@@ -27,13 +27,25 @@ export default function HobbyContent({ items, orientation = 'portrait' }: HobbyC
                 <div className={`${style.posterFallback} ${style[accent]}`} aria-hidden="true" />
               )}
               <div className={style.info}>
-                <p className={style.title}>{item.title}</p>
+                <p className={style.title}>
+                  {item.url ? (
+                    <a href={item.url} target="_blank" rel="noreferrer">
+                      {item.title}
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </p>
                 {item.subtitle && <p className={style.subtitle}>{item.subtitle}</p>}
                 <p className={style.description}>{item.description[language]}</p>
-                {item.url && (
-                  <a className={style.link} href={item.url} target="_blank" rel="noreferrer">
-                    {item.url.replace(/^https?:\/\//, '')}
-                  </a>
+                {item.skills && (
+                  <ul className={style.skills}>
+                    {item.skills.map((skill) => (
+                      <li key={skill} className={style.skillPill}>
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>

@@ -1,8 +1,5 @@
 import adBestas from '../assets/ressources/hobbies/ad-bestas.png';
 import auRevoirLaHaut from '../assets/ressources/hobbies/au-revoir-la-haut.png';
-import balatro from '../assets/ressources/hobbies/balatro.png';
-import dredge from '../assets/ressources/hobbies/dredge.png';
-import flickShotRogues from '../assets/ressources/hobbies/flick-shot-rogues.png';
 import gourou from '../assets/ressources/hobbies/gourou.png';
 import ilEtait2Fois from '../assets/ressources/hobbies/il-etait-2-fois.png';
 import jeVerraiToujoursVosVisages from '../assets/ressources/hobbies/je-verrai-toujours-vos-visages.png';
@@ -14,25 +11,27 @@ import leSerpentMajuscule from '../assets/ressources/hobbies/le-serpent-majuscul
 import leSilence from '../assets/ressources/hobbies/le-silence.png';
 import leVolDesCigognes from '../assets/ressources/hobbies/le-vol-des-cigognes.png';
 import lesPromises from '../assets/ressources/hobbies/les-promises.png';
+import logoShaderUi from '../assets/ressources/hobbies/logo-shader-ui.png';
+import logoSymfony from '../assets/ressources/hobbies/logo-symfony.png';
+import logoYawasla from '../assets/ressources/hobbies/logo-yawasla.png';
 import norferville from '../assets/ressources/hobbies/norferville.png';
 import pandemia from '../assets/ressources/hobbies/pandemia.png';
 import shutterIsland from '../assets/ressources/hobbies/shutter-island.png';
-import squareValley from '../assets/ressources/hobbies/square-valley.png';
 import trainDEnferPourAngeRouge from '../assets/ressources/hobbies/train-d-enfer-pour-ange-rouge.png';
 import troisJoursEtUneVie from '../assets/ressources/hobbies/trois-jours-et-une-vie.png';
-import ultrapool from '../assets/ressources/hobbies/ultrapool.png';
 import unDernierVerreAvantLaGuerre from '../assets/ressources/hobbies/un-dernier-verre-avant-la-guerre.png';
 import uneBatailleApresLAutre from '../assets/ressources/hobbies/une-bataille-apres-l-autre.png';
 import unPaysALAube from '../assets/ressources/hobbies/un-pays-a-l-aube.png';
 import type { Language } from './config.ts';
 
 export type HobbyItem = {
-  year: number;
+  year?: number;
   title: string;
   subtitle?: string;
   description: Record<Language, string>;
   image?: string;
   url?: string;
+  skills?: string[];
   ragComment?: Record<Language, string>;
   ragKeywords?: Record<Language, string[]>;
 };
@@ -195,55 +194,47 @@ export const FAVORITE_AUTHORS: BookAuthorEntry[] = [
   },
 ];
 
-export const FAVORITE_GAMES: HobbyItem[] = [
+export const OPEN_SOURCE_PROJECTS: HobbyItem[] = [
   {
-    year: 2026,
-    title: 'Ultrapool',
-    subtitle: 'Icedrop Games',
+    title: 'Twig Request',
+    skills: ['PHP', 'Symfony', 'Twig'],
     description: {
-      fr: 'Un jeu de billard peaufiné, centré sur la combinaison des boules.',
-      en: 'A polished pool game built around combining balls.',
+      fr: "Extension Twig qui expose la requête dans les templates Symfony : route, méthode et contrôleur courants, avec des tests comme is_route() pour les classes CSS de navigation.",
+      en: 'Twig extension that exposes the request in Symfony templates: current route, method and controller, with checks like is_route() for navigation CSS classes.',
     },
-    image: ultrapool,
+    image: logoSymfony,
+    url: 'https://github.com/julienagullo/twig-request',
+    ragComment: {
+      fr: "Une extension volontairement minimaliste : un seul fichier à copier dans src/Twig, sans dépendance supplémentaire. Elle évite de manipuler directement l'objet requête dans les templates, par exemple pour activer le lien courant d'un menu.",
+      en: 'A deliberately minimal extension: a single file to copy into src/Twig, with no extra dependency. It avoids handling the request object directly in templates, for example to highlight the current link in a menu.',
+    },
   },
   {
-    year: 2025,
-    title: 'Flick Shot Rogues',
-    subtitle: 'Butter By The Fish',
+    title: 'Shader UI',
+    skills: ['React', 'TypeScript', 'WebGL'],
     description: {
-      fr: "Un roguelike inspiré d'Angry Birds dans l'univers de la piraterie.",
-      en: 'An Angry Birds-inspired roguelike set in the world of piracy.',
+      fr: "Bibliothèque de composants UI qui signale les états de l'interface (erreur, validation, chargement) par des effets de lumière, avec un interrupteur global pour les désactiver.",
+      en: 'UI component library that signals interface states (error, validation, loading) through lighting effects, with a global switch to turn them off.',
     },
-    image: flickShotRogues,
+    image: logoShaderUi,
+    url: 'https://shader-ui.com/',
+    ragComment: {
+      fr: "Comme tous mes projets open source, ce sont des projets menés sur mon temps perso. shader-ui est publié sur npm (@shader-ui/react) : les composants restent immobiles au repos et la lumière n'apparaît que pour signaler un état. Les effets peuvent être coupés globalement via ShaderProvider, y compris par l'utilisateur final, pour l'accessibilité.",
+      en: 'Like all my open source work, these are projects I build in my own free time. shader-ui is published on npm (@shader-ui/react): components stay still when idle and light only appears to signal a state. Effects can be switched off globally through ShaderProvider, including by end users, for accessibility.',
+    },
   },
   {
-    year: 2024,
-    title: 'Balatro',
-    subtitle: 'LocalThunk',
+    title: 'Yawasla',
+    skills: ['PHP', 'React', 'MySQL'],
     description: {
-      fr: 'Un des meilleurs jeux indé, avec un dosage stratégique parfait.',
-      en: 'One of the best indie games, with a perfectly tuned strategic balance.',
+      fr: "Newsroom en ligne pour les associations gestionnaires de lieux de culte : annonces de prières, actualités et appels aux dons, diffusés aux abonnés par e-mail et notification push.",
+      en: 'Online newsroom for associations that run places of worship: prayer announcements, news and donation appeals, delivered to subscribers by email and push notification.',
     },
-    image: balatro,
-  },
-  {
-    year: 2023,
-    title: 'Dredge',
-    subtitle: 'Black Salt Games',
-    description: {
-      fr: "Un jeu de pêche reposant à l'ambiance lovecraftienne.",
-      en: 'A relaxing fishing game with a Lovecraftian atmosphere.',
+    image: logoYawasla,
+    url: 'https://yawasla.org/',
+    ragComment: {
+      fr: "Projet sous licence Apache 2.0, compatible MySQL, MariaDB et SQLite, avec un connecteur Brevo pour l'envoi des e-mails. La bêta est prévue pour le premier trimestre 2027.",
+      en: 'Released under the Apache 2.0 license, it supports MySQL, MariaDB and SQLite, with a Brevo connector for sending emails. The beta is planned for Q1 2027.',
     },
-    image: dredge,
-  },
-  {
-    year: 2022,
-    title: 'Square Valley',
-    subtitle: 'Rycekube Games',
-    description: {
-      fr: "Un city-builder puzzle avec un vrai game design ingénieux.",
-      en: 'A city-building puzzle game with truly ingenious game design.',
-    },
-    image: squareValley,
   },
 ];
