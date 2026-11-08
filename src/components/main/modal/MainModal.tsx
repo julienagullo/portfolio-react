@@ -3,6 +3,7 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { SPRITE_ICONS_URL } from '../../../config/config.ts';
 import { ModalContentContext } from '../../../context/ModalContentContext.ts';
 import { ModalFooterContext } from '../../../context/ModalFooterContext.ts';
+import { useDragScroll } from '../../../hooks/useDragScroll.ts';
 import CloseButton from '../overlay/CloseButton.tsx';
 import style from './MainModal.module.css';
 
@@ -17,6 +18,7 @@ const spriteIconsStyle = { '--sprite-icons': `url(${SPRITE_ICONS_URL})` } as CSS
 export default function MainModal({ title, onClose, children }: MainModalProps) {
   const [footerEl, setFooterEl] = useState<HTMLDivElement | null>(null);
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null);
+  useDragScroll(contentEl);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

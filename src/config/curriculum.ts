@@ -91,8 +91,8 @@ export const CURRICULUM: CvExperience[] = [
         title: { fr: 'Réforme de la facturation électronique', en: 'E-invoicing reform' },
         date: '2025 - 2026',
         detail: {
-          fr: "Intégration de la norme FacturX dans les exports PDF des factures ; mise en place d'un parseur XML pour récupérer les données d'une facture ; connexion avec l'API Jefacture pour gérer les statuts des factures depuis l'ERP.",
-          en: 'Integrated the FacturX standard into invoice PDF exports; built an XML parser to extract invoice data; connected to the Jefacture API to manage invoice statuses directly from the ERP.',
+          fr: "Intégration de la réforme de la facturation électronique dans l'ERP avec la plateforme Jefacture : gestion complète des factures entrantes et sortantes. Mise en place d'un serveur relais pour gérer les comptes partenaires et les requêtes entre les ERP et l'API Jefacture ; génération des PDF au format Factur-X ; développement d'un parseur XML pour récupérer les données des factures.",
+          en: 'Implemented the e-invoicing reform in the ERP with the Jefacture platform: full handling of incoming and outgoing invoices. Set up a relay server to manage partner accounts and requests between the ERPs and the Jefacture API; generated PDF invoices in the Factur-X format; built an XML parser to extract invoice data.',
         },
         image: facturationElectronique,
       },
