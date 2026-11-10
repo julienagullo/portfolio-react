@@ -76,7 +76,7 @@ export default function RoomThumbnails({ activeRoom, onSelect, mobileOpen }: Roo
           onClick={() => onSelect(room)}
         >
           <span className={style.thumbImage}>
-            <img src={thumb} alt={room} />
+            <img src={thumb} alt={room} draggable={false} />
           </span>
           <span className={style.label}>{t(`rooms.${room}`)}</span>
         </button>

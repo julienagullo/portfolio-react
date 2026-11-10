@@ -50,6 +50,10 @@
   border: 2px solid transparent;
   background: none;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  /* Pas de glisser natif de l'image, de menu iOS « Enregistrer l'image » ni de sélection du nom. */
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
   transition: transform 200ms ease-out, box-shadow 200ms ease-out;
 }
 
