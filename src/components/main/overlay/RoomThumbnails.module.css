@@ -17,13 +17,35 @@
   transform: translateY(calc(-100% - 60px));
 }
 
+/* Mode burger : le conteneur laisse passer les taps entre les miniatures vers le fond (MenuBackdrop). */
+.controlled {
+  pointer-events: none;
+}
+
+.controlled .thumb,
+.controlled .thumbActive {
+  pointer-events: auto;
+}
+
+/* Mode burger en ligne (tablette, téléphone en paysage) : miniatures centrées verticalement.
+   Le conteneur couvre toute la hauteur, .hidden le fait donc sortir entièrement par le haut.
+   Le mode souris (non contrôlé) garde les miniatures en haut. */
+@media (min-width: 781px) {
+  .controlled {
+    top: 0;
+    bottom: 0;
+    align-items: center;
+  }
+}
+
 .thumb,
 .thumbActive {
   position: relative;
   padding: 0;
   border-radius: 8px;
   cursor: pointer;
-  width: 320px;
+  /* Rétrécit sur écran moyen (tablette, téléphone en paysage) pour garder 3 miniatures en ligne. */
+  width: min(320px, calc((100vw - 240px) / 3));
   aspect-ratio: 320 / 162;
   border: 2px solid transparent;
   background: none;

@@ -63,7 +63,7 @@ export default function RoomThumbnails({ activeRoom, onSelect, mobileOpen }: Roo
 
   return (
     <div
-      className={visible ? style.container : `${style.container} ${style.hidden}`}
+      className={[style.container, !visible && style.hidden, isControlled && style.controlled].filter(Boolean).join(' ')}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >

@@ -162,8 +162,11 @@ export default function SpriteItemMesh({
             onHover(null);
           }),
         );
+        // OnPickUpTrigger plutôt qu'OnPickTrigger : ce dernier ignore tout geste ayant bougé de plus de
+        // 10 px (InputManager.DragMovementThreshold), fréquent au doigt. Ici, l'objet sous le pointeur
+        // au relâchement s'ouvre, même si l'appui a commencé ailleurs.
         mesh.actionManager.registerAction(
-          new ExecuteCodeAction(ActionManager.OnPickTrigger, () => {
+          new ExecuteCodeAction(ActionManager.OnPickUpTrigger, () => {
             onClickRef.current?.(name);
           }),
         );

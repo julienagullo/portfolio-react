@@ -13,6 +13,7 @@ import BreakRoom from './scene/BreakRoom';
 import MeetingRoom from './scene/MeetingRoom';
 import RoomThumbnails from '../main/overlay/RoomThumbnails.tsx';
 import BurgerButton from '../main/overlay/BurgerButton.tsx';
+import MenuBackdrop from '../main/overlay/MenuBackdrop.tsx';
 import TransitionOverlay from '../main/overlay/TransitionOverlay.tsx';
 import ItemTooltip from '../main/overlay/ItemTooltip.tsx';
 import MainModal from '../main/modal/MainModal.tsx';
@@ -22,13 +23,17 @@ import RobotChat from '../main/chat/RobotChat.tsx';
 import { BREAK_POINT, ITEM_SFX, SCENE_HEIGHT, SCENE_WIDTH, type ItemHover, type Pointer, type RoomName } from '../../config/config';
 import { useAudio } from '../../context/AudioContext.tsx';
 import { useLanguage } from '../../context/LanguageContext.tsx';
-import { useBreakpoint } from '../../hooks/useBreakpoint.ts';
+import { useBreakpoint, useMediaQuery } from '../../hooks/useBreakpoint.ts';
 import type { TranslationKey } from '../../config/lang.ts';
 
 export default function Diorama() {
   const { language, t } = useLanguage();
   const { playAmbiance, playSfx, setAmbianceDucked } = useAudio();
-  const isMobile = useBreakpoint(BREAK_POINT);
+  // Mode burger : écran étroit, ou tactile sans survol (tablette, téléphone en paysage) où
+  // le menu révélé au survol du haut de l'écran serait inaccessible.
+  const isNarrow = useBreakpoint(BREAK_POINT);
+  const hasNoHover = useMediaQuery('(hover: none)');
+  const isMobile = isNarrow || hasNoHover;
   const pointerRef = useRef<Pointer>({ x: 0, y: 0 });
   const [progress, setProgress] = useState(0);
   const [assets, setAssets] = useState<LoadedAssets | null>(null);
@@ -160,6 +165,7 @@ export default function Diorama() {
         </Scene>
       </Engine>
       {!assets && <Loading progress={progress} />}
+      {assets && isMobile && <MenuBackdrop visible={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />}
       {assets && isMobile && <BurgerButton onClick={() => setMobileMenuOpen((prev) => !prev)} />}
       {assets && (
         <RoomThumbnails

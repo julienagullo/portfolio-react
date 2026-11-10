@@ -6,6 +6,9 @@
   top: 24px;
   left: 24px;
   z-index: 60;
+  /* Bouton réduit (60 → 48 px) sans retoucher le sprite ; ancré en haut à gauche pour garder la marge. */
+  transform: scale(0.8);
+  transform-origin: top left;
 }
 
 /* Colonne 8 (dernière) du sprite (voir SpriteButton.module.css). Barre indicatrice
@@ -15,7 +18,8 @@
   composes: toggle from './SpriteButton.module.css';
   background-position: -480px 0;
   --indicator-right: auto;
-  --indicator-left: -24px;
+  /* -30px × scale(0.8) du wrapper = -24px à l'écran : la barre retouche le bord gauche. */
+  --indicator-left: -30px;
 }
 
 .toggle:hover,
