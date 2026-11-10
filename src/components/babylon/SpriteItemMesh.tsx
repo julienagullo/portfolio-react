@@ -65,6 +65,23 @@ export default function SpriteItemMesh({
     onHoverChangeRef.current = onHoverChange;
   }, [onHoverChange]);
 
+  const onHoverRef = useRef(onHover);
+  useEffect(() => {
+    onHoverRef.current = onHover;
+  }, [onHover]);
+
+  // Retiré de la scène sous le curseur (ex. changement de salle pendant le fondu) : Babylon
+  // n'envoie jamais OnPointerOutTrigger, on efface donc nous-mêmes label et ducking audio.
+  useEffect(
+    () => () => {
+      if (!hoveredRef.current) return;
+      hoveredRef.current = false;
+      onHoverChangeRef.current?.(false);
+      onHoverRef.current(null);
+    },
+    [],
+  );
+
   const height = width * (cellHeight / cellWidth);
   const lastIndex = frameCount - 1;
 

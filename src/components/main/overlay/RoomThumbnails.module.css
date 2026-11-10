@@ -27,17 +27,6 @@
   pointer-events: auto;
 }
 
-/* Mode burger en ligne (tablette, téléphone en paysage) : miniatures centrées verticalement.
-   Le conteneur couvre toute la hauteur, .hidden le fait donc sortir entièrement par le haut.
-   Le mode souris (non contrôlé) garde les miniatures en haut. */
-@media (min-width: 781px) {
-  .controlled {
-    top: 0;
-    bottom: 0;
-    align-items: center;
-  }
-}
-
 .thumb,
 .thumbActive {
   position: relative;
@@ -57,12 +46,26 @@
   transition: transform 200ms ease-out, box-shadow 200ms ease-out;
 }
 
-.thumb:hover,
-.thumbActive:hover,
+.touched,
 .thumb:focus-visible,
 .thumbActive:focus-visible {
   transform: translateZ(40px);
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* :hover réservé aux vrais pointeurs : au doigt, le navigateur le laisse sur la première miniature
+   touchée pendant tout le geste ; le tactile passe par .touched (cf. RoomThumbnails.tsx). */
+@media (hover: hover) {
+  .thumb:hover,
+  .thumbActive:hover {
+    transform: translateZ(40px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .thumb:hover .label,
+  .thumbActive:hover .label {
+    opacity: 1;
+  }
 }
 
 .thumbImage {
@@ -103,27 +106,37 @@
   transition: opacity 0.15s ease-out;
 }
 
-.thumb:hover .label,
-.thumbActive:hover .label,
+/* .touched : miniature sous le doigt (tactile), équivalent du survol souris (cf. RoomThumbnails.tsx). */
+.touched .label,
 .thumb:focus-visible .label,
 .thumbActive:focus-visible .label,
 .thumbActive .label {
   opacity: 1;
 }
 
-@media (max-width: 780px) {
-  .container {
+/* Mode burger (téléphone, tablette) : miniatures centrées verticalement, en ligne en paysage
+   et en colonne en portrait. Le conteneur couvre toute la hauteur, .hidden le fait donc sortir
+   entièrement par le haut. Le mode souris (non contrôlé) garde les miniatures en ligne en haut. */
+.controlled {
+  top: 0;
+  bottom: 0;
+  align-items: center;
+}
+
+@media (orientation: portrait) {
+  .controlled {
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
     width: calc(100% - 160px);
-    height: 90vh;
     margin-left: 80px;
-    gap: 12px;
+    /* Laisse la place au nom de la salle, positionné sous la miniature. */
+    gap: 48px;
   }
 
-  .thumb,
-  .thumbActive {
-    width: min(280px, 60vw);
+  /* Bornée par la hauteur pour que les 3 miniatures + noms tiennent toujours à l'écran :
+     3 × (162 / 320) ≈ 1.52 ; 140px ≈ 2 gaps + le nom sous la dernière miniature. */
+  .controlled .thumb,
+  .controlled .thumbActive {
+    width: min(400px, 60vw, calc((90dvh - 140px) / 1.52));
   }
 }
