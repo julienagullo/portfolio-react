@@ -4,7 +4,7 @@ Here is my portfolio made with React, TypeScript, Vite and Babylon.js (react-bab
 
 [![license](https://img.shields.io/github/license/julienagullo/portfolio-react.svg)](https://github.com/julienagullo/portfolio-react/LICENSE.md)
 
-A pixel-art diorama-style portfolio: a 3D scene (shadow box) with layered depth, browsed across 3 rooms (office, lounge, meeting room) with a slight camera rotation on mouse move. The meeting room will include a RAG-powered chat backed by an LLM.
+A pixel-art diorama-style portfolio: a 3D scene (shadow box) with layered depth, browsed across 3 rooms (office, lounge, meeting room) with a slight camera rotation on mouse move. The meeting room includes a RAG-powered chat backed by an LLM.
 
 ## Table of contents
 
