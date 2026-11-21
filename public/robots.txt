@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Allow: /blog/
 Disallow: /assets/
-Disallow: /assets/cv-jagullo-2027.pdf
+Disallow: /assets/cv-jagullo-
 
 Sitemap: https://jagullo.fr/sitemap.xml
 Sitemap: https://jagullo.fr/blog/sitemap_index.xml

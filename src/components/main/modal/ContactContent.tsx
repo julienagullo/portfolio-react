@@ -27,7 +27,8 @@ export default function ContactContent() {
         <img className={style.photo} src={PROFILE_PHOTO_URL} alt="" width={118} height={140} />
       </header>
 
-      <a className={style.cvButton} href={CV_PDF_URL} target="_blank" rel="noreferrer">
+      {/* rel="noopener" seul : avec "noreferrer", Firefox iOS ouvre un onglet vide pour le PDF. */}
+      <a className={style.cvButton} href={CV_PDF_URL} target="_blank" rel="noopener">
         {t('contact.cvButton')}
       </a>
 
