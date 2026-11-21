@@ -47,7 +47,7 @@ export const CURRICULUM: CvExperience[] = [
     id: 'foxyz',
     accent: 'orange',
     logo: logoFoxyz,
-    role: { fr: 'Développeur web', en: 'Web developer' },
+    role: { fr: 'Chef de projet web', en: 'Web project manager' },
     company: 'Foxyz - Tarbes',
     period: '2022 - 2026',
     description: {
@@ -140,7 +140,7 @@ export const CURRICULUM: CvExperience[] = [
     id: 'dba',
     accent: 'blue',
     logo: logoDBA,
-    role: { fr: 'Développeur web', en: 'Web developer' },
+    role: { fr: 'Chef de projet web', en: 'Web project manager' },
     company: 'DBA - Toulouse',
     period: '2019 - 2022',
     description: {
@@ -319,8 +319,8 @@ export const CURRICULUM: CvExperience[] = [
         title: { fr: 'Spherea Test & Services', en: 'Spherea Test & Services' },
         date: '2016 - 2017',
         detail: {
-          fr: "Réalisation de l'application de salon présentant la plateforme logicielle U-TEST ®.",
-          en: 'Built the kiosk application presenting the U-TEST® software platform.',
+          fr: "Réalisation de l'application de salon de la plateforme logicielle U-TEST®.",
+          en: 'Built the kiosk application for the U-TEST® software platform.',
         },
         image: interfaceSpherea,
       },
@@ -362,18 +362,18 @@ export const CURRICULUM: CvExperience[] = [
         title: { fr: 'Thales Aéroporté', en: 'Thales Aéroporté' },
         date: '2014',
         detail: {
-          fr: "Conception du design et aide au développement de l'application de salon TopWings EFB solution pour support tactile.",
-          en: 'Designed the visual identity and developed the TopWings EFB touchscreen kiosk application.',
+          fr: "Réalisation d'une application de salon pour support tactile.",
+          en: 'Built a touchscreen kiosk application.',
         },
-        image: interfaceTopwings,
       },
       {
         title: { fr: 'Thales Avionics', en: 'Thales Avionics' },
         date: '2013 - 2014',
         detail: {
-          fr: "Réalisation d'une application de salon pour support tactile.",
-          en: 'Built a touchscreen kiosk application.',
+          fr: "Conception du design et aide au développement de l'application de salon TopWings EFB solution pour support tactile.",
+          en: 'Designed and helped develop the TopWings EFB touchscreen kiosk application.',
         },
+        image: interfaceTopwings,
       },
       {
         title: { fr: 'Tigergrip', en: 'Tigergrip' },
@@ -477,8 +477,8 @@ export const CURRICULUM: CvExperience[] = [
       },
     ],
     ragComment: {
-      fr: "Une première expérience professionnelle, c'est comme une première voiture : ça ne s'oublie pas. Une expérience inoubliable, avec des projets et des clients comme je n'en reverrai sans doute plus jamais. Mais aussi trop d'implication et une frontière entre vie personnelle et professionnelle quasiment inexistante — un vrai point de vigilance pour ne pas se laisser dévorer par le travail. La stack sur cette période se limite à PHP, MySQL, jQuery, Flash/ActionScript et Premiere Pro : pas de React, Vue.js, Angular, Node.js, Python, Next.js ni Docker — ces technologies n'existaient pas encore à cette époque (2007-2011).",
-      en: "A first professional experience is like a first car: you never forget it. An unforgettable experience, with projects and clients I'll probably never come across again. But also too much involvement, with almost no boundary between personal and professional life — a real point of caution, to avoid getting consumed by work. The stack during this period is limited to PHP, MySQL, jQuery, Flash/ActionScript and Premiere Pro: no React, Vue.js, Angular, Node.js, Python, Next.js or Docker — these technologies did not exist yet at the time (2007-2011).",
+      fr: "Une première expérience professionnelle avec beaucoup de projets intéressants et enrichissants, au sein d'une entreprise avec laquelle j'ai continué à travailler longtemps après, en tant qu'indépendant. La stack sur cette période se limite à PHP, MySQL, jQuery, Flash/ActionScript et Premiere Pro : pas de React, Vue.js, Angular, Node.js, Python, Next.js ni Docker — ces technologies n'existaient pas encore à cette époque (2007-2011).",
+      en: "A first professional experience with many interesting and rewarding projects, at a company I kept working with for a long time afterwards as a freelancer. The stack during this period is limited to PHP, MySQL, jQuery, Flash/ActionScript and Premiere Pro: no React, Vue.js, Angular, Node.js, Python, Next.js or Docker — these technologies did not exist yet at the time (2007-2011).",
     },
   },
   {

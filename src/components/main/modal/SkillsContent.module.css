@@ -35,6 +35,16 @@
   color: #2f9e44;
 }
 
+.categoryTitle.red {
+  border-color: #cc1616;
+  color: #cc1616;
+}
+
+.categoryTitle.yellow {
+  border-color: #d5ba1a;
+  color: #d5ba1a;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

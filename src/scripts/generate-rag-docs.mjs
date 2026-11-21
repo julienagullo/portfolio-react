@@ -199,11 +199,25 @@ function renderPortfolioProject(project, lang) {
   return lines.join('\n');
 }
 
+// Profil général : fichier séparé, injecté tel quel dans le prompt système à chaque question par api.php
+// (jamais découpé ni embeddé), pour que les infos de base ne dépendent pas du top-k du retriever.
+function renderProfile(profile, lang) {
+  const title = lang === 'fr' ? 'Profil' : 'Profile';
+  const sep = lang === 'fr' ? ' :' : ':';
+  const lines = [`# ${title}`, '', escapeMd(profile.summary[lang]), ''];
+  for (const fact of profile.facts) {
+    lines.push(`- ${fact.label[lang]}${sep} ${escapeMd(fact.value[lang])}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
 async function main() {
   const { CURRICULUM } = await loadModule('config/curriculum.ts');
   const { FAVORITE_FILMS, FAVORITE_AUTHORS, OPEN_SOURCE_PROJECTS } = await loadModule('config/hobbies.ts');
   const { PORTFOLIO_PROJECT } = await loadModule('config/portfolio.ts');
   const { SKILLS } = await loadModule('config/skills.ts');
+  const { PROFILE } = await loadModule('config/profile.ts');
 
   mkdirSync(OUT_DIR, { recursive: true });
 
@@ -227,6 +241,10 @@ async function main() {
     const outPath = path.join(OUT_DIR, `portfolio-${lang}.md`);
     writeFileSync(outPath, doc, 'utf-8');
     console.log(`Écrit : ${outPath}`);
+
+    const profilePath = path.join(OUT_DIR, `profile-${lang}.md`);
+    writeFileSync(profilePath, renderProfile(PROFILE, lang), 'utf-8');
+    console.log(`Écrit : ${profilePath}`);
   }
 }
 

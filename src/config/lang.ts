@@ -2,7 +2,7 @@ import type { Language } from './config';
 
 const translations = {
   fr: {
-    siteTitle: 'Portfolio développeur web - jagullo.fr',
+    siteTitle: 'Portfolio web manager - jagullo.fr',
     rooms: {
       OfficeSpace: 'Bureau',
       BreakRoom: 'Loisirs',
@@ -57,7 +57,7 @@ const translations = {
     },
   },
   en: {
-    siteTitle: 'Web developer portfolio - jagullo.fr',
+    siteTitle: 'Web manager portfolio - jagullo.fr',
     rooms: {
       OfficeSpace: 'Office',
       BreakRoom: 'Hobbies',
